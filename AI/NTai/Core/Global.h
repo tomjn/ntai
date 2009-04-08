@@ -31,8 +31,8 @@ namespace ntai {
 		Chaser* Ch;// Chaser Agent, deals with attacking and things such as kamikaze units/dgunning/stockpiling missiles/several attack unit behaviours
 		CUnitDefLoader* UnitDefLoader;
 
-		boost::shared_ptr<CManufacturer> Manufacturer; // Construction helper
-		boost::shared_ptr<CBuildingPlacer> BuildingPlacer; // Building placement algorithm
+		CManufacturer* Manufacturer; // Construction helper
+		CBuildingPlacer* BuildingPlacer; // Building placement algorithm
 		CEconomy* Economy; // Construction rules (AAI/OTAI/JCAI style building selection)
 		COrderRouter* OrderRouter; // Handles the caching of orders sent to the engine, aswell as a few other things like delayed orders etc...
 		
@@ -106,17 +106,16 @@ namespace ntai {
 		CUnit* GetUnit(int unit);
 
 		// event handling
-		void RegisterMessageHandler(boost::shared_ptr<IModule> handler);
+		void RegisterMessageHandler(IModule* handler);
 		void FireEvent(CMessage &message);
-		void DestroyHandler(boost::shared_ptr<IModule> handler);
-		void RemoveHandler(boost::shared_ptr<IModule> handler);
+		void DestroyHandler(IModule* handler);
+		void RemoveHandler(IModule* handler);
 
 		CUnit** unit_array;
 
 	private:
-		std::set<boost::shared_ptr<IModule> > dead_handlers;
-		std::set<boost::shared_ptr<IModule> > handlers;
-		//std::map<int,boost::shared_ptr<IModule> > units;
+		std::set<IModule* > dead_handlers;
+		std::set<IModule* > handlers;
 
 		
 		std::vector<CMessage> msgqueue;

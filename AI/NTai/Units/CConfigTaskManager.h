@@ -11,7 +11,7 @@ namespace ntai {
 		virtual bool Init();
 		virtual void RecieveMessage(CMessage &message);
 		
-		virtual boost::shared_ptr<IModule> GetNextTask();
+		virtual IModule* GetNextTask();
 		bool HasTasks();
 		void TaskFinished();
 
@@ -21,7 +21,7 @@ namespace ntai {
 	protected:
 		
 		bool EraseFirst();
-		std::list< boost::shared_ptr<IModule> > tasks;
+		std::list< IModule* > tasks;
 		bool nolist;
 		bool repeat;
 		int unit;

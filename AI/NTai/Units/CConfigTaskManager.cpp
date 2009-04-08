@@ -41,12 +41,12 @@ namespace ntai {
 		return !tasks.empty();
 	}
 	
-	boost::shared_ptr<IModule> CConfigTaskManager::GetNextTask(){
+	IModule* CConfigTaskManager::GetNextTask(){
 		//
 		if(HasTasks()){
 			return tasks.front();
 		} else {
-			return boost::shared_ptr<IModule>();
+			return 0;
 		}
 	}
 	
@@ -115,10 +115,10 @@ namespace ntai {
 
 			// TASKS LOADING
 			
-			for(std::vector<string>::iterator vi = v.begin(); vi != v.end(); ++vi){
+			for(std::vector<std::string>::iterator vi = v.begin(); vi != v.end(); ++vi){
 				if(polation){
 					if(polate){
-						boost::shared_ptr<IModule> t(new CKeywordConstructionTask(G,u->GetID(),bt));
+						IModule* t = new CKeywordConstructionTask(G,u->GetID(),bt);
 						tasks.push_back(t);
 					}
 					polate = !polate;
@@ -130,7 +130,7 @@ namespace ntai {
 
 				CUnitTypeData* b = G->UnitDefLoader->GetUnitTypeDataByName(q);
 				if(b != 0){
-					boost::shared_ptr<IModule> t(new CUnitConstructionTask(G,u->GetID(),utd,b));
+					IModule* t = new CUnitConstructionTask(G,u->GetID(),utd,b);
 					tasks.push_back(t);
 				}else if(q == string("")){
 					continue;
@@ -149,21 +149,21 @@ namespace ntai {
 				} else if(q == string("switch_gaia")){
 					G->info->gaia = !G->info->gaia;
 				} else if(q == string("b_factory")){
-					boost::shared_ptr<IModule> t(new CKeywordConstructionTask(G,u->GetID(),B_FACTORY));
+					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_FACTORY);
 					tasks.push_back(t);
 				} else if(q == string("b_power")){
-					boost::shared_ptr<IModule> t(new CKeywordConstructionTask(G,u->GetID(),B_POWER));
+					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_POWER);
 					tasks.push_back(t);
 				} else if(q == string("b_defence")){
-					boost::shared_ptr<IModule> t(new CKeywordConstructionTask(G,u->GetID(),B_DEFENCE));
+					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_DEFENCE);
 					tasks.push_back(t);
 				}  else if(q == string("b_mex")){
-					boost::shared_ptr<IModule> t(new CKeywordConstructionTask(G,u->GetID(),B_MEX));
+					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_MEX);
 					tasks.push_back(t);
 				} else{
 					btype x = G->Manufacturer->GetTaskType(q);
 					if( x != B_NA){
-						boost::shared_ptr<IModule> t(new CKeywordConstructionTask(G,u->GetID(),x));
+						IModule* t = new CKeywordConstructionTask(G,u->GetID(),x);
 						tasks.push_back(t);
 					}else{
 						G->L.print("error :: a value :: " + *vi +" :: was parsed in :: "+us + " :: this does not have a valid UnitDef according to the engine, and is not a Task keyword such as repair or b_mex");

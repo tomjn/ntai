@@ -27,7 +27,7 @@ namespace ntai {
 
 		bool LoadBehaviours();
 
-		
+		void AddBehaviour(IBehaviour* b);
 
 		void SetTaskManager(ITaskManager* taskManager);
 		ITaskManager* GetTaskManager();
@@ -37,8 +37,8 @@ namespace ntai {
 		uint curplan;
 		ITaskManager* taskManager;
 		bool under_construction;
-		boost::shared_ptr<IModule> currentTask;
-		list< boost::shared_ptr<IBehaviour> > behaviours;
+		IModule* currentTask;
+		std::list< IBehaviour* > behaviours;
 		CUnitTypeData* utd;
 		int uid;
 		int birth;

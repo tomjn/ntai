@@ -570,6 +570,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\NTai\Units\IBehaviourManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\NTai\Units\ITaskManager.h"
 					>
 				</File>

@@ -43,7 +43,7 @@ namespace ntai {
 		if(!utd->IsMobile()){
 			G->BuildingPlacer->Block(G->GetUnitPos(uid),utd);
 		}
-		currentTask = boost::shared_ptr<IModule>();
+		currentTask = 0;
 		doingplan=false;
 		curplan=0;
 		birth = G->GetCurrentFrame();
@@ -53,14 +53,20 @@ namespace ntai {
 
 	CUnit::~CUnit(){
 		delete taskManager;
+		if(behaviours.empty() == false){
+			std::list<IBehaviour* >::iterator i = behaviours.begin();
+			for(; i != behaviours.end(); ++i){
+				IBehaviour* b = (*i);
+				delete b;
+			}
+		}
 	}
 
 	bool CUnit::Init(){
 
 		NLOG("CUnit::Init");
-
 		if((G->GetCurrentFrame() > 32)&&utd->IsMobile()){
-			currentTask = boost::shared_ptr<IModule>(new CLeaveBuildSpotTask(G,uid,utd));
+			currentTask = new CLeaveBuildSpotTask(G,uid,utd);
 			currentTask->Init();
 			G->RegisterMessageHandler(currentTask);
 		}
@@ -78,22 +84,22 @@ namespace ntai {
 			}
 
 			if(EVERY_((GetAge()%32+20))){
-				if(currentTask.get() != 0){
+				if(currentTask != 0){
 					if(!currentTask->IsValid()){
 						//
 						taskManager->TaskFinished();
 						currentTask = taskManager->GetNextTask();
-						if(currentTask.get() != 0){
+						if(currentTask != 0){
 							currentTask->Init();
 							G->RegisterMessageHandler(currentTask);
 						}else{
-							currentTask = boost::shared_ptr<IModule>();
+							currentTask = 0;
 						}
 					}
 				}else{
 					//
 					currentTask = taskManager->GetNextTask();
-					if(currentTask.get() != 0){
+					if(currentTask != 0){
 						currentTask->Init();
 						G->RegisterMessageHandler(currentTask);
 					}
@@ -159,15 +165,15 @@ namespace ntai {
 	}
 
 	bool CUnit::LoadBehaviours(){
-		string d = G->Get_mod_tdf()->SGetValueDef("auto","AI\\behaviours\\"+utd->GetName());
+		std::string d = G->Get_mod_tdf()->SGetValueDef("auto","AI\\behaviours\\"+utd->GetName());
 
-		vector<string> v;
+		std::vector<string> v;
 		CTokenizer<CIsComma>::Tokenize(v, d, CIsComma());
 
 		if(!v.empty()){
-			for(vector<string>::iterator vi = v.begin(); vi != v.end(); ++vi){
+			for(std::vector<std::string>::iterator vi = v.begin(); vi != v.end(); ++vi){
 
-				string s = *vi;
+				std::string s = *vi;
 
 				trim(s);
 				tolowercase(s);
@@ -176,60 +182,25 @@ namespace ntai {
 					return true;
 				} else if(s == "metalmaker"){
 					CMetalMakerBehaviour* m = new CMetalMakerBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(m);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(m);
 				} else if(s == "attacker"){
 					CAttackBehaviour* a = new CAttackBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(a);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(a);
 				} else if(s == "dgun"){
 					CDGunBehaviour* a = new CDGunBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(a);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(a);
 				} else if(s == "retreat"){
 					CRetreatBehaviour* a = new CRetreatBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(a);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(a);
 				} else if(s == "kamikaze"){
 					CKamikazeBehaviour* a = new CKamikazeBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(a);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(a);
 				} else if(s == "staticdefence"){
 					CStaticDefenceBehaviour* a = new CStaticDefenceBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(a);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(a);
 				} else if(s == "movefailreclaim"){
 					CMoveFailReclaimBehaviour* a = new CMoveFailReclaimBehaviour(G, GetID());
-					boost::shared_ptr<IBehaviour> t(a);
-					
-					behaviours.push_back(t);
-					t->Init();
-
-					G->RegisterMessageHandler(t);
+					AddBehaviour(a);
 				} else if(s == "auto"){
 					// we have to decide what this units behaviours should be automatically
 					// check each type of unit for pre-requisites and then assign the behaviour
@@ -237,54 +208,29 @@ namespace ntai {
 
 					if(utd->IsAttacker()){
 						CAttackBehaviour* a = new CAttackBehaviour(G, GetID());
-						boost::shared_ptr<IBehaviour> t(a);
-
-						behaviours.push_back(t);
-						t->Init();
-
-						G->RegisterMessageHandler(t);
+						AddBehaviour(a);
 					}
 
 					if(utd->IsMetalMaker()||(utd->IsMex() && utd->GetUnitDef()->onoffable ) ){
 						CMetalMakerBehaviour* m = new CMetalMakerBehaviour(G, GetID());
-						boost::shared_ptr<IBehaviour> t(m);
-
-						behaviours.push_back(t);
-						t->Init();
-
-						G->RegisterMessageHandler(t);
+						AddBehaviour(m);
 						
 					}
 					
 					if(utd->CanDGun()){
 						CDGunBehaviour* a = new CDGunBehaviour(G, GetID());
-						boost::shared_ptr<IBehaviour> t(a);
-						
-						behaviours.push_back(t);
-						t->Init();
-
-						G->RegisterMessageHandler(t);
+						AddBehaviour(a);
 					}
 
 					
 
 					if(utd->GetUnitDef()->canmove || utd->GetUnitDef()->canfly){
 						CRetreatBehaviour* a = new CRetreatBehaviour(G, GetID());
-						boost::shared_ptr<IBehaviour> t(a);
-						
-						behaviours.push_back(t);
-						t->Init();
-
-						G->RegisterMessageHandler(t);
+						AddBehaviour(a);
 
 						if(utd->GetUnitDef()->canReclaim){
-							CMoveFailReclaimBehaviour* a = new CMoveFailReclaimBehaviour(G, GetID());
-							boost::shared_ptr<IBehaviour> t(a);
-							
-							behaviours.push_back(t);
-							t->Init();
-
-							G->RegisterMessageHandler(t);
+							CMoveFailReclaimBehaviour* mb = new CMoveFailReclaimBehaviour(G, GetID());
+							AddBehaviour(mb);
 						}
 
 					}else{
@@ -293,12 +239,7 @@ namespace ntai {
 
 						if(utd->GetUnitDef()->weapons.empty()==false){
 							CStaticDefenceBehaviour* a = new CStaticDefenceBehaviour(G, GetID());
-							boost::shared_ptr<IBehaviour> t(a);
-							
-							behaviours.push_back(t);
-							t->Init();
-
-							G->RegisterMessageHandler(t);
+							AddBehaviour(a);
 						}
 					}
 
@@ -313,6 +254,12 @@ namespace ntai {
 		return true;
 	}
 	
+	void CUnit::AddBehaviour(IBehaviour* b){
+		behaviours.push_back(b);
+		b->Init();
+		G->RegisterMessageHandler(b);
+	}
+
 	void CUnit::SetTaskManager(ITaskManager* taskManager){
 		//
 		this->taskManager = taskManager;

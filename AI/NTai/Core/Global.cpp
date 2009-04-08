@@ -109,10 +109,10 @@ namespace ntai {
 		Economy = new CEconomy(G);
 		L.print("Economy constructed");
 
-		Manufacturer = boost::shared_ptr<CManufacturer>(new CManufacturer(this));
+		Manufacturer = new CManufacturer(this);
 		L.print("Manufacturer constructed");
 
-		BuildingPlacer = boost::shared_ptr<CBuildingPlacer>(new CBuildingPlacer(this));
+		BuildingPlacer = new CBuildingPlacer(this);
 		L.print("BuildingPlacer constructed");
 
 		Ch = new Chaser();
@@ -130,6 +130,8 @@ namespace ntai {
 		delete info;
 		delete DTHandler;
 		delete Economy;
+		delete BuildingPlacer;
+		delete Manufacturer;
 		delete RadarHandler;
 		delete Actions;
 		delete Map;
@@ -200,7 +202,7 @@ namespace ntai {
 
 					n++;
 
-					for(set<boost::shared_ptr<IModule> >::iterator k = handlers.begin(); k != handlers.end(); ++k){
+					for(set<IModule* >::iterator k = handlers.begin(); k != handlers.end(); ++k){
 						if((*k)->IsValid()){
 							(*k)->RecieveMessage(*mi);
 						}else{
@@ -1128,7 +1130,7 @@ namespace ntai {
 		return unit_array[unit];
 	}
 
-	void Global::RegisterMessageHandler(boost::shared_ptr<IModule> handler){
+	void Global::RegisterMessageHandler(IModule* handler){
 		handlers.insert(handler);
 	}
 
@@ -1142,7 +1144,7 @@ namespace ntai {
 		msgqueue.push_back(message);
 	}
 
-	void Global::DestroyHandler(boost::shared_ptr<IModule> handler){
+	void Global::DestroyHandler(IModule* handler){
 		handler->DestroyModule();
 
 		if(!handlers.empty()){
@@ -1152,7 +1154,7 @@ namespace ntai {
 		return;
 	}
 
-	void Global::RemoveHandler(boost::shared_ptr<IModule> handler){
+	void Global::RemoveHandler(IModule* handler){
 		dead_handlers.insert(handler);
 	}
 
