@@ -13,7 +13,7 @@
 #define slash "/"
 
 
-//#define EXCEPTION
+#define EXCEPTION
 
 // Enables exception handling. Not much point in it though as spring uses mingw32 which means
 // no structured exception handling
@@ -113,51 +113,28 @@
     #define START_EXCEPTION_HANDLING try{
 
     #define END_EXCEPTION_HANDLING_AND(b,c) \
-        }catch(boost::spirit::parser_error<EnumTdfErrors, char *> & e ){\
-            c;\
-			G->L.eprint(string("error in ")+b);\
-            G->L.eprint(e.what());\
-			string message= "";\
-			switch(e.descriptor) {\
-				case semicolon_expected: message = "semicolon expected"; break;\
-				case equals_sign_expected: message = "equals sign in name value pair expected"; break;\
-				case square_bracket_expected: message = "square bracket to close section name expected"; break;\
-				case brace_expected: message = "brace or further name value pairs expected"; break;\
-			};\
-			G->L.eprint(message);\
         }catch(const std::exception& e){\
             c;\
-            G->L.eprint(string("error in ")+b);\
+            G->L.eprint(std::string("error in ")+b);\
             G->L.eprint(e.what());\
-        }catch(string s){\
+        }catch(std::string s){\
             c;\
-            G->L.eprint(string("error in ")+b);\
+            G->L.eprint(std::string("error in ")+b);\
             G->L.eprint(s);\
         }catch(...){\
             c;\
-            G->L.eprint(string("error in ")+b);\
+            G->L.eprint(std::string("error in ")+b);\
         }
 
     #define END_EXCEPTION_HANDLING(b) \
-        }catch(boost::spirit::parser_error<EnumTdfErrors, char *> & e ){\
-            G->L.eprint(string("error in ")+b);\
-            G->L.eprint(e.what());\
-			string message= "";\
-			switch(e.descriptor) {\
-				case semicolon_expected: message = "semicolon expected"; break;\
-				case equals_sign_expected: message = "equals sign in name value pair expected"; break;\
-				case square_bracket_expected: message = "square bracket to close section name expected"; break;\
-				case brace_expected: message = "brace or further name value pairs expected"; break;\
-			};\
-			G->L.eprint(message);\
         }catch(const std::exception& e){\
-            G->L.eprint(string("error in ")+b);\
+            G->L.eprint(std::string("error in ")+b);\
             G->L.eprint(e.what());\
-        }catch(string s){\
-            G->L.eprint(string("error in ")+b);\
+        }catch(std::string s){\
+            G->L.eprint(std::string("error in ")+b);\
             G->L.eprint(s);\
         }catch(...){\
-            G->L.eprint(string("error in ")+b);\
+		G->L.eprint(std::string("error in ")+b);\
         }
 
 #else

@@ -37,15 +37,15 @@ namespace ntai {
 		try{
 			G = new Global(callback);
 			G->Cached->team = team;
-		}catch(exception& e){
+		}catch(std::exception& e){
 			Good = false;
 			acallback->SendTextMsg("error in Global constructor, cannot continue",1);
 			acallback->SendTextMsg(e.what(),1);
-		}catch(exception* e){
+		}catch(std::exception* e){
 			Good = false;
 			acallback->SendTextMsg("error in Global constructor, cannot continue",1);
 			acallback->SendTextMsg(e->what(),1);
-		}catch(string s){
+		}catch(std::string s){
 			Good = false;
 			acallback->SendTextMsg("error in Global constructor, cannot continue",1);
 			acallback->SendTextMsg(s.c_str(),1);
@@ -56,15 +56,15 @@ namespace ntai {
 		if(Good == true){
 			try{
 				G->InitAI(acallback,team);
-			}catch(exception& e){
+			}catch(std::exception& e){
 				Good = false;
 				G->L.eprint("error in Global InitAI, cannot continue");
 				G->L.eprint(e.what());
-			}catch(exception* e){
+			}catch(std::exception* e){
 				Good = false;
 				G->L.eprint("error in Global InitAI, cannot continue");
 				G->L.eprint(e->what());
-			}catch(string s){
+			}catch(std::string s){
 				Good = false;
 				G->L.eprint("error in Global InitAI, cannot continue");
 				G->L.eprint(s);
@@ -119,10 +119,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->UnitDestroyed(unit,attacker);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("G->unitdestroyed exception");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("G->unitdestroyed exception");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -140,10 +140,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->EnemyEnterLOS(enemy);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("enemy enter LOS exception");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("enemy enter LOS exception");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -161,10 +161,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->EnemyLeaveLOS(enemy);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("eception in G->enemyleaveLOS");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("eception in G->enemyleaveLOS");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -182,10 +182,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->EnemyEnterRadar(enemy);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("exception G->enemyenterRadar");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("exception G->enemyenterRadar");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -203,10 +203,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->EnemyLeaveRadar(enemy);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("exception G->enemyleaveradar");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("exception G->enemyleaveradar");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -233,10 +233,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->EnemyDestroyed(enemy,attacker);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("exception G->EnemyDestroyed");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("exception G->EnemyDestroyed");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -267,10 +267,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 		try{
 			G->GotChatMsg(msg,player);
-		}catch(exception& e){
+		}catch(std::exception& e){
 			G->L.eprint("exception G->GotChatMsg");
 			G->L.eprint(e.what());
-		}catch(exception* e){
+		}catch(std::exception* e){
 			G->L.eprint("exception G->GotChatMsg");
 			G->L.eprint(e->what());
 		} catch (...) {
@@ -305,10 +305,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 				try{
 					G->UnitCreated(cte->unit);
-				}catch(exception& e){
+				}catch(std::exception& e){
 					G->L.eprint("exception G->UnitCreated");
 					G->L.eprint(e.what());
-				}catch(exception* e){
+				}catch(std::exception* e){
 					G->L.eprint("exception G->UnitCreated");
 					G->L.eprint(e->what());
 				} catch (...) {
@@ -320,10 +320,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 				try{
 					G->UnitFinished(cte->unit);
-				}catch(exception& e){
+				}catch(std::exception& e){
 					G->L.eprint("exception G->UnitFinished");
 					G->L.eprint(e.what());
-				}catch(exception* e){
+				}catch(std::exception* e){
 					G->L.eprint("exception G->UnitFinished");
 					G->L.eprint(e->what());
 				} catch (...) {
@@ -339,10 +339,10 @@ namespace ntai {
 	#ifdef EXCEPTION
 				try{
 					G->UnitDestroyed(cte->unit,0);
-				}catch(exception& e){
+				}catch(std::exception& e){
 					G->L.eprint("exception G->UnitDestroyed");
 					G->L.eprint(e.what());
-				}catch(exception* e){
+				}catch(std::exception* e){
 					G->L.eprint("exception G->UnitDestroyed");
 					G->L.eprint(e->what());
 				} catch (...) {
