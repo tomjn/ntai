@@ -26,7 +26,7 @@ namespace ntai {
 		/**
 		 * base positions (factorys etc)
 		 */
-		vector<float3> base_positions;
+		std::vector<float3> base_positions;
 
 		/**
 		 * returns the base position nearest to the given float3
@@ -46,7 +46,7 @@ namespace ntai {
 		 */
 		float3 Rotate(float3 pos, float angle, float3 origin);
 
-		vector<SearchOffset> GetSearchOffsetTable (int radius);
+		std::vector<SearchOffset> GetSearchOffsetTable (int radius);
 
 		bool CheckFloat3(float3 pos);
 

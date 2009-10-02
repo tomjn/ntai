@@ -1,10 +1,4 @@
-/*
-NTai
-Tom J Nowell
-tarendai@darkstars.co.uk
-www.darkstars.co.uk
-LGPL 2 licence 2004+
-*/
+
 #include "../Core/include.h"
 
 namespace ntai {
@@ -64,18 +58,18 @@ namespace ntai {
 
 		CUnitTypeData* utd = u->GetUnitDataType();
 
-		vector<string> vl;
-		string sl;
+		std::vector<std::string> vl;
+		std::string sl;
 		if(G->Cached->cheating){
-			sl= G->Get_mod_tdf()->SGetValueMSG(string("TASKLISTS\\CHEAT\\")+utd->GetName());
+			sl= G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\CHEAT\\")+utd->GetName());
 		}else{
-			sl = G->Get_mod_tdf()->SGetValueMSG(string("TASKLISTS\\NORMAL\\")+utd->GetName());
+			sl = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\NORMAL\\")+utd->GetName());
 		}
 
 		tolowercase(sl);
 		trim(sl);
-		string us = utd->GetName();
-		if(sl != string("")){
+		std::string us = utd->GetName();
+		if(sl != std::string("")){
 			CTokenizer<CIsComma>::Tokenize(vl, sl, CIsComma());
 			if(vl.empty() == false){
 				int randnum = G->mrand()%vl.size();
@@ -83,7 +77,7 @@ namespace ntai {
 			}
 		}
 
-		string s = G->Get_mod_tdf()->SGetValueMSG(string("TASKLISTS\\LISTS\\")+us);
+		std::string s = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\LISTS\\")+us);
 
 		if(s.empty()){
 			G->L.print(" error loading tasklist for unit :: \"" + us + "\" :: buffer empty, most likely because of an empty list");
@@ -94,7 +88,7 @@ namespace ntai {
 		tolowercase(s);
 		trim(s);
 
-		vector<string> v;
+		std::vector<std::string> v;
 
 		CTokenizer<CIsComma>::Tokenize(v, s, CIsComma());
 
@@ -132,32 +126,32 @@ namespace ntai {
 				if(b != 0){
 					IModule* t = new CUnitConstructionTask(G,u->GetID(),utd,b);
 					tasks.push_back(t);
-				}else if(q == string("")){
+				}else if(q == std::string("")){
 					continue;
-				}else if(q == string("b_na")){
+				}else if(q == std::string("b_na")){
 					continue;
-				} else if(q == string("no_rule_interpolation")){
+				} else if(q == std::string("no_rule_interpolation")){
 					polation=false;
-				} else if(q == string("rule_interpolate")){
+				} else if(q == std::string("rule_interpolate")){
 					polation=true;
-				}else if(q == string("base_pos")){
+				}else if(q == std::string("base_pos")){
 					G->Map->base_positions.push_back(G->GetUnitPos(u->GetID()));
-				} else if(q == string("gaia")){
+				} else if(q == std::string("gaia")){
 					G->info->gaia = true;
-				} else if(q == string("not_gaia")){
+				} else if(q == std::string("not_gaia")){
 					G->info->gaia = false;
-				} else if(q == string("switch_gaia")){
+				} else if(q == std::string("switch_gaia")){
 					G->info->gaia = !G->info->gaia;
-				} else if(q == string("b_factory")){
+				} else if(q == std::string("b_factory")){
 					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_FACTORY);
 					tasks.push_back(t);
-				} else if(q == string("b_power")){
+				} else if(q == std::string("b_power")){
 					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_POWER);
 					tasks.push_back(t);
-				} else if(q == string("b_defence")){
+				} else if(q == std::string("b_defence")){
 					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_DEFENCE);
 					tasks.push_back(t);
-				}  else if(q == string("b_mex")){
+				}  else if(q == std::string("b_mex")){
 					IModule* t = new CKeywordConstructionTask(G,u->GetID(),B_MEX);
 					tasks.push_back(t);
 				} else{

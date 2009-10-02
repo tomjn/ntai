@@ -9,7 +9,7 @@ namespace ntai {
 		CUBuild();
 		virtual ~CUBuild();
 
-		bool OkBuildSelection(string name);
+		bool OkBuildSelection(std::string name);
 
 		/* Initialize object */
 		void Init(Global* GL, CUnitTypeData* wu, int uid);
@@ -17,107 +17,107 @@ namespace ntai {
 		void SetWater(bool w);
 
 		/* () operator, allows it to be called like this, Object(build); rather than something like object->getbuild(build); */
-		string operator() (btype build,float3 pos=ZeroVector);
+		std::string operator() (btype build,float3 pos=ZeroVector);
 		
 		/* metal extractor*/
-		string GetMEX(); 
+		std::string GetMEX(); 
 
 		/* energy producer */
-		string GetPOWER();
+		std::string GetPOWER();
 
 		/* random attack unit */
-		string GetRAND_ASSAULT();
+		std::string GetRAND_ASSAULT();
 		
 		/* most efficient attack unit (give or take a percentage) */
-		string GetASSAULT();
+		std::string GetASSAULT();
 		
 		/* factory */
-		string GetFACTORY();
+		std::string GetFACTORY();
 		
 
 		/* builders */
-		string GetBUILDER();
+		std::string GetBUILDER();
 		
 		/* geothermal plant */
-		string GetGEO();
+		std::string GetGEO();
 		
 		/* scouter */
-		string GetSCOUT();
+		std::string GetSCOUT();
 		
 		/* random unit (no mines) */
-		string GetRANDOM();
+		std::string GetRANDOM();
 		
 		/* random defense */
-		string GetDEFENCE();
+		std::string GetDEFENCE();
 		
 		/* radar towers */
-		string GetRADAR();
+		std::string GetRADAR();
 		
 		/* energy storage */
-		string GetESTORE();
+		std::string GetESTORE();
 		
 		/* metal storage */
-		string GetMSTORE();
+		std::string GetMSTORE();
 		
 		/* missile silos */
-		string GetSILO();
+		std::string GetSILO();
 		
 		/* radar jammers */
-		string GetJAMMER();
+		std::string GetJAMMER();
 		
 		/* sonar */
-		string GetSONAR();
+		std::string GetSONAR();
 		
 		/* antimissile units */
-		string GetANTIMISSILE();
+		std::string GetANTIMISSILE();
 		
 		/* artillery units */
-		string GetARTILLERY();
+		std::string GetARTILLERY();
 		
 		/* focal mines */
-		string GetFOCAL_MINE();
+		std::string GetFOCAL_MINE();
 		
 		/* submarines */
-		string GetSUB();
+		std::string GetSUB();
 		
 		/* amphibious units (pelican/gimp/triton etc) */
-		string GetAMPHIB();
+		std::string GetAMPHIB();
 		
 		/* mines */
-		string GetMINE();
+		std::string GetMINE();
 
 		/* units with air repair pads that floats */
-		string GetCARRIER();
+		std::string GetCARRIER();
 		
 		/* metal makers */
-		string GetMETAL_MAKER();
+		std::string GetMETAL_MAKER();
 		
 		/* walls etc */
-		string GetFORTIFICATION();
+		std::string GetFORTIFICATION();
 		
 		/* Targeting facility type buildings */
-		string GetTARG();
+		std::string GetTARG();
 		
 		/* Bomber planes */
-		string GetBOMBER();
+		std::string GetBOMBER();
 		
 		/* units with shields */
-		string GetSHIELD();
+		std::string GetSHIELD();
 		
 		/* units that launch missiles, such as the Merl or diplomat or dominator */
-		string GetMISSILE_UNIT();
+		std::string GetMISSILE_UNIT();
 		
 		/*  */
-		string GetFIGHTER();
+		std::string GetFIGHTER();
 		
 		/*  */
-		string GetGUNSHIP();
+		std::string GetGUNSHIP();
 		
 		/*  */
-		string GetHUB();
+		std::string GetHUB();
 		
 		/*  */
-		string GetAIRSUPPORT();
+		std::string GetAIRSUPPORT();
 
 		/* To filter out things like dragons eye in AA, things that serve no purpose other than to simply exist */
 		bool Useless(CUnitTypeData* u);

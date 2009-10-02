@@ -12,7 +12,7 @@ namespace ntai {
 		int NumSpotsFound;
 		float AverageMetal;
 
-		vector<float3> VectoredSpots;
+		std::vector<float3> VectoredSpots;
 
 		bool IsMetalMap(){
 			if(AverageMetal != 0){

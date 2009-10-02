@@ -54,7 +54,7 @@ namespace ntai {
 
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-	bool Planning::feasable(string s, int builder){
+	bool Planning::feasable(std::string s, int builder){
 
 		CUnitTypeData* wbuilder = G->UnitDefLoader->GetUnitTypeDataByUnitId(builder);
 		CUnitTypeData* wbuilding = G->UnitDefLoader->GetUnitTypeDataByName(s);
@@ -75,9 +75,9 @@ namespace ntai {
 		return mtime;
 	}
 
-	bool Planning::equalsIgnoreCase(string a ,string b){
-		string c = a;
-		string d = b;
+	bool Planning::equalsIgnoreCase(std::string a ,std::string b){
+		std::string c = a;
+		std::string d = b;
 		trim(c);
 		trim(d);
 		tolowercase(c);
@@ -90,8 +90,8 @@ namespace ntai {
 
 
 		if(NoAntiStall.empty() == false){
-			for(vector<string>::iterator i = NoAntiStall.begin(); i != NoAntiStall.end(); ++i){
-				string ti = *i;
+			for(std::vector<std::string>::iterator i = NoAntiStall.begin(); i != NoAntiStall.end(); ++i){
+				std::string ti = *i;
 				if(ti == building->GetName()){
 					G->L.print("Feasable:: "+building->GetName());
 					return true;

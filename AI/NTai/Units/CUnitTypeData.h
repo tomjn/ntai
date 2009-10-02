@@ -8,7 +8,7 @@ namespace ntai {
 		void Init(Global* G, const UnitDef* ud);
 
 		const UnitDef* GetUnitDef();
-		string GetName();
+		std::string GetName();
 
 		bool IsMex();
 		bool IsMetalMaker();
@@ -65,7 +65,7 @@ namespace ntai {
 	private:
 		Global* G;
 		const UnitDef* ud;
-		string unit_name; // the name of the unit trimmed in lowercase
+		std::string unit_name; // the name of the unit trimmed in lowercase
 
 		bool attacker;
 		

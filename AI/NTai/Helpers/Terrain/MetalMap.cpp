@@ -432,10 +432,10 @@ namespace ntai {
 
 	void CMetalMap::SaveMetalMap(){
 		char buffer[1000];
-		string filename = ai->info->datapath + string("/MexData/") + string(ai->cb->GetMapName());
+		std::string filename = ai->info->datapath + std::string("/MexData/") + std::string(ai->cb->GetMapName());
 		filename.resize(filename.size()-3);
-		filename += string("Mv");
-		filename += string(M_CLASS_VERSION);
+		filename += std::string("Mv");
+		filename += std::string(M_CLASS_VERSION);
 
 		strcpy(buffer, filename.c_str());
 		ai->cb->GetValue(AIVAL_LOCATE_FILE_W, buffer);
@@ -458,10 +458,10 @@ namespace ntai {
 
 	bool CMetalMap::LoadMetalMap(){
 		char buffer[1000];
-		string filename = ai->info->datapath + string("/MexData/") + string(ai->cb->GetMapName());
+		std::string filename = ai->info->datapath + std::string("/MexData/") + std::string(ai->cb->GetMapName());
 		filename.resize(filename.size()-3);
-		filename += string("Mv");
-		filename += string(M_CLASS_VERSION);
+		filename += std::string("Mv");
+		filename += std::string(M_CLASS_VERSION);
 
 		strcpy(buffer, filename.c_str());
 		ai->cb->GetValue(AIVAL_LOCATE_FILE_R, buffer);

@@ -1,7 +1,7 @@
 // http://www.codeproject.com/cpp/stringtok.asp
 
 // For the case when the separators are white spaces 0x09-0x0D and 0x20;
-class CIsSpace : public unary_function<char, bool>
+class CIsSpace : public std::unary_function<char, bool>
 {
 public:
   bool operator()(char c) const;
@@ -11,14 +11,14 @@ inline bool CIsSpace::operator()( char c ) const
 {
     //isspace<char> returns true if c is a white-space character (0x09-0x0D or 0x20)
     // Need a locale for this call [TPK 04-10-06]
-    locale loc;
-    return isspace< char >( c, loc );
+    std::locale loc;
+    return std::isspace< char >( c, loc );
 }
 
 
 
 // For the case where the separator is the comma character ',':
-class CIsComma : public unary_function<char, bool>
+class CIsComma : public std::unary_function<char, bool>
 {
 public:
   bool operator()(char c) const;
@@ -30,21 +30,21 @@ inline bool CIsComma::operator()(char c) const
 }
 
 // For the case where the separator is a character from a set of characters given in a STL string:
-class CIsFromString : public unary_function<char, bool>
+class CIsFromString : public std::unary_function<char, bool>
 {
 public:
   //Constructor specifying the separators
-  CIsFromString(string const& rostr) : m_ostr(rostr) {}
+  CIsFromString(std::string const& rostr) : m_ostr(rostr) {}
   bool operator()(char c) const;
 
 private:
-  string m_ostr;
+  std::string m_ostr;
 };
 
 inline bool CIsFromString::operator()(char c) const
 {
   int iFind = m_ostr.find(c);
-  if(iFind != int(string::npos))
+  if(iFind != int(std::string::npos))
     return true;
   else
     return false;
@@ -57,21 +57,21 @@ template <class Pred=CIsComma>
 class CTokenizer{
 public:
   //The predicate should evaluate to true when applied to a separator.
-  static void Tokenize(vector<string>& roResult, string const& rostr,
+  static void Tokenize(std::vector<std::string>& roResult, std::string const& rostr,
                        Pred const& roPred=Pred());
-  static void Tokenize(set<string>& roResult, string const& rostr,
+  static void Tokenize(std::set<std::string>& roResult, std::string const& rostr,
                        Pred const& roPred=Pred());
 };
 
 //The predicate should evaluate to true when applied to a separator.
 template <class Pred>
-inline void CTokenizer<Pred>::Tokenize(vector<string>& roResult,
-                                            string const& rostr, Pred const& roPred)
+inline void CTokenizer<Pred>::Tokenize(std::vector<std::string>& roResult,
+                                            std::string const& rostr, Pred const& roPred)
 {
 	//First clear the results vector
 	roResult.clear();
-	string::const_iterator it = rostr.begin();
-	string::const_iterator itTokenEnd = rostr.begin();
+	std::string::const_iterator it = rostr.begin();
+	std::string::const_iterator itTokenEnd = rostr.begin();
 	while( it != rostr.end() ){
         //Eat seperators
         // Additional check for end of string here, needed if the last character(s)
@@ -85,7 +85,7 @@ inline void CTokenizer<Pred>::Tokenize(vector<string>& roResult,
 		itTokenEnd = find_if(it, rostr.end(), roPred);
 		//Append token to result
 		if(it < itTokenEnd){
-			roResult.push_back(string(it, itTokenEnd));
+			roResult.push_back(std::string(it, itTokenEnd));
 		}
 		it = itTokenEnd;
 	}
@@ -93,13 +93,13 @@ inline void CTokenizer<Pred>::Tokenize(vector<string>& roResult,
 
 //The predicate should evaluate to true when applied to a separator.
 template <class Pred>
-inline void CTokenizer<Pred>::Tokenize(set<string>& roResult,
-                                            string const& rostr, Pred const& roPred)
+inline void CTokenizer<Pred>::Tokenize(std::set<std::string>& roResult,
+                                            std::string const& rostr, Pred const& roPred)
 {
 	//First clear the results vector
 	roResult.clear();
-	string::const_iterator it = rostr.begin();
-	string::const_iterator itTokenEnd = rostr.begin();
+	std::string::const_iterator it = rostr.begin();
+	std::string::const_iterator itTokenEnd = rostr.begin();
 	while( it != rostr.end() ){
 		// Eat seperators
 		// Additional check for end of string here, needed if the last character(s)
@@ -113,7 +113,7 @@ inline void CTokenizer<Pred>::Tokenize(set<string>& roResult,
 		itTokenEnd = find_if(it, rostr.end(), roPred);
 		//Append token to result
 		if(it < itTokenEnd){
-			roResult.insert(string(it, itTokenEnd));
+			roResult.insert(std::string(it, itTokenEnd));
 		}
 		it = itTokenEnd;
 	}

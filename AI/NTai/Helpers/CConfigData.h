@@ -25,8 +25,8 @@ namespace ntai {
 		float Max_Stall_TimeIMMobile;
 		bool rule_extreme_interpolate;
 
-		string tdfpath;
-		string datapath;
+		std::string tdfpath;
+		std::string datapath;
 		TdfParser* mod_tdf;
 	};
 }

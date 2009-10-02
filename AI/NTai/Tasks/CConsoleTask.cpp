@@ -6,7 +6,7 @@ namespace ntai {
 		valid = false;
 	}
 
-	CConsoleTask::CConsoleTask(Global* GL, string message){
+	CConsoleTask::CConsoleTask(Global* GL, std::string message){
 		valid=true;
 		G = GL;
 		mymessage=message;

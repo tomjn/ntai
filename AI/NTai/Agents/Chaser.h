@@ -15,7 +15,7 @@ namespace ntai {
 		void UnitDestroyed(int unit,int attacker);
 		void UnitFinished(int unit);
 		void EnemyDestroyed(int enemy, int attacker);
-		bool FindTarget(set<int> atkgroup, bool upthresh=true);
+		bool FindTarget(std::set<int> atkgroup, bool upthresh=true);
 		void UnitDamaged(int damaged,int attacker,float damage,float3 dir);
 		void UnitIdle(int unit);
 
@@ -26,15 +26,15 @@ namespace ntai {
 		void UpdateMatrixEnemies();
 
 		void DoUnitStuff(int aa);
-		set<int> engaged;
-		set<int> walking;
+		std::set<int> engaged;
+		std::set<int> walking;
 
 		int threshold;
 		float thresh_increase;
 		float thresh_percentage_incr;
 		int max_threshold;
-		set<int> Attackers;
-		set<int> sweap;
+		std::set<int> Attackers;
+		std::set<int> sweap;
 
 		float3 swtarget;
 
@@ -44,28 +44,28 @@ namespace ntai {
 		/**
 		 * used for storing attackers while forming a group
 		 */
-		set<int> temp_attack_units;
+		std::set<int> temp_attack_units;
 
 		/**
 		 * used for storing air attackers while forming a group
 		 */
-		set<int> temp_air_attack_units;
+		std::set<int> temp_air_attack_units;
 		
-		vector<set<int> > attack_groups;
-		vector<set<int> > air_attack_groups;
+		std::vector<std::set<int> > attack_groups;
+		std::vector<std::set<int> > air_attack_groups;
 
 		/**
 		 * a set of attackers that have been finished, but are still leaving the factory
 		 */
-		set<int> unit_to_initialize;	
+		std::set<int> unit_to_initialize;	
 		
 		int enemynum;
-		vector<string> hold_pos;
-		vector<string> maneouvre;
-		vector<string> roam;
-		vector<string> hold_fire;
-		vector<string> return_fire;
-		vector<string> fire_at_will;
+		std::vector<std::string> hold_pos;
+		std::vector<std::string> maneouvre;
+		std::vector<std::string> roam;
+		std::vector<std::string> hold_fire;
+		std::vector<std::string> return_fire;
+		std::vector<std::string> fire_at_will;
 
 		CGridManager Grid;
 

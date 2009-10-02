@@ -49,15 +49,9 @@ namespace ntai{
 
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
-#include <boost/shared_array.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
 
 typedef boost::mutex mutex;
 typedef boost::mutex::scoped_lock scoped_lock;
-
-//using namespace std;
-
 
 // engine includes
 #include "../SDK/AI.h"										// AI interface includes
@@ -75,7 +69,7 @@ typedef boost::mutex::scoped_lock scoped_lock;
 
 #include "../Units/ITaskManager.h"							// Attack nearby enemies
 #include "../Units/ITaskManagerFactory.h"					// Attack nearby enemies
-#include "../Units/CConfigTaskManager.h"							// Attack nearby enemies
+#include "../Units/CConfigTaskManager.h"					// Attack nearby enemies
 #include "../Units/CUnit.h"
 #include "../Helpers/Log.h"									// Logging class
 #include "../Helpers/Units/CUnitDefLoader.h"				// Loads unitdefs
@@ -97,6 +91,7 @@ typedef boost::mutex::scoped_lock scoped_lock;
 #include "../Helpers/Terrain/MetalHandler.h"				// Handles metal spots and choices
 #include "../Helpers/Units/Actions.h"						// Common actions in a useful class
 #include "../Helpers/ubuild.h"								// Universal Build Routines
+#include "../Algorithms/Placement/IConstructionPlacer.h"	// Interface class for construction placement projects
 #include "../Helpers/Terrain/CBuildingPlacer.h"				// Building placement algorithm
 
 

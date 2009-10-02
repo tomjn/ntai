@@ -13,6 +13,6 @@ namespace ntai {
 		void Update();
 	private:
 		Global* G;
-		vector<TCommand> CommandCache;// Command cache
+		std::vector<TCommand> CommandCache;// Command cache
 	};
 }

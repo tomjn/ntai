@@ -77,7 +77,7 @@ namespace ntai {
 		if(base_positions.empty() == false){
 			float3 best;
 			float best_score = 20000000;
-			for(vector<float3>::iterator i = base_positions.begin(); i != base_positions.end(); ++i){
+			for(std::vector<float3>::iterator i = base_positions.begin(); i != base_positions.end(); ++i){
 				if( i->distance2D(pos) < best_score){
 					best = *i;
 					best_score = i->distance2D(pos);
@@ -89,9 +89,9 @@ namespace ntai {
 		}
 	}
 
-	/*vector<float3> CMap::GetSurroundings(float3 pos){
+	/*std::vector<float3> CMap::GetSurroundings(float3 pos){
 		NLOG("CMap::GetSurroundings");
-		vector<float3> s;
+		std::vector<float3> s;
 		float3 ss = pos;
 		s.push_back(ss);
 		ss.z = ss.z - 1;
@@ -211,9 +211,9 @@ namespace ntai {
 		return a.qdist < b.qdist;
 	}
 
-	vector<SearchOffset> CMap::GetSearchOffsetTable(int radius){
+	std::vector<SearchOffset> CMap::GetSearchOffsetTable(int radius){
 		NLOG("CMap::GetSearchOffsetTable");
-		vector <SearchOffset> searchOffsets;
+		std::vector <SearchOffset> searchOffsets;
 		int size = radius*radius*4;
 		if (size > (int)searchOffsets.size()) {
 			searchOffsets.resize (size);
@@ -224,7 +224,7 @@ namespace ntai {
 					i.dy = y-radius;
 					i.qdist = i.dx*i.dx+i.dy*i.dy;
 				}
-				sort(searchOffsets.begin(), searchOffsets.end(), SearchOffsetComparator);
+				std::sort(searchOffsets.begin(), searchOffsets.end(), SearchOffsetComparator);
 		}
 		return searchOffsets;
 	}

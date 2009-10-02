@@ -85,7 +85,7 @@ namespace ntai {
 		*/
 		void removeExtractor(int unit) {
 			if(mex.empty() == false){
-				for(vector<int>::iterator qi = mex.begin();qi!=mex.end();++qi){
+				for(std::vector<int>::iterator qi = mex.begin();qi!=mex.end();++qi){
 					if(*qi == unit){
 						mex.erase(qi);
 						break;

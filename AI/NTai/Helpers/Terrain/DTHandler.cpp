@@ -15,10 +15,10 @@ namespace ntai {
 		if(G->Map->CheckFloat3(pos)==false){
 			return UpVector;
 		}
-		vector<float3> locations;
-		for(vector<DTRing>::iterator i = this->DTRings.begin(); i != DTRings.end(); ++i){
+		std::vector<float3> locations;
+		for(std::vector<DTRing>::iterator i = this->DTRings.begin(); i != DTRings.end(); ++i){
 			// go through DT Rings and add all locations without a DT on them to the locations container;
-			for(vector<float3>::iterator d = i->DTPos.begin(); d != i->DTPos.end(); ++d){
+			for(std::vector<float3>::iterator d = i->DTPos.begin(); d != i->DTPos.end(); ++d){
 				int* f = new int[3];
 				int h = G->cb->GetFeatures(f,2,*d,40);
 				delete [] f;
@@ -30,7 +30,7 @@ namespace ntai {
 		
 		float distance = pos.distance2D(closest);
 		float tempdist=0;
-		for(vector<float3>::iterator j = locations.begin(); j != locations.end(); ++j){
+		for(std::vector<float3>::iterator j = locations.begin(); j != locations.end(); ++j){
 			tempdist = j->distance2D(pos);
 			if(tempdist < distance){
 				distance = tempdist;
@@ -143,10 +143,10 @@ namespace ntai {
 
 
 	bool CDTHandler::IsDragonsTeeth(const char* FeatureName){
-		return IsDragonsTeeth(string(FeatureName));
+		return IsDragonsTeeth(std::string(FeatureName));
 	}
 
-	bool CDTHandler::IsDragonsTeeth(const string FeatureName){
+	bool CDTHandler::IsDragonsTeeth(const std::string FeatureName){
 		CUnitTypeData* ud = G->UnitDefLoader->GetUnitTypeDataByName(FeatureName);
 		return IsDragonsTeeth(ud->GetUnitDef());
 	}

@@ -9,9 +9,9 @@ namespace  ntai {
 
 		virtual void DestroyModule();
 		
-		float GetEfficiency(string s, float def_value=500);
+		float GetEfficiency(std::string s, float def_value=500);
 		void SetEfficiency(std::string s, float e);
-		float GetEfficiency(std::string s, std::set<string>& doneconstructors, int techlevel);
+		float GetEfficiency(std::string s, std::set<std::string>& doneconstructors, int techlevel);
 		
 		bool LoadUnitData();
 		bool SaveUnitData();

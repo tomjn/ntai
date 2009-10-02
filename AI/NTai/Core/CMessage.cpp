@@ -8,19 +8,19 @@ LGPL 2 licence 2004+
 
 #include "../Core/include.h"
 
-CMessage::CMessage(string my_type){
+CMessage::CMessage(std::string my_type){
 	message_type = my_type;
 	frame = 0;
 	lifetime = -1;
 }
 
-CMessage::CMessage(string my_type, vector<float> &myparameters){
+CMessage::CMessage(std::string my_type, std::vector<float> &myparameters){
 	parameters = myparameters;
 	frame = 0;
 	lifetime = -1;
 }
 
-vector<float> CMessage::GetParameters(){
+std::vector<float> CMessage::GetParameters(){
 	return parameters;
 }
 
@@ -46,11 +46,11 @@ void CMessage::SetFrame(int frame){
 	this->frame = frame;
 }
 
-string CMessage::GetType(){
+std::string CMessage::GetType(){
 	return message_type;
 }
 
-void CMessage::SetType(string type){
+void CMessage::SetType(std::string type){
 	message_type = type;
 }
 

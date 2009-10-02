@@ -17,7 +17,7 @@ namespace ntai {
 		NLOG("CKeywordConstructionTask::RecieveMessage");
 		if (!valid) return;
 
-		if(message.GetType() == string("unitidle")){
+		if(message.GetType() == std::string("unitidle")){
 			if(message.GetParameter(0) == unit){
 				if((type == B_GUARDIAN)
 					||(type == B_GUARDIAN_MOBILES)
@@ -28,14 +28,14 @@ namespace ntai {
 					return;
 				}
 			}
-		}else if(message.GetType() == string("type?")){
+		}else if(message.GetType() == std::string("type?")){
 			message.SetType(" keywordtask: "+G->Manufacturer->GetTaskName(this->type));
-		}else	if(message.GetType() == string("unitdestroyed")){
+		}else	if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0) == unit){
 				End();
 				return;
 			}
-		}else	if(message.GetType() == string("buildposition")){
+		}else	if(message.GetType() == std::string("buildposition")){
 			// continue construction
 			//
 
@@ -57,7 +57,7 @@ namespace ntai {
 
 			pos.y = G->cb->GetElevation(pos.x,pos.z);
 
-			deque<CBPlan* >::iterator qi = G->Manufacturer->OverlappingPlans(pos,building->GetUnitDef());
+			std::deque<CBPlan* >::iterator qi = G->Manufacturer->OverlappingPlans(pos,building->GetUnitDef());
 			if(qi != G->Manufacturer->BPlans->end()){
 				NLOG("vector<CBPlan>::iterator qi = OverlappingPlans(pos,ud); :: WipePlansForBuilder");
 				/*if(qi->started){
@@ -122,7 +122,7 @@ namespace ntai {
 
 		if(G->Pl->AlwaysAntiStall.empty() == false){ // Sort out the stuff that's setup to ALWAYS be under the antistall algorithm
 			NLOG("CKeywordConstructionTask::Build G->Pl->AlwaysAntiStall.empty() == false");
-			for(vector<string>::iterator i = G->Pl->AlwaysAntiStall.begin(); i != G->Pl->AlwaysAntiStall.end(); ++i){
+			for(std::vector<std::string>::iterator i = G->Pl->AlwaysAntiStall.begin(); i != G->Pl->AlwaysAntiStall.end(); ++i){
 				if(*i == building->GetName()){
 					NLOG("CKeywordConstructionTask::Build *i == name :: "+building->GetUnitDef()->name);
 					if(!G->Pl->feasable(building,utd)){
@@ -141,7 +141,7 @@ namespace ntai {
 		NLOG("CKeywordConstructionTask::Build  Resource\\MaxEnergy\\");
 		float emax=1000000000;
 
-		string key = "Resource\\MaxEnergy\\";
+		std::string key = "Resource\\MaxEnergy\\";
 		key += building->GetName();
 		G->Get_mod_tdf()->GetDef(emax,"3000000",key);// +300k energy per tick by default/**/
 
@@ -302,7 +302,7 @@ namespace ntai {
 		//G->L.print("CKeywordConstructionTask::Init");
 
 		NLOG("1");
-		NLOG((string("tasktype: ")+G->Manufacturer->GetTaskName(type)));
+		NLOG((std::string("tasktype: ")+G->Manufacturer->GetTaskName(type)));
 
 		// register this modules listeners
 		//G->RegisterMessageHandler("unitidle",me);
@@ -354,9 +354,9 @@ namespace ntai {
 
 			CUBuild b;
 			b.Init(G,utd,unit);
-			string targ = b(type);
+			std::string targ = b(type);
 			G->L.print("gotten targ value of " + targ + " for RULE");
-			if (targ != string("")){
+			if (targ != std::string("")){
 
 				building = G->UnitDefLoader->GetUnitTypeDataByName(targ);
 				Build();
@@ -497,8 +497,8 @@ namespace ntai {
 			//if(b.ud->floater==true){
 			//	b.SetWater(true);
 			//}
-			string targ = b(type);
-			if(targ == string("")){
+			std::string targ = b(type);
+			if(targ == std::string("")){
 				G->L << "if(targ == string(\"\")) for "<< G->Manufacturer->GetTaskName(type)<< endline;
 				End();
 				return false;

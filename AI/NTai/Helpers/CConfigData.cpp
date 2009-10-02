@@ -21,7 +21,7 @@ namespace ntai {
 		
 		//CLOG("Retrieving datapath value");
 
-		datapath = cs.SGetValueDef(string(aiexport_getDataDir(true)), "AI/Skirmish/NTai/data");
+		datapath = cs.SGetValueDef(std::string(aiexport_getDataDir(true)), "AI/Skirmish/NTai/data");
 
 		CLOG("Getting tdfpath value");
 		
@@ -33,7 +33,7 @@ namespace ntai {
 			G->L.eprint("error modinfo.tdf retrieval failed");
 		}
 		const char* modname = G->cb->GetModName();
-		tdfpath =  sf.SGetValueDef(string(modname), "MOD\\NTAI\\tdfpath");
+		tdfpath =  sf.SGetValueDef(std::string(modname), "MOD\\NTAI\\tdfpath");
 	}
 
 	CConfigData::~CConfigData(){

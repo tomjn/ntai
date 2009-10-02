@@ -30,7 +30,7 @@ namespace ntai {
 
 	void CMetalMakerBehaviour::RecieveMessage(CMessage &message){
 		
-		if(message.GetType() == string("update")){
+		if(message.GetType() == std::string("update")){
 			if(EVERY_((1 SECONDS))){
 				float energy=G->cb->GetEnergy();
 				float estore=G->cb->GetEnergyStorage();
@@ -52,7 +52,7 @@ namespace ntai {
 					}
 				}
 			}
-		}else if(message.GetType() == string("unitdestroyed")){
+		}else if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0)== uid){
 				End();
 			}

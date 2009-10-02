@@ -25,8 +25,8 @@ namespace ntai {
 		void UnBlock(float3 pos, float radius);
 
 		CGridManager blockingmap;
-		map<int,float3> tempgeo;
-		vector<float3> geolist;
+		std::map<int,float3> tempgeo;
+		std::vector<float3> geolist;
 
 	protected:
 	};

@@ -5,8 +5,8 @@ LGPL 2
 
 namespace ntai {
 
-	void trim(string &str);
-	void tolowercase(string &str);
+	void trim(std::string &str);
+	void tolowercase(std::string &str);
 	bool ValidUnitID(int id);
 
 
@@ -80,7 +80,7 @@ namespace ntai {
 		std::set<int> LOSGetEnemy(){// returns enemies in LOS (faster than the callback function)
 			return Cached->enemies;
 		}
-		bool ReadFile(string filename, string* buffer); // reads a file in from the given path and shoves it in the buffer string provided
+		bool ReadFile(std::string filename, std::string* buffer); // reads a file in from the given path and shoves it in the buffer string provided
 		TdfParser* Get_mod_tdf();// returns a TdfParser object loaded with the contents of mod.tdf
 
 

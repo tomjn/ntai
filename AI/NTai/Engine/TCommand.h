@@ -23,7 +23,7 @@ public:
 			source = s;
 #endif
 		  }
-		TCommand(int unit, string s){
+		TCommand(int unit, std::string s){
 			created = 0;
 			clear = false;
 			Priority = tc_na;
@@ -97,7 +97,7 @@ public:
 			  }
 		  }
 		  std::string toString(){
-			  string s = "Command: ID: ";
+			  std::string s = "Command: ID: ";
 			  s+= to_string(c.id);
 			  s+=" Timeout: ";
 			  s+= to_string(c.timeOut);
@@ -107,7 +107,7 @@ public:
 				  s+= " params: none";
 			  }else{
 				  s+= " params: ";
-				  for(vector<float>::iterator i = c.params.begin(); i!= c.params.end(); ++i){
+				  for(std::vector<float>::iterator i = c.params.begin(); i!= c.params.end(); ++i){
 					  s+= to_string(*i);
 					  s+= ", ";
 				  }
@@ -118,7 +118,7 @@ public:
 #endif
 			  return s;
 		  }
-		  void SetSource(string s){
+		  void SetSource(std::string s){
 #ifdef TC_SOURCE
 			  source = s;
 #endif

@@ -60,7 +60,7 @@ namespace ntai {
 		Attackers.erase(unit);
 		if(!attack_groups.empty()){
 			// remove from atatck groups
-			for(vector< set<int> >::iterator i = attack_groups.begin(); i != attack_groups.end(); ++i){
+			for(std::vector< std::set<int> >::iterator i = attack_groups.begin(); i != attack_groups.end(); ++i){
 				if(i->find(unit)!= i->end()){
 					i->erase(unit);
 					if(i->empty()) break;
@@ -150,7 +150,7 @@ namespace ntai {
 
 		if(utd->GetUnitDef()->weapons.empty() == false){
 
-			for(vector<UnitDef::UnitDefWeapon>::const_iterator i = utd->GetUnitDef()->weapons.begin(); i!= utd->GetUnitDef()->weapons.end(); ++i){
+			for(std::vector<UnitDef::UnitDefWeapon>::const_iterator i = utd->GetUnitDef()->weapons.begin(); i!= utd->GetUnitDef()->weapons.end(); ++i){
 	            
 				if(i->def->stockpile){
 
@@ -170,7 +170,7 @@ namespace ntai {
 
 
 		if(!maneouvre.empty()){
-			for(vector<string>::iterator i = maneouvre.begin(); i != maneouvre.end(); ++i){
+			for(std::vector<std::string>::iterator i = maneouvre.begin(); i != maneouvre.end(); ++i){
 				//
 				if(*i == utd->GetName()){
 					TCommand tc(unit, "setting firing state/move state");
@@ -184,7 +184,7 @@ namespace ntai {
 		}
 
 		if(!hold_pos.empty()){
-			for(vector<string>::iterator i = hold_pos.begin(); i != hold_pos.end(); ++i){
+			for(std::vector<std::string>::iterator i = hold_pos.begin(); i != hold_pos.end(); ++i){
 				//
 				if(*i == utd->GetName()){
 					TCommand tc(unit, "setting firing state/movestate");
@@ -197,7 +197,7 @@ namespace ntai {
 		}
 
 		if(roam.empty() == false){
-			for(vector<string>::iterator i = roam.begin(); i != roam.end(); ++i){
+			for(std::vector<std::string>::iterator i = roam.begin(); i != roam.end(); ++i){
 				//
 				if(*i == utd->GetName()){
 					TCommand tc(unit, "setting firing state/movestate");
@@ -210,7 +210,7 @@ namespace ntai {
 		}
 
 		if(fire_at_will.empty() == false){
-			for(vector<string>::iterator i = fire_at_will.begin(); i != fire_at_will.end(); ++i){
+			for(std::vector<std::string>::iterator i = fire_at_will.begin(); i != fire_at_will.end(); ++i){
 				//
 				if(*i == utd->GetName()){
 					TCommand tc(unit, "setting firing state/movestate");
@@ -223,7 +223,7 @@ namespace ntai {
 		}
 
 		if(return_fire.empty() == false){
-			for(vector<string>::iterator i = return_fire.begin(); i != return_fire.end(); ++i){
+			for(std::vector<std::string>::iterator i = return_fire.begin(); i != return_fire.end(); ++i){
 				//
 				if(*i == utd->GetName()){
 					TCommand tc(unit, "setting firing state/movestate");
@@ -236,7 +236,7 @@ namespace ntai {
 		}
 
 		if(hold_fire.empty() == false){
-			for(vector<string>::iterator i = hold_fire.begin(); i != hold_fire.end(); ++i){
+			for(std::vector<std::string>::iterator i = hold_fire.begin(); i != hold_fire.end(); ++i){
 				//
 				if(*i == utd->GetName()){
 					TCommand tc(unit, "setting firing state/movestate");
@@ -275,7 +275,7 @@ namespace ntai {
 
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-	bool Chaser::FindTarget(set<int> atkgroup, bool upthresh){
+	bool Chaser::FindTarget(std::set<int> atkgroup, bool upthresh){
 		//NLOG("Chaser::FindTarget");
 		float3 final_dest = UpVector;
 
@@ -301,7 +301,7 @@ namespace ntai {
 				}
 				//Grid.ApplyModifierAtMapPos(final_dest, 1.6f);
 				G->L.print("attack position targetted sending units");
-				for(set<int>::iterator aik = atkgroup.begin();aik != atkgroup.end();++aik){
+				for(std::set<int>::iterator aik = atkgroup.begin();aik != atkgroup.end();++aik){
 					float3 upos = G->GetUnitPos(*aik);
 					if(Grid.ValidMapPos(upos)){
 						float3 npos;
@@ -385,11 +385,11 @@ namespace ntai {
 
 			}
 
-			G->L.print(string("new attacker added :: ") + utd->GetName() + string(" target?:")+to_string(target)+string(" threshold:")+to_string(threshold));
+			G->L.print(std::string("new attacker added :: ") + utd->GetName() + std::string(" target?:")+to_string(target)+std::string(" threshold:")+to_string(threshold));
 	        
 			if(target){
 
-				set<int> temp;
+				std::set<int> temp;
 
 				if(utd->IsAirCraft()){
 
@@ -433,7 +433,7 @@ namespace ntai {
 		NO_GAIA(NA)
 		int fnum = G->cb->GetCurrentFrame(); // Get frame
 		if((fnum%200 == 0)&&(sweap.empty() == false)){ // Every 30 seconds
-			for(set<int>::iterator si = sweap.begin(); si != sweap.end();++si){
+			for(std::set<int>::iterator si = sweap.begin(); si != sweap.end();++si){
 				float maxrange = G->cb->GetUnitMaxRange(*si);
 				float3 WPos = G->GetUnitPos(*si);
 				if(!Grid.ValidMapPos(WPos)) continue;
@@ -631,7 +631,7 @@ namespace ntai {
 
 		START_EXCEPTION_HANDLING
 		if(EVERY_((2 MINUTES))){
-			for(vector< set<int> >::iterator k = this->attack_groups.begin(); k != attack_groups.end(); ++k){
+			for(std::vector< std::set<int> >::iterator k = this->attack_groups.begin(); k != attack_groups.end(); ++k){
 				if((int)k->size()>threshold){
 					FindTarget(*k, false);
 				}
@@ -644,8 +644,8 @@ namespace ntai {
 
 	void Chaser::Beacon(float3 pos, float radius){
 		if(walking.empty() == false){
-			set<int> rejects;
-			for(set<int>::iterator i = walking.begin(); i != walking.end(); ++i){
+			std::set<int> rejects;
+			for(std::set<int>::iterator i = walking.begin(); i != walking.end(); ++i){
 				float3 rpos = G->GetUnitPos(*i);
 				if(G->Map->CheckFloat3(rpos)==true){
 					if (rpos.distance2D(pos)<radius){

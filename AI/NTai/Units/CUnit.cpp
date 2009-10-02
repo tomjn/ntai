@@ -78,7 +78,7 @@ namespace ntai {
 		if(!IsValid()){
 			return;
 		}
-		if(message.GetType() == string("update")){
+		if(message.GetType() == std::string("update")){
 			if(under_construction){
 				return;
 			}
@@ -107,12 +107,12 @@ namespace ntai {
 
 			}
 
-		}else if(message.GetType() == string("unitfinished")){
+		}else if(message.GetType() == std::string("unitfinished")){
 			if(message.GetParameter(0) == this->uid){
 				under_construction = false;
 				LoadBehaviours();
 			}
-		}else if(message.GetType() == string("unitdestroyed")){
+		}else if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0) == uid){
 
 				if(!utd->IsMobile()){
@@ -167,7 +167,7 @@ namespace ntai {
 	bool CUnit::LoadBehaviours(){
 		std::string d = G->Get_mod_tdf()->SGetValueDef("auto","AI\\behaviours\\"+utd->GetName());
 
-		std::vector<string> v;
+		std::vector<std::string> v;
 		CTokenizer<CIsComma>::Tokenize(v, d, CIsComma());
 
 		if(!v.empty()){

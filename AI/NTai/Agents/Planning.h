@@ -8,11 +8,11 @@ namespace ntai {
 		Planning(Global* GLI);
 		virtual ~Planning(){}
 		void InitAI();
-		bool feasable(string s, int builder); // Antistall algorithm
+		bool feasable(std::string s, int builder); // Antistall algorithm
 		bool feasable(CUnitTypeData* building, CUnitTypeData* builder); // Antistall algorithm
 		void Update();
 
-		bool equalsIgnoreCase(string a ,string b);
+		bool equalsIgnoreCase(std::string a ,std::string b);
 
 		float GetEnergyIncome();
 
@@ -35,8 +35,8 @@ namespace ntai {
 		float b;
 		float c;
 		float d;
-		vector<string> NoAntiStall;
-		vector<string> AlwaysAntiStall;
+		std::vector<std::string> NoAntiStall;
+		std::vector<std::string> AlwaysAntiStall;
 		int fnum;
 
 		// KAI economy antistall algorithm

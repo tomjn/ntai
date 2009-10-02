@@ -158,7 +158,7 @@ namespace ntai {
 		if(v->empty() == false){
 			posx = v->front();
 
-			for(vector<float3>::iterator vi = v->begin(); vi != v->end(); ++vi){
+			for(std::vector<float3>::iterator vi = v->begin(); vi != v->end(); ++vi){
 
 				temp = vi->distance2D(pos);
 

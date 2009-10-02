@@ -146,7 +146,7 @@ namespace ntai {
 		}
 
 
-		for(list<string>::const_iterator it = junk_data.begin(), e = junk_data.end(); it !=e ; ++it ){
+		for(std::list<std::string>::const_iterator it = junk_data.begin(), e = junk_data.end(); it !=e ; ++it ){
 			std::string temp = boost::trim_copy( *it );
 			if( ! temp.empty() ) {
 				G->L.eprint("Junk in "+ filename +  " :" + temp);
@@ -173,7 +173,7 @@ namespace ntai {
 		bool found = SGetValue(value, lowerd);
 		if(!found){
 			G->L.print(value);
-			return string("");
+			return std::string("");
 		}
 		return value;
 	}
@@ -181,7 +181,7 @@ namespace ntai {
 	//find value, return default value if no such value found
 	std::string TdfParser::SGetValueDef(std::string const& defaultvalue, std::string const& location){
 	  std::string lowerd = location;
-		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), ::tolower);
+		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), std::tolower);
 		std::string value;
 		bool found = SGetValue(value, lowerd);
 		if(!found){
@@ -231,7 +231,7 @@ namespace ntai {
 	//location of value is sent as a string "section\section\value"
 	bool TdfParser::SGetValue(std::string &value, std::string const& location){
 		std::string lowerd = location;
-		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), ::tolower);
+		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), std::tolower);
 		std::string searchpath; //for errormessages
 
 		//split the location string
@@ -260,15 +260,15 @@ namespace ntai {
 			value = "Value " + searchpath + " missing in file " + filename;
 			return false;
 		}
-			std::string svalue = sectionptr->values[loclist[loclist.size()-1]];
+		std::string svalue = sectionptr->values[loclist[loclist.size()-1]];
 		value = svalue;
 		return true;
 	}
 
 	//return a map with all values in section
 	const std::map<std::string, std::string> TdfParser::GetAllValues(std::string const& location){
-	  std::string lowerd = location;
-		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), ::tolower);
+		std::string lowerd = location;
+		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), std::tolower);
 		std::map<std::string, std::string> emptymap;
 		std::string searchpath; //for errormessages
 		std::vector<std::string> loclist = GetLocationVector(lowerd);
@@ -294,8 +294,8 @@ namespace ntai {
 
 	//return vector with all section names in it
 	std::vector<std::string> TdfParser::GetSectionList(std::string const& location){
-	  std::string lowerd = location;
-		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), ::tolower);
+		std::string lowerd = location;
+		std::transform(lowerd.begin(), lowerd.end(), lowerd.begin(), std::tolower);
 		std::vector<std::string> loclist = GetLocationVector(lowerd);
 		std::vector<std::string> returnvec;
 		std::map<std::string,TdfSection*> *sectionsptr = &root_section.sections;

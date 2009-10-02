@@ -24,11 +24,11 @@ namespace ntai {
 	}
 
 	void CRetreatBehaviour::RecieveMessage(CMessage &message){
-		if(message.GetType() == string("unitdamaged")){
+		if(message.GetType() == std::string("unitdamaged")){
 			if(message.GetParameter(0) == uid){
 				damage += message.GetParameter(2);
 			}
-		}else if(message.GetType() == string("update")){
+		}else if(message.GetType() == std::string("update")){
 			if(G->GetCurrentFrame() % (64) == 0){
 				float d = damage;
 				damage = 0;
@@ -57,12 +57,12 @@ namespace ntai {
 					}
 				}
 			}
-		}else if(message.GetType() == string("unitdestroyed")){
+		}else if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0)== uid){
 				End();
 				return;
 			}
-		}else if(message.GetType() == string("unitidle")){
+		}else if(message.GetType() == std::string("unitidle")){
 			if(message.GetParameter(0)== uid){
 				active=false;
 			}

@@ -9,7 +9,7 @@ namespace ntai{
 
 		void Update(); // check points of interest in LOS and remove accordingly
 
-		bool RandomSpiral(int unit,bool water =false); // send the unit off in a random direction
+		bool RandomSpiral(int unit, bool water =false); // send the unit off in a random direction
 
 		bool SeekOutInterest(int unit, float range=1000.0f); // send a unit out to look for points of interest
 
@@ -45,14 +45,14 @@ namespace ntai{
 		bool Retreat(int uid);
 		bool SeekOutLastAssault(int unit);
 		bool Trajectory(int unit,int traj);
-		void UnitDamaged(int damaged,int attacker,float damage,float3 dir);
+		void UnitDamaged(int damaged, int attacker, float damage, float3 dir);
 
-		bool CopyAttack(int unit,set<int> tocopy);
-		bool CopyMove(int unit,set<int> tocopy);
+		bool CopyAttack(int unit, std::set<int> tocopy);
+		bool CopyMove(int unit, std::set<int> tocopy);
 
-		bool IfNobodyNearMoveToNearest(int uid, set<int> units);
+		bool IfNobodyNearMoveToNearest(int uid, std::set<int> units);
 
-		vector<float3> points;
+		std::vector<float3> points;
 
 		/* This unit needs it's UnitIdle() called soon so schedule a unitIdle command */
 		void ScheduleIdle(int unit);

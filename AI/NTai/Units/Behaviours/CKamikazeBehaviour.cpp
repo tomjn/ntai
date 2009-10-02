@@ -26,7 +26,7 @@ namespace ntai {
 	}
 
 	void CKamikazeBehaviour::RecieveMessage(CMessage &message){
-		if(message.GetType() == string("update")){
+		if(message.GetType() == std::string("update")){
 			if(engaged){
 				return;
 			}
@@ -41,11 +41,11 @@ namespace ntai {
 				}
 				delete [] funits;
 			}
-		}else if(message.GetType() == string("unitdestroyed")){
+		}else if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0) == uid){
 				End();
 			}
-		}else if(message.GetType() == string("unitidle")){
+		}else if(message.GetType() == std::string("unitidle")){
 			if(message.GetParameter(0) == uid){
 				engaged=false;
 			}

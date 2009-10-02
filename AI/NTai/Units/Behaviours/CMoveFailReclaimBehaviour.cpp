@@ -24,7 +24,7 @@ namespace ntai {
 	}
 
 	void CMoveFailReclaimBehaviour::RecieveMessage(CMessage &message){
-		if(message.GetType() == string("unitmovefailed")){
+		if(message.GetType() == std::string("unitmovefailed")){
 			if(message.GetParameter(0) == uid){
 				int* f = new int[2];
 				int i = G->cb->GetFeatures(f,1,G->GetUnitPos(uid),100.0f);
@@ -33,7 +33,7 @@ namespace ntai {
 					G->Actions->AreaReclaim(uid,G->GetUnitPos(uid),100);
 				}
 			}
-		}else if(message.GetType() == string("unitdestroyed")){
+		}else if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0)== uid){
 				End();
 			}

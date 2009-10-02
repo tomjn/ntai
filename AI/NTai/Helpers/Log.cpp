@@ -22,11 +22,11 @@ namespace ntai {
 		}
 	}
 
-	string Log::FrameTime(){
+	std::string Log::FrameTime(){
 		return " < Frame: " + to_string(G->cb->GetCurrentFrame()) + " >";
 	}
 
-	string Log::GameTime(){
+	std::string Log::GameTime(){
 		int Time = G->cb->GetCurrentFrame();
 		Time = Time/30;
 		int Seconds = Time%60;
@@ -36,7 +36,7 @@ namespace ntai {
 		if(Seconds+Minutes+hours == 0){
 			return "[-]";
 		}
-		string stime="[";
+		std::string stime="[";
 		if(hours>0){
 			if(hours<10) stime += "0";
 			stime += to_string(hours);
@@ -60,12 +60,12 @@ namespace ntai {
 		return First;
 	}
 
-	string GetSysTime(){
+	std::string GetSysTime(){
 		time_t now1;
 		time(&now1);//struct
 		tm *now2;
 		now2 = localtime(&now1);
-		string s = string("|")+to_string(now2->tm_hour)+ string(":")+ to_string(now2->tm_min)+string(":")+ to_string(now2->tm_sec)+string("|");
+		std::string s = std::string("|")+to_string(now2->tm_hour)+ std::string(":")+ to_string(now2->tm_min)+std::string(":")+ to_string(now2->tm_sec)+std::string("|");
 		return s;
 	}
 
@@ -82,7 +82,7 @@ namespace ntai {
 			time(&now1);
 			struct tm *now2;
 			now2 = localtime(&now1);
-			string filename = G->info->datapath + slash + "Logs" + slash;
+			std::string filename = G->info->datapath + slash + "Logs" + slash;
 
 			//             DDD MMM DD HH:MM:SS YYYY_X - NTAI.log
 			filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE9.79.log";
@@ -97,48 +97,48 @@ namespace ntai {
 				logFile.close();
 				logFile.open(buffer);
 				if(logFile.is_open() == false){
-					iprint(string("Error!!! ") + filename + string(" refused to open!"));
+					iprint(std::string("Error!!! ") + filename + std::string(" refused to open!"));
 					verbose = true;
 					return;
 				}
 			}
-			header(" :: NTAI XE9.79 Log File \n :: Programmed and maintained by AF/T.Nowell \n :: Copyright (C) 2004-7 Tom Nowell/AF \n");
-			logFile << " :: Game started: " << now2->tm_mday << "." << now2->tm_mon << "." << 1900 + now2->tm_year << "  " << now2->tm_hour << ":" << now2->tm_min << ":" << now2->tm_sec << endl << endl <<  flush;
+			header(" :: NTAI XE9.9+ Log File \n :: Programmed and maintained by AF/T.Nowell \n :: Copyright (C) 2004 Tom Nowell/AF \n");
+			logFile << " :: Game started: " << now2->tm_mday << "." << now2->tm_mon << "." << 1900 + now2->tm_year << "  " << now2->tm_hour << ":" << now2->tm_min << ":" << now2->tm_sec << std::endl << std::endl <<  std::flush;
 			TdfParser cp(G);
 			cp.LoadFile("modinfo.tdf");
-			logFile << " :: " << cp.SGetValueMSG("MOD\\Name") << endl <<  flush;
-			logFile << " :: " << cp.SGetValueMSG("MOD\\Description") << endl <<  flush;
-			if(First == true) logFile << " :: First instance of NTAI" << endl;
+			logFile << " :: " << cp.SGetValueMSG("MOD\\Name") << std::endl <<  std::flush;
+			logFile << " :: " << cp.SGetValueMSG("MOD\\Description") << std::endl <<  std::flush;
+			if(First == true) logFile << " :: First instance of NTAI" << std::endl;
 			startupscript = new TdfParser(G);
 			startupscript->LoadFile("script.txt");
-			vector<string> names;
+			std::vector<std::string> names;
 			for(int n=0; n<MAX_TEAMS; n++){
-				string s = startupscript->SGetValueDef("", string("GAME\\PLAYER") + to_string(n) + "\\name");
-				if(s != string("")){
+				std::string s = startupscript->SGetValueDef("", std::string("GAME\\PLAYER") + to_string(n) + "\\name");
+				if(s != std::string("")){
 					names.push_back(s + " : player :: " + to_string(n));
 					PlayerNames[n] = s;
 				} else{
 					PlayerNames[n] = "spring_engine";
 				}
-				logFile << " :: " << PlayerNames[n] << endl;
+				logFile << " :: " << PlayerNames[n] << std::endl;
 			}
-			logFile << " :: AI DLL's in game" << endl <<  flush;
-			vector<string> AInames;
+			logFile << " :: AI DLL's in game" << std::endl <<  std::flush;
+			std::vector<std::string> AInames;
 			for(int n=0; n<MAX_TEAMS; n++){
-				string s = startupscript->SGetValueDef("", string("GAME\\TEAM") + to_string(n) + "\\AIDLL");
-				if(s != string("")){
+				std::string s = startupscript->SGetValueDef("", std::string("GAME\\TEAM") + to_string(n) + "\\AIDLL");
+				if(s != std::string("")){
 					AInames.push_back(s + " : AI :: " + to_string(n));
-					logFile << " :: "<<s << " : AI :: " << to_string(n) << endl <<  flush;
+					logFile << " :: "<<s << " : AI :: " << to_string(n) << std::endl <<  std::flush;
 				}
 			}
-			logFile << endl <<  flush;
+			logFile << std::endl <<  std::flush;
 		}else{ // HTML logging
 			char c[400];
 			time_t now1;
 			time(&now1);
 			struct tm *now2;
 			now2 = localtime(&now1);
-			string filename = G->info->tdfpath;
+			std::string filename = G->info->tdfpath;
 			filename += slash;
 			filename += "Logs";
 			filename += slash;
@@ -151,7 +151,7 @@ namespace ntai {
 			G->cb->GetValue(AIVAL_LOCATE_FILE_W, buffer);
 			logFile.open(buffer);
 			plaintext = false;
-			string mu ="</table><style type='text/css'>\n<!--\nbody,td,th {\n	font-family: sans-serif;\n	color: #111111;\nfont-size: 12px;\n\n}\nbody {\n	background-color: #FFFFFF;\n\n}\n.c {color: #FF2222}\n.e {color: #FFCC11}\n-->\n</style>\n";
+			std::string mu ="</table><style type='text/css'>\n<!--\nbody,td,th {\n	font-family: sans-serif;\n	color: #111111;\nfont-size: 12px;\n\n}\nbody {\n	background-color: #FFFFFF;\n\n}\n.c {color: #FF2222}\n.e {color: #FFCC11}\n-->\n</style>\n";
 			mu+= "<b><br><br>NTAI XE Log File <br>\n<span class='c'>Programmed and maintained by AF Copyright (C) 2006 AF<br>\nReleased under the GPL 2.0 Liscence </p></span></b><br> \n<table width='98%'border='0' cellpadding='0' cellspacing='0' bordercolor='#999999'>\n";
 			header(mu);
 			time_t tval;
@@ -162,18 +162,18 @@ namespace ntai {
 			print(buf);
 			TdfParser cp(G);
 			cp.LoadFile("modinfo.tdf");
-			logFile << " :: " << cp.SGetValueMSG("MOD\\Name") << endl <<  flush;
-			if(First == true) logFile << " :: First instance of NTAI" << endl <<  flush;
+			logFile << " :: " << cp.SGetValueMSG("MOD\\Name") << std::endl <<  std::flush;
+			if(First == true) logFile << " :: First instance of NTai" << std::endl <<  std::flush;
 		}
 	}
 
-	void Log::print(string message){
+	void Log::print(std::string message){
 		if(message.empty() == true) return;
 		if (!G) {
 			CLOG(message);
 			return;
 		}
-		string gtime;
+		std::string gtime;
 		if(plaintext == true){
 			gtime = GameTime() + GetSysTime() +FrameTime() + message + "\n";
 		}else{
@@ -182,27 +182,27 @@ namespace ntai {
 		header(gtime);
 	}
 
-	void Log::header(string message){
+	void Log::header(std::string message){
 		if(message.empty() == true) return;
 		if(verbose == true){
 			G->cb->SendTextMsg(message.c_str(), 1);
 		}
-		string gtime="";
+		std::string gtime="";
 		if(plaintext == true){
 			gtime = message;
 		}else{
-			gtime = string("\n<tr><th width='100%' scope='row'><b>") + message + string("</th></tr>\n");
+			gtime = std::string("\n<tr><th width='100%' scope='row'><b>") + message + std::string("</th></tr>\n");
 		}
 		if (logFile.is_open() == true){
 	#ifdef TNLOG
-			cout << gtime << endl<< flush;
-	#endif
-	logFile << gtime << flush;
+			cout << gtime << std::endl << std::flush;
+#endif
+	logFile << gtime << std::flush;
 		}
 	}
 
-	void Log::iprint(string message){
-		string gtime = GameTime() + message;
+	void Log::iprint(std::string message){
+		std::string gtime = GameTime() + message;
 		G->cb->SendTextMsg(gtime.c_str(), 1);
 		print(message);
 	}
@@ -225,9 +225,9 @@ namespace ntai {
 		}
 	}
 
-	void Log::Message(string msg, int player){
+	void Log::Message(std::string msg, int player){
 		if(plaintext == true){
-			string m = "[" + PlayerNames[player] + "] " + GameTime() + FrameTime() +  " :: " + msg + "\n";
+			std::string m = "[" + PlayerNames[player] + "] " + GameTime() + FrameTime() +  " :: " + msg + "\n";
 			header(m);
 			return;
 		}else{
@@ -235,14 +235,14 @@ namespace ntai {
 		}
 	}
 
-	void Log::eprint(string message){
+	void Log::eprint(std::string message){
 		if(plaintext == true){
 			G->cb->SendTextMsg(message.c_str(), 3);
 			print(message);
 			return;
 		} else{
 			G->cb->SendTextMsg(message.c_str(), 1000);
-			string msg = "<span class='e'>" + message + "</span>";
+			std::string msg = "<span class='e'>" + message + "</span>";
 			print(msg);
 		}
 	}
@@ -252,18 +252,18 @@ namespace ntai {
 		return *this;
 	}
 
-	Log& Log::operator<< (string s){
+	Log& Log::operator<< (std::string s){
 		this->header(s);
 		return *this;
 	}
 
 	Log& Log::operator<< (int i){
-		string s = to_string(i);
+		std::string s = to_string(i);
 		header(s);
 		return *this;
 	}
 	Log& Log::operator<< (uint i){
-		string s = to_string(i);
+		std::string s = to_string(i);
 		header(s);
 		return *this;
 	}

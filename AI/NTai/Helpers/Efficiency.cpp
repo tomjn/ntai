@@ -53,11 +53,11 @@ namespace ntai {
 
 				float e = efficiency[ud->GetName()];
 				
-				set<string> alreadydone;
+				std::set<std::string> alreadydone;
 				alreadydone.insert(ud->GetName());
 
 				if(!ud->GetUnitDef()->buildOptions.empty()){
-					for(std::map<int, string>::const_iterator i = ud->GetUnitDef()->buildOptions.begin();i != ud->GetUnitDef()->buildOptions.end(); ++i){
+					for(std::map<int, std::string>::const_iterator i = ud->GetUnitDef()->buildOptions.begin();i != ud->GetUnitDef()->buildOptions.end(); ++i){
 						alreadydone.insert(i->second);
 						e += efficiency[s];
 					}
@@ -85,7 +85,7 @@ namespace ntai {
 		//
 	}
 
-	float CEfficiency::GetEfficiency(std::string s, std::set<string>& doneconstructors, int techlevel){
+	float CEfficiency::GetEfficiency(std::string s, std::set<std::string>& doneconstructors, int techlevel){
 
 		CUnitTypeData* ud = this->G->UnitDefLoader->GetUnitTypeDataByName(s);
 
@@ -107,7 +107,7 @@ namespace ntai {
 				
 				doneconstructors.insert(ud->GetName());
 
-				for(std::map<int, string>::const_iterator i = ud->GetUnitDef()->buildOptions.begin();i != ud->GetUnitDef()->buildOptions.end(); ++i){
+				for(std::map<int, std::string>::const_iterator i = ud->GetUnitDef()->buildOptions.begin();i != ud->GetUnitDef()->buildOptions.end(); ++i){
 					CUnitTypeData* ud2 = G->UnitDefLoader->GetUnitTypeDataByName(i->second);
 
 					if(doneconstructors.find(i->second)==doneconstructors.end()){
@@ -218,8 +218,8 @@ namespace ntai {
 				cq.LoadBuffer(buffer->c_str(), buffer->size());
 				iterations = atoi(cq.SGetValueDef("1", "AI\\iterations").c_str());
 
-				for(map<string, float>::iterator i = efficiency.begin(); i != efficiency.end(); ++i){
-					string s = "AI\\";
+				for(std::map<std::string, float>::iterator i = efficiency.begin(); i != efficiency.end(); ++i){
+					std::string s = "AI\\";
 					s += i->first;
 					float ank = (float)atof(cq.SGetValueDef("14", s.c_str()).c_str());
 					if(ank > i->second) i->second = ank;
@@ -234,7 +234,7 @@ namespace ntai {
 					G->L.iprint(" This is the first time this mod has been loaded, up. Take this first game to train NTai up, and be careful of throwing the same units at it over and over again");
 					firstload = false;
 
-					for(map<string, float>::iterator i = efficiency.begin(); i != efficiency.end(); ++i){
+					for(std::map<std::string, float>::iterator i = efficiency.begin(); i != efficiency.end(); ++i){
 						CUnitTypeData* uda = G->UnitDefLoader->GetUnitTypeDataByName(i->first);
 						if(uda){
 							i->second += uda->GetUnitDef()->health;
@@ -287,31 +287,31 @@ namespace ntai {
 			off.open(filename.c_str());
 
 			if(off.is_open() == true){
-				off << "[AI]" << endl << "{" << endl << "    // " << AI_NAME << " AF :: unit efficiency cache file" << std::endl << std::endl;
+				off << "[AI]" << std::endl << "{" << std::endl << "    // " << AI_NAME << " AF :: unit efficiency cache file" << std::endl << std::endl;
 
 				off << "    version=XE10;" << std::endl;
 				off << "    firstload=" << firstload << ";" << std::endl;
 				off << "    modname=" << G->cb->GetModName() << ";" << std::endl;
 				off << "    iterations=" << iterations << ";" << std::endl;
-				off << endl;
+				off << std::endl;
 
 				off << "    [VALUES]" << std::endl << "    {" << std::endl;
 
-				for(std::map<string, float>::const_iterator i = efficiency.begin(); i != efficiency.end(); ++i){
+				for(std::map<std::string, float>::const_iterator i = efficiency.begin(); i != efficiency.end(); ++i){
 					off << "        "<< i->first << "=" << i->second << ";    // " << unit_names[i->first] << " :: "<< unit_descriptions[i->first]<< std::endl;
 				}
-				off << "    }" << endl;
-				off << "    [NAMES]" << endl << "    {"<< std::endl;
+				off << "    }" << std::endl;
+				off << "    [NAMES]" << std::endl << "    {"<< std::endl;
 
-				for(std::map<string, float>::const_iterator i = efficiency.begin(); i != efficiency.end(); ++i){
+				for(std::map<std::string, float>::const_iterator i = efficiency.begin(); i != efficiency.end(); ++i){
 					off << "        "<< i->first << "=" << unit_names[i->first] << ";" << std::endl;
 				}
 
 				off << "    }" << std::endl;
 
-				off << "    [DESCRIPTIONS]" << endl << "    {" << std::endl;
+				off << "    [DESCRIPTIONS]" << std::endl << "    {" << std::endl;
 
-				for(std::map<string, float>::const_iterator i = efficiency.begin(); i != efficiency.end(); ++i){
+				for(std::map<std::string, float>::const_iterator i = efficiency.begin(); i != efficiency.end(); ++i){
 					off << "        "<< i->first << "=" << unit_descriptions[i->first] << ";"<< std::endl;
 				}
 

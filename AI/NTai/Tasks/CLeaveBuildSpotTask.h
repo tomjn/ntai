@@ -7,7 +7,7 @@ namespace ntai {
 		bool Init();
 		void End();
 	protected:
-		string mymessage;
+		std::string mymessage;
 		int unit;
 		CUnitTypeData* utd;
 	};

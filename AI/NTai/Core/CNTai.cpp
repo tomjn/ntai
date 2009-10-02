@@ -257,10 +257,10 @@ namespace ntai {
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 	void CNTai::GotChatMsg(const char* msg,int player){
-		if(string(msg) == string(".freeze")){
+		if(std::string(msg) == std::string(".freeze")){
 			Good=false;
 			return;
-		}else if(string(msg)==string(".unfreeze")){
+		}else if(std::string(msg)==std::string(".unfreeze")){
 			Good=true;
 		}
 		if(Good == false) return;

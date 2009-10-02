@@ -16,8 +16,7 @@ namespace ntai {
 
 		const unsigned short* losmap;
 		int losmapres;
-		set<int> enemies; // enemies in LOS
-		//vector<ctri> triangles; // contains all the triangle markers being displayed on map
+		std::set<int> enemies; // enemies in LOS
 
 		bool cheating;
 
@@ -31,7 +30,6 @@ namespace ntai {
 		int* encache;// cached enemy positions to speed up the process of calling the callback interface for the same data so many times
 		unsigned int enemy_number; // the number of cached enemy positions
 		int lastcacheupdate; // when the cached enemy positions where last updated
-		//set<int> cloaked_units;
 	};
 
 }

@@ -27,31 +27,31 @@ namespace ntai {
 	}
 
 	void CBuildingPlacer::RecieveMessage(CMessage &message){
-		if(message.GetType()==string("unitcreated")){
+		if(message.GetType()==std::string("unitcreated")){
 			int uid = (int)message.GetParameter(0);
 			float3 p = G->GetUnitPos(uid);
 			if(this->tempgeo.empty()==false){
-				for(map<int, float3>::iterator i = tempgeo.begin(); i != tempgeo.end(); ++i){
+				for(std::map<int, float3>::iterator i = tempgeo.begin(); i != tempgeo.end(); ++i){
 					if(i->second.distance2D(p) < 50){
 						tempgeo.erase(i);
 						break;
 					}
 				}
 			}
-		}else if(message.GetType()==string("unitdestroyed")){
+		}else if(message.GetType()==std::string("unitdestroyed")){
 			int uid = (int)message.GetParameter(0);
 			tempgeo.erase(uid);
-		}else if(message.GetType()==string("unitidle")){
+		}else if(message.GetType()==std::string("unitidle")){
 			int uid = (int)message.GetParameter(0);
 			tempgeo.erase(uid);
 		}
-		if(message.GetType()==string("update")){
+		if(message.GetType()==std::string("update")){
 			if(G->L.IsVerbose()){
 				if(message.GetFrame()%35 == 0){
-					map<int, boost::shared_ptr<CGridCell> > n = blockingmap.GetGrid();
+					std::map<int, CGridCell* > n = blockingmap.GetGrid();
 					if(!n.empty()){
-						for(map<int, boost::shared_ptr<CGridCell> >::iterator i = n.begin(); i != n.end(); ++i){
-							boost::shared_ptr<CGridCell> c = i->second;
+						for(std::map<int, CGridCell* >::iterator i = n.begin(); i != n.end(); ++i){
+							CGridCell* c = i->second;
 							int j = c->GetIndex();
 							float3 pos = blockingmap.GridtoMap(blockingmap.IndextoGrid(j));
 							pos.y = G->cb->GetElevation(pos.x, pos.z);
@@ -154,13 +154,13 @@ namespace ntai {
 		CUBuild b;
 		b.Init(G, builder, 0);
 		int e=0;
-		vector<float3> cells = blockingmap->GetCellsInRadius(builderpos, search_radius, e);
+		std::vector<float3> cells = blockingmap->GetCellsInRadius(builderpos, search_radius, e);
 
 		if(!cells.empty()){
 
 			bestDistance = freespace+2001;
 
-			for(vector<float3>::iterator i = cells.begin(); i != cells.end(); ++i){// for each cell
+			for(std::vector<float3>::iterator i = cells.begin(); i != cells.end(); ++i){// for each cell
 
 				if(!valid){
 					bestPosition = UpVector;
@@ -192,12 +192,12 @@ namespace ntai {
 					bool good = true;
 
 					// check our blocking map
-					vector<float3> cells2 = blockingmap->GetCellsInRadius(mpos, freespace);
+					std::vector<float3> cells2 = blockingmap->GetCellsInRadius(mpos, freespace);
 
 					if(!cells2.empty()){
 
 						//for each cell
-						for(vector<float3>::iterator i2 = cells2.begin(); i2 != cells2.end(); ++i2){
+						for(std::vector<float3>::iterator i2 = cells2.begin(); i2 != cells2.end(); ++i2){
 
 							if (blockingmap->GetValuebyGrid(*i2) == 3){
 
@@ -237,7 +237,7 @@ namespace ntai {
 		}else{
 
 			// no surrounding cells?! assign an error value
-			string es = "no cells: "+to_string(e);
+			std::string es = "no cells: "+to_string(e);
 			G->L.iprint(es);
 
 			bestPosition= UpVector;
@@ -250,7 +250,7 @@ namespace ntai {
 			// its valid so convert to a map position
 			bestPosition = blockingmap->GridtoMap(bestPosition);
 		}else{
-			string es = "bad pos(1)"+to_string(e);
+			std::string es = "bad pos(1)"+to_string(e);
 			G->L.iprint(es);
 
 			// its invalid so assign an error value
@@ -301,7 +301,7 @@ namespace ntai {
 			}
 			if(!G->Manufacturer->BPlans->empty()){
 				// find any plans for mexes very close to here.... If so change position to match if the same, if its a better mex then cancel existing plan and continue as normal.
-				for(deque<CBPlan* >::iterator k = G->Manufacturer->BPlans->begin(); k != G->Manufacturer->BPlans->end(); ++k){
+				for(std::deque<CBPlan* >::iterator k = G->Manufacturer->BPlans->begin(); k != G->Manufacturer->BPlans->end(); ++k){
 					//
 					CBPlan* i = (*k);
 					if(i->utd->IsMex()){
@@ -348,7 +348,7 @@ namespace ntai {
 			if(G->DTHandler->DTNeeded()){
 				q = G->DTHandler->GetDTBuildSite(builderpos);
 				if(G->Map->CheckFloat3(q) == false){
-					G->L.print(string("zero DT co-ordinates intercepted :: ")+ to_string(q.x) + string(",")+to_string(q.y)+string(",")+to_string(q.z));
+					G->L.print(std::string("zero DT co-ordinates intercepted :: ")+ to_string(q.x) + std::string(",")+to_string(q.y)+std::string(",")+to_string(q.z));
 					q = UpVector;
 				}else if(builder->IsHub()&&(builder->GetUnitDef()->buildDistance < q.distance2D(builderpos))){
 					q = UpVector;
@@ -362,7 +362,7 @@ namespace ntai {
 			reciever->RecieveMessage(m);
 
 			return;
-		} else if((building->GetUnitDef()->type == string("Building"))&&(!building->GetUnitDef()->builder)&&building->GetUnitDef()->weapons.empty()&&(building->GetUnitDef()->radarRadius > 100)){ // Radar!
+		} else if((building->GetUnitDef()->type == std::string("Building"))&&(!building->GetUnitDef()->builder)&&building->GetUnitDef()->weapons.empty()&&(building->GetUnitDef()->radarRadius > 100)){ // Radar!
 	        
 			if(builder->IsHub()){
 				q = G->RadarHandler->NextSite(builderpos, building->GetUnitDef(), (int)builder->GetUnitDef()->buildDistance);
@@ -371,7 +371,7 @@ namespace ntai {
 			}
 
 			if(G->Map->CheckFloat3(q) == false){
-				G->L.print(string("zero radar placement co-ordinates intercepted  :: ")+ to_string(q.x) + string(",")+to_string(q.y)+string(",")+to_string(q.z));
+				G->L.print(std::string("zero radar placement co-ordinates intercepted  :: ")+ to_string(q.x) + std::string(",")+to_string(q.y)+std::string(",")+to_string(q.z));
 	            
 				q = UpVector;
 
@@ -407,11 +407,11 @@ namespace ntai {
 				float nearest_dist = 10000000;
 				int* a = new int[20000];
 
-				for(vector<float3>::iterator it = geolist.begin(); it != geolist.end(); ++it){
+				for(std::vector<float3>::iterator it = geolist.begin(); it != geolist.end(); ++it){
 					float d = it->distance2D(builderpos);
 					if(d < nearest_dist){
 						if(tempgeo.empty()==false){
-							for(map<int, float3>::iterator i = tempgeo.begin(); i != tempgeo.end(); ++i){
+							for(std::map<int, float3>::iterator i = tempgeo.begin(); i != tempgeo.end(); ++i){
 								if(i->second.distance2D((*it)) < 100){
 									continue;
 								}

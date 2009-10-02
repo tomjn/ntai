@@ -27,7 +27,7 @@ namespace ntai {
 		// Set up the values that need the passed parameters
 		this->ud = ud;
 		this->G = G;
-		string n = ud->name;
+		std::string n = ud->name;
 		trim(n);
 		tolowercase(n);
 		this->unit_name = n;
@@ -42,12 +42,12 @@ namespace ntai {
 		// precalc wether this unit type is an attacker
 		if(G->info->dynamic_selection == false){
 			attacker = false;
-			vector<string> v;
+			std::vector<std::string> v;
 			CTokenizer<CIsComma>::Tokenize(v, G->Get_mod_tdf()->SGetValueMSG("AI\\attackers"), CIsComma());
 			//v = bds::set_cont(v,G->Get_mod_tdf()->SGetValueMSG("AI\\attackers"));
 			if(v.empty() == false){
-				for(vector<string>::iterator vi = v.begin(); vi != v.end(); ++vi){
-					string v = *vi;
+				for(std::vector<std::string>::iterator vi = v.begin(); vi != v.end(); ++vi){
+					std::string v = *vi;
 					tolowercase(v);
 					trim(v);
 					if(v == GetName()){
@@ -81,7 +81,7 @@ namespace ntai {
 		// dgun stuff
 		canDGun = ud->canDGun;
 		if(canDGun){
-			for(vector<UnitDef::UnitDefWeapon>::const_iterator k = ud->weapons.begin();k != ud->weapons.end();++k){
+			for(std::vector<UnitDef::UnitDefWeapon>::const_iterator k = ud->weapons.begin();k != ud->weapons.end();++k){
 				if(k->def->manualfire){
 					dgunCost = k->def->energycost;
 					break;
@@ -112,7 +112,7 @@ namespace ntai {
 		return ud;
 	}
 
-	string CUnitTypeData::GetName(){
+	std::string CUnitTypeData::GetName(){
 		return unit_name;
 	}
 
@@ -147,19 +147,19 @@ namespace ntai {
 	bool CUnitTypeData::IsFactory(){
 		if(ud == 0) return false;
 		//if(ud->buildOptions.empty()== true) return false;
-		if(ud->type == string("Factory")) return true;
+		if(ud->type == std::string("Factory")) return true;
 		return false;//(ud->builder && (IsMobile(ud)==false));
 	}
 
 	bool CUnitTypeData::IsHub(){
 		if(ud == 0) return false;
 		//if(ud->buildOptions.empty()) return false;
-		return ((ud->type == string("Builder"))&&(!IsMobile()));
+		return ((ud->type == std::string("Builder"))&&(!IsMobile()));
 	}
 
 	bool CUnitTypeData::IsMex(){
 		if(ud == 0) return false;
-		if(ud->type == string("MetalExtractor")){
+		if(ud->type == std::string("MetalExtractor")){
 			return true;
 		}
 		return false;
@@ -175,22 +175,22 @@ namespace ntai {
 
 	bool CUnitTypeData::IsAirCraft(){
 		if(ud == 0) return false;
-		if(ud->type == string("Fighter"))	return true;
-		if(ud->type == string("Bomber"))	return true;
+		if(ud->type == std::string("Fighter"))	return true;
+		if(ud->type == std::string("Bomber"))	return true;
 		if((ud->canfly==true)&&(ud->movedata == 0)) return true;
 		return false;
 	}
 
 	bool CUnitTypeData::IsGunship(){
 		if(ud == 0) return false;
-		if(ud->type == string("Bomber"))	return false;
+		if(ud->type == std::string("Bomber"))	return false;
 		if(IsAirCraft()&&ud->hoverAttack) return true;
 		return false;
 	}
 
 	bool CUnitTypeData::IsFighter(){
 		if(ud == 0) return false;
-		if(ud->type == string("Bomber"))	return false;
+		if(ud->type == std::string("Bomber"))	return false;
 		if(ud->builder)	return false;
 		if(IsAirCraft()&&(ud->hoverAttack == false)) return true;
 		return false;
@@ -198,7 +198,7 @@ namespace ntai {
 
 	bool CUnitTypeData::IsBomber(){
 		if(ud == 0) return false;
-		if(IsAirCraft()&&(ud->type == string("Bomber"))) return true;
+		if(IsAirCraft()&&(ud->type == std::string("Bomber"))) return true;
 		return false;
 	}
 

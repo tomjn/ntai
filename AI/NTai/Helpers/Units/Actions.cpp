@@ -153,7 +153,7 @@ bool CActions::Repair(int uid, int unit){
 
                     // add this builder to the appropriate plan
                     if(!G->Manufacturer->BPlans->empty()){
-                        for(deque<CBPlan* >::iterator i = G->Manufacturer->BPlans->begin(); i != G->Manufacturer->BPlans->end(); ++i){
+                        for(std::deque<CBPlan* >::iterator i = G->Manufacturer->BPlans->begin(); i != G->Manufacturer->BPlans->end(); ++i){
                             if((*i)->subject == unit){
 								(*i)->AddBuilder(uid);
                                 break;
@@ -913,7 +913,7 @@ bool CActions::SeekOutNearestInterest(int unit){
         float3 destination = UpVector;
         float shortest = 2000000.0f;
 
-        for(vector<float3>::iterator i = points.begin(); i != points.end(); ++i){
+        for(std::vector<float3>::iterator i = points.begin(); i != points.end(); ++i){
             if(pos.distance2D(*i) < shortest){
                 destination = *i;
             }
@@ -951,9 +951,9 @@ bool CActions::SeekOutInterest(int unit, float range){
 		return false;
 	}
 
-    vector<float3> in_range;
+    std::vector<float3> in_range;
 
-    for(vector<float3>::iterator i = points.begin(); i != points.end(); ++i){
+    for(std::vector<float3>::iterator i = points.begin(); i != points.end(); ++i){
         if(pos.distance2D(*i) < range){
             in_range.push_back(*i);
 
@@ -967,7 +967,7 @@ bool CActions::SeekOutInterest(int unit, float range){
 
         float shortest = 2000000.0f;
 
-        for(vector<float3>::iterator i = in_range.begin(); i != in_range.end(); ++i){
+        for(std::vector<float3>::iterator i = in_range.begin(); i != in_range.end(); ++i){
             if(pos.distance2D(*i) < shortest){
                 destination = *i;
             }
@@ -1004,7 +1004,7 @@ void CActions::Update(){
         if(!points.empty()){
             NLOG("CActions::Update points");
 
-            for(vector<float3>::iterator i = points.begin(); i!=points.end(); ++i){
+            for(std::vector<float3>::iterator i = points.begin(); i!=points.end(); ++i){
                 if(G->InLOS(*i)==true){
                     int ecount = G->GetEnemyUnits(temp, *i, 300);
                     if(ecount < 1){
@@ -1043,7 +1043,7 @@ bool CActions::Retreat(int uid){
 
 }
 
-bool CActions::CopyAttack(int unit, set<int> tocopy){
+bool CActions::CopyAttack(int unit, std::set<int> tocopy){
     NLOG("CActions::CopyAttack");
     /*float3 p = G->GetUnitPos(unit);
      if(G->Map->CheckFloat3(p)==false){
@@ -1073,7 +1073,7 @@ bool CActions::CopyAttack(int unit, set<int> tocopy){
     return false;
 }
 
-bool CActions::CopyMove(int unit, set<int> tocopy){
+bool CActions::CopyMove(int unit, std::set<int> tocopy){
     NLOG("CActions::CopyMove");
     /*float3 p = G->GetUnitPos(unit);
      if(G->Map->CheckFloat3(p)==false){
@@ -1104,7 +1104,7 @@ bool CActions::CopyMove(int unit, set<int> tocopy){
     return false;
 }
 
-bool CActions::IfNobodyNearMoveToNearest(int uid, set<int> units){
+bool CActions::IfNobodyNearMoveToNearest(int uid, std::set<int> units){
     NLOG("CActions::IfNobodyNearMoveToNearest");
     if(units.empty()) return false;
     float3 pos = G->GetUnitPos(uid);
@@ -1125,7 +1125,7 @@ bool CActions::IfNobodyNearMoveToNearest(int uid, set<int> units){
     delete [] nu;
     float3 best=UpVector;
     float d= 900000.0f;
-    for(set<int>::iterator i = units.begin(); i != units.end(); ++i){
+    for(std::set<int>::iterator i = units.begin(); i != units.end(); ++i){
         if(*i == uid) continue;
         float3 tpos = G->GetUnitPos(*i);
         if(G->Map->CheckFloat3(tpos)==false) continue;

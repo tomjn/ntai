@@ -15,15 +15,12 @@
 #include <set>
 #include <string>
 #include <fstream>
-#include "boost/shared_ptr.hpp"
 #include "CGridCell.h"
-
-using namespace std;
 
 namespace ntai {
 
 	struct cmpCell{
-		bool operator() (boost::shared_ptr<CGridCell> c1, boost::shared_ptr<CGridCell> c2) const{
+		bool operator() (CGridCell* c1, CGridCell* c2) const{
 			return c1->GetValue() > c2->GetValue();
 		}
 	};
@@ -105,8 +102,6 @@ namespace ntai {
 		void Rebuild();// Destroys the grid and recreates it
 		bool IsValid();
 
-
-
 		int GetIndex(float3 Gridpos);
 		float3 IndextoGrid(int Index);
 		float3 GridtoMap(float3 Gridpos);
@@ -138,7 +133,7 @@ namespace ntai {
 		float GetCellHeight();
 		float GetCellWidth();
 
-		map<int,boost::shared_ptr<CGridCell> > GetGrid();
+		std::map<int,CGridCell* > GetGrid();
 
 		void Initialize(float3 MapDimensions, float3 GridSet, bool SizebyCell=true);
 		bool Initialized();
@@ -155,7 +150,7 @@ namespace ntai {
 		void ApplyModifierAtIndex(int Index, float Modifier); // Apply to this GridCell
 
 		int GetHighestIndex();
-		int GetHighestindex(vector<float3> MapPositions);
+		int GetHighestindex(std::vector<float3> MapPositions);
 		int GetHighestindexInRadius(float3 MapPos, float Radius);
 		int GetLowestindexInRadius(float3 MapPos, float Radius);
 
@@ -172,24 +167,24 @@ namespace ntai {
 			return GridDimensions;
 		}
 
-		vector<float3> GetCellsInRadius(float3 MapPos, float Radius);
-		vector<float3> GetCellsInRadius(float3 MapPos, float Radius, int& error_code);
+		std::vector<float3> GetCellsInRadius(float3 MapPos, float Radius);
+		std::vector<float3> GetCellsInRadius(float3 MapPos, float Radius, int& error_code);
 
 		void SetCellsInRadius(float3 MapPos, float Radius, float Value);
 
 		boost::mutex cellmutex;
 	private:
-		boost::shared_ptr<CGridCell> GetCell(int Index);
+		CGridCell* GetCell(int Index);
 		bool IsInitialized;
 
-		std::map<int,boost::shared_ptr<CGridCell> > grid;
-		std::set<boost::shared_ptr<CGridCell>,cmpCell> sortedcells;
+		std::map<int,CGridCell* > grid;
+		std::set<CGridCell*,cmpCell> sortedcells;
 
 		float3 MapDimensions;
 		float3 GridDimensions;
 		float3 CellDimensions;
 
-		boost::shared_ptr<CGridCell> DefaultCell;
+		CGridCell* DefaultCell;
 		float3 CellErrorPos;
 		int GameFrame;
 		float UpdateModifier;

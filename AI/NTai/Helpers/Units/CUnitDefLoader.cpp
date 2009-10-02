@@ -62,7 +62,7 @@ namespace ntai {
 			//if(pud == 0) continue;
 
 			// make sure the name is in the correct format and add it to the map container
-			string na = pud->name;
+			std::string na = pud->name;
 			trim(na);
 			tolowercase(na);
 			defs[na] = pud->id;
@@ -83,13 +83,13 @@ namespace ntai {
 		return UnitDefList[i];
 	}
 
-	const UnitDef* CUnitDefLoader::GetUnitDef(string name) const{
-		string n = name;
+	const UnitDef* CUnitDefLoader::GetUnitDef(std::string name) const{
+		std::string n = name;
 
 		trim(n);
 		tolowercase(n);
 
-		std::map<string,int>::const_iterator it = defs.find(n);
+		std::map<std::string,int>::const_iterator it = defs.find(n);
 
 		if(it != defs.end()){
 			const UnitDef* u = GetUnitDefByIndex(it->second);
@@ -123,20 +123,20 @@ namespace ntai {
 		}
 	}
 
-	CUnitTypeData* CUnitDefLoader::GetUnitTypeDataByName(string name) const{
+	CUnitTypeData* CUnitDefLoader::GetUnitTypeDataByName(std::string name) const{
 		//
 		int id = GetIdByName(name);
 		return GetUnitTypeDataById(id);
 	}
 
-	int CUnitDefLoader::GetIdByName(string name) const{
+	int CUnitDefLoader::GetIdByName(std::string name) const{
 		//
-		string n = name;
+		std::string n = name;
 		
 		trim(n);
 		tolowercase(n);
 
-		std::map<string,int>::const_iterator it = defs.find(n);
+		std::map<std::string,int>::const_iterator it = defs.find(n);
 		
 		if(it != defs.end()){
 			return it->second;
@@ -145,9 +145,9 @@ namespace ntai {
 		}
 	}
 
-	bool CUnitDefLoader::HasUnit(string name) const{
+	bool CUnitDefLoader::HasUnit(std::string name) const{
 		//
-		string n = name;
+		std::string n = name;
 
 		trim(n);
 		tolowercase(n);

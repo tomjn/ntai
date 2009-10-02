@@ -11,7 +11,7 @@ LGPL 2 licence 2004+
 
 
 namespace ntai {
-	map<int,deque<CBPlan* >* > alliedplans;
+	std::map<int,std::deque<CBPlan* >* > alliedplans;
 	uint plancounter=1;
 
 
@@ -355,10 +355,10 @@ namespace ntai {
 		return pos;
 	}*/
 
-	deque<CBPlan* >::iterator CManufacturer::OverlappingPlans(float3 pos,const UnitDef* ud){
+	std::deque<CBPlan* >::iterator CManufacturer::OverlappingPlans(float3 pos,const UnitDef* ud){
 		NLOG("CManufacturer::OverlappingPlans");
 		if(!BPlans->empty()){
-			for(deque<CBPlan* >::iterator i = BPlans->begin(); i != BPlans->end(); ++i){
+			for(std::deque<CBPlan* >::iterator i = BPlans->begin(); i != BPlans->end(); ++i){
 				if((*i)->utd->GetUnitDef()->name != ud->name){
 					if(pos.distance2D((*i)->pos) < (*i)->radius+(max(ud->zsize,ud->xsize)*8)){
 						return i;
@@ -593,9 +593,9 @@ namespace ntai {
 
 	void CManufacturer::RecieveMessage(CMessage &message){
 		//G->L.iprint("RecievedMessage");
-		if(message.GetType() == string("update")){
+		if(message.GetType() == std::string("update")){
 			Update();
-		}else if(message.GetType() == string("unitidle")){
+		}else if(message.GetType() == std::string("unitidle")){
 			//G->L.iprint("RecievedupdateMessage");
 			UnitIdle((int)message.GetParameter(0));
 		}
@@ -605,7 +605,7 @@ namespace ntai {
 		NLOG("CManufacturer::Init");
 		NLOG("Loading MetaTags");
 
-		BPlans = new deque<CBPlan* >();
+		BPlans = new std::deque<CBPlan* >();
 
 		NLOG("Registering TaskTypes");
 		RegisterTaskTypes();
@@ -624,7 +624,7 @@ namespace ntai {
 			//
 			float3 upos = G->GetUnitPos(uid);
 			if(upos != UpVector){
-				for(deque<CBPlan* >::iterator k = BPlans->begin(); k != BPlans->end();++k){
+				for(std::deque<CBPlan* >::iterator k = BPlans->begin(); k != BPlans->end();++k){
 					CBPlan* i = *k;
 					if(i->pos.distance2D(upos)<i->radius*1.5f){
 						const UnitDef* ud = G->GetUnitDef(uid);
@@ -649,7 +649,7 @@ namespace ntai {
 		}
 
 		if(BPlans->empty() == false){
-			for(deque<CBPlan* >::iterator i = BPlans->begin(); i != BPlans->end(); ++i){
+			for(std::deque<CBPlan* >::iterator i = BPlans->begin(); i != BPlans->end(); ++i){
 				if((*i)->subject == uid){
 					if(!(*i)->inFactory){
 						G->Actions->ScheduleIdle(uid);
@@ -756,7 +756,7 @@ namespace ntai {
 		NLOG("CManufacturer::UnitDestroyed");
 		//get rid of CBuilder, destroy plans needing this unit
 		if(BPlans->empty() == false){
-			for(deque<CBPlan* >::iterator i = BPlans->begin(); i != BPlans->end(); ++i){
+			for(std::deque<CBPlan* >::iterator i = BPlans->begin(); i != BPlans->end(); ++i){
 				if((*i)->subject == uid){
 					delete (*i);
 					BPlans->erase(i);
@@ -786,13 +786,13 @@ namespace ntai {
 			// iterate through all the plans and print out their positions and helping builders to verify that the plan system is actually working
 			// and keeping track of construction....
 			if(!BPlans->empty() && G->L.IsVerbose()){
-				for(deque<CBPlan* >::iterator i =  BPlans->begin(); i != BPlans->end(); ++i){
+				for(std::deque<CBPlan* >::iterator i =  BPlans->begin(); i != BPlans->end(); ++i){
 					if((*i)->HasBuilders()){
 						//for(set<int>::iterator j = i->builders.begin(); j != i->builders.end(); ++j){
 							float3 bpos = (*i)->pos;//G->GetUnitPos(*j);
 							float3 upos = bpos + float3(0,100,0);
 							int q = G->cb->CreateLineFigure(upos,(*i)->pos,15,1,30,0);
-							string s = "GAME\\TEAM" + to_string(G->Cached->team) + "\\RGBColor";
+							std::string s = "GAME\\TEAM" + to_string(G->Cached->team) + "\\RGBColor";
 							//char ck[60];
 							//sprintf(ck,"GAME\\TEAM%i\\RGBColor",G->Cached->team);
 							float3 r = G->L.startupscript->GetFloat3(ZeroVector,s.c_str());
@@ -802,7 +802,7 @@ namespace ntai {
 							SkyWrite k(G->cb);
 							float3 jpos = (*i)->pos;
 							jpos.x+= (*i)->radius/2 +10;
-							string v = to_string(w)+"::"+to_string((*i)->started);
+							std::string v = to_string(w)+"::"+to_string((*i)->started);
 							k.Write(v,jpos,15,10,30,r.x,r.y,r.z);
 						//}
 					}
@@ -814,7 +814,7 @@ namespace ntai {
 	}
 
 	//af CManufacturer::RegisterTaskPair
-	void CManufacturer::RegisterTaskPair(string name, btype type){
+	void CManufacturer::RegisterTaskPair(std::string name, btype type){
 		types[name] = type;
 		typenames[type] = name;
 	}
@@ -891,7 +891,7 @@ namespace ntai {
 		}
 	}
 
-	btype CManufacturer::GetTaskType(string s){
+	btype CManufacturer::GetTaskType(std::string s){
 		NLOG("CManufacturer::GetTaskType");
 		trim(s);
 		tolowercase(s);
@@ -904,7 +904,7 @@ namespace ntai {
 		return B_NA;
 	}
 
-	string CManufacturer::GetTaskName(btype type){
+	std::string CManufacturer::GetTaskName(btype type){
 		NLOG("CManufacturer::GetTaskName");
 		if(typenames.empty()==false){
 			if(typenames.find(type) != typenames.end()){
@@ -914,9 +914,9 @@ namespace ntai {
 		return "";
 	}
 
-	bool CManufacturer::CanBuild(int uid, const UnitDef* ud, string name){
+	bool CManufacturer::CanBuild(int uid, const UnitDef* ud, std::string name){
 		NLOG("CManufacturer::CanBuild");
-		string n = name;
+		std::string n = name;
 		tolowercase(n);
 		trim(n);
 		if(ud == 0){
@@ -927,8 +927,8 @@ namespace ntai {
 			G->L << "CManufacturer::CanBuild(" <<uid << ",const UnitDef* ud," <<  name << ") gave false because ud->buildOptions.empty() == true" << endline;
 			return false;
 		}else{
-			for(map<int,string>::const_iterator i = ud->buildOptions.begin(); i !=ud->buildOptions.end(); ++i){
-				string k = i->second;
+			for(std::map<int,std::string>::const_iterator i = ud->buildOptions.begin(); i !=ud->buildOptions.end(); ++i){
+				std::string k = i->second;
 				tolowercase(k);
 				trim(k);
 				if(k==n){
@@ -1089,7 +1089,7 @@ namespace ntai {
 	// TODO: HIKLMNOPQRSTUVWXYZ,/&%!_-+=
 	SkyWrite::~SkyWrite(){
 	}
-	void SkyWrite::Write(string Text, float3 loc, float Height, float Width, int Duration, float Red, float Green, float Blue, float Alpha){
+	void SkyWrite::Write(std::string Text, float3 loc, float Height, float Width, int Duration, float Red, float Green, float Blue, float Alpha){
 		int Group = 0;
 		int bGroup = 0;
 		float pos = 0;

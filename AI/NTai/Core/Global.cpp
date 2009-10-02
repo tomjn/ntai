@@ -16,12 +16,12 @@ namespace ntai {
 
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-	void trim(string &str){
-		string::size_type pos = str.find_last_not_of(' ');
-		if(pos != string::npos) {
+	void trim(std::string &str){
+		std::string::size_type pos = str.find_last_not_of(' ');
+		if(pos != std::string::npos) {
 			str.erase(pos + 1);
 			pos = str.find_first_not_of(' ');
-			if(pos != string::npos) str.erase(0, pos);
+			if(pos != std::string::npos) str.erase(0, pos);
 		}
 		else str.erase(str.begin(), str.end());
 	}
@@ -37,7 +37,7 @@ namespace ntai {
 		gcb = callback;
 		cb = gcb->GetAICallback();
 		if(cb == 0){
-			throw string(" error cb ==0");
+			throw std::string(" error cb ==0");
 		}
 		CLOG("Started Global::Global class constructor");
 
@@ -147,7 +147,7 @@ namespace ntai {
 
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-	map<int, const UnitDef*> endefs;
+	std::map<int, const UnitDef*> endefs;
 	const UnitDef* Global::GetEnemyDef(int enemy){
 		if(endefs.find(enemy) == endefs.end()){
 			const UnitDef* ud = GetUnitDef(enemy);
@@ -195,14 +195,14 @@ namespace ntai {
 			if(!handlers.empty()){
 			
 				
-				for(vector<CMessage>::iterator mi = msgqueue.begin(); mi != msgqueue.end(); ++mi){
+				for(std::vector<CMessage>::iterator mi = msgqueue.begin(); mi != msgqueue.end(); ++mi){
 					if(mi->IsDead(GetCurrentFrame())){
 						continue;
 					}
 
 					n++;
 
-					for(set<IModule* >::iterator k = handlers.begin(); k != handlers.end(); ++k){
+					for(std::set<IModule* >::iterator k = handlers.begin(); k != handlers.end(); ++k){
 						if((*k)->IsValid()){
 							(*k)->RecieveMessage(*mi);
 						}else{
@@ -235,11 +235,11 @@ namespace ntai {
 			NLOG("STARTUP BANNER IN Global::Update()");
 
 			if(L.FirstInstance()){
-				string s = string(":: ") + AI_NAME + string(" by AF");
+				std::string s = std::string(":: ") + AI_NAME + std::string(" by AF");
 				cb->SendTextMsg(s.c_str(), 0);
 				cb->SendTextMsg(":: Copyright (C) 2006 AF", 0);
-				string q = string(" :: ") + Get_mod_tdf()->SGetValueMSG("AI\\message");
-				if(q != string("")){
+				std::string q = std::string(" :: ") + Get_mod_tdf()->SGetValueMSG("AI\\message");
+				if(q != std::string("")){
 					cb->SendTextMsg(q.c_str(), 0);
 				}
 				cb->SendTextMsg("Please check www.darkstars.co.uk for updates", 0);
@@ -248,7 +248,7 @@ namespace ntai {
 			int* ax = new int[MAX_UNITS];
 			int anum =cb->GetFriendlyUnits(ax);
 			
-			ComName = string("");
+			ComName = std::string("");
 	        
 			if(anum !=0){
 				for(int a = 0; a<anum; a++){
@@ -324,7 +324,7 @@ namespace ntai {
 	    
 		if(ud != 0){
 			bool found = false;
-			string s  = u->GetName();
+			std::string s  = u->GetName();
 
 			if(u->GetSingleBuild()){
 				u->SetSingleBuildActive(true);
@@ -380,7 +380,7 @@ namespace ntai {
 
 		if(ValidUnitID(attacker)){
 			/*if(positions.empty()==false){
-			 map<int,temp_pos>::iterator i = positions.find(enemy);
+			 std::map<int,temp_pos>::iterator i = positions.find(enemy);
 			 if(i != positions.end()){
 			 positions.erase(i);
 			 }
@@ -429,7 +429,7 @@ namespace ntai {
 			max_energy_use += ud->energyUpkeep;
 
 			// prepare unitname
-			string t = u->GetName();
+			std::string t = u->GetName();
 
 			// solo build cleanup
 
@@ -527,8 +527,8 @@ namespace ntai {
 		END_EXCEPTION_HANDLING("CMessage message(\"crash\"); FireEvent(message);")
 	#ifndef DEBUG
 		// Create an exception forcing spring to close
-		vector<string> cv;
-		string n = cv.back();
+		std::vector<std::string> cv;
+		std::string n = cv.back();
 	#endif
 	}
 
@@ -593,28 +593,28 @@ namespace ntai {
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	void Global::GotChatMsg(const char* msg, int player){
 		L.Message(msg, player);
-		string tmsg = msg;
-		if(tmsg == string(".verbose")){
+		std::string tmsg = msg;
+		if(tmsg == std::string(".verbose")){
 			if(L.Verbose()){
 				L.iprint("Verbose turned on");
 			} else L.iprint("Verbose turned off");
-		}else if(tmsg == string(".crash")){
+		}else if(tmsg == std::string(".crash")){
 			Crash();
-		}else if(tmsg == string(".end")){
+		}else if(tmsg == std::string(".end")){
 			exit(0);
-		}else if(tmsg == string(".break")){
+		}else if(tmsg == std::string(".break")){
 			if(L.FirstInstance() == true){
 				L.print("The user initiated debugger break");
 			}
-		}else if(tmsg == string(".isfirst")){
+		}else if(tmsg == std::string(".isfirst")){
 			if(L.FirstInstance() == true) L.iprint(" info :: This is the first NTai instance");
-		}else if(tmsg == string(".save")){
+		}else if(tmsg == std::string(".save")){
 			if(L.FirstInstance() == true) efficiency->SaveUnitData();
-		}else if(tmsg == string(".reload")){
+		}else if(tmsg == std::string(".reload")){
 			if(L.FirstInstance() == true) efficiency->LoadUnitData();
-		}else if(tmsg == string(".flush")){
+		}else if(tmsg == std::string(".flush")){
 			L.Flush();
-		}else if(tmsg == string(".threat")){
+		}else if(tmsg == std::string(".threat")){
 			Ch->MakeTGA();
 		}/*else if(tmsg == string(".gridtest")){
 		 if(Ch->gridmaintainer==false) return;
@@ -660,7 +660,7 @@ namespace ntai {
 		 G->L.iprint("Test 6 FAILED");
 		 }
 		 Ch->MakeTGA();
-		 }*/else if(tmsg == string(".aicheat")){
+		 }*/else if(tmsg == std::string(".aicheat")){
 			 //chcb = G->gcb->GetCheatInterface();
 			 if(Cached->cheating== false){
 				 Cached->cheating = true;
@@ -699,7 +699,7 @@ namespace ntai {
 			 }
 		 }
 		//START_EXCEPTION_HANDLING
-		CMessage message(string("##")+msg);
+		CMessage message(std::string("##")+msg);
 		message.AddParameter(player);
 		FireEvent(message);
 		//END_EXCEPTION_HANDLING("CMessage message(\"msg gotmsg\"); FireEvent(message);")
@@ -771,8 +771,8 @@ namespace ntai {
 		L.print("Initialisising");
 
 		mrand.seed(uint(time(NULL)*team));
-		string filename = info->datapath + "\\data\\" +  info->tdfpath + string(".tdf");
-		string* buffer = new string();
+		std::string filename = info->datapath + "\\data\\" +  info->tdfpath + std::string(".tdf");
+		std::string* buffer = new std::string();
 		TdfParser* q = new TdfParser(this);
 
 		int s =cb->GetFileSize(filename.c_str());
@@ -789,24 +789,24 @@ namespace ntai {
 			L.header(" :: mod.tdf failed to load, assuming default values");
 			L.header(endline);
 			// must write out a config and put in it the default stuff......
-			ofstream off;
+			std::ofstream off;
 			//string filename = info->datapath + "/learn/" + info->tdfpath +".tdf";
 			off.open(filename.c_str());
 			if(off.is_open() == true){
 				//off <<
-				off << "[NTai]" << endl;
-				off << "{"<<endl;
-				off << "\tlearndata=" << "learn/" << info->tdfpath <<".tdf;"<<endl;
-				off << "\tmodconfig=" << "configs/" << info->tdfpath << ".tdf;" << endl;
-				off <<"\tmodname=" << w->SGetValueMSG("MOD\\Name") << ";" << endl;
-				off << "}"<<endl;
+				off << "[NTai]" << std::endl;
+				off << "{" << std::endl;
+				off << "\tlearndata=" << "learn/" << info->tdfpath <<".tdf;" << std::endl;
+				off << "\tmodconfig=" << "configs/" << info->tdfpath << ".tdf;" << std::endl;
+				off <<"\tmodname=" << w->SGetValueMSG("MOD\\Name") << ";" << std::endl;
+				off << "}" << std::endl;
 				off.close();
-				filename = info->datapath + slash + string("configs") + slash +  info->tdfpath + string(".tdf");
+				filename = info->datapath + slash + std::string("configs") + slash +  info->tdfpath + std::string(".tdf");
 				off.open(filename.c_str());
 				if(off.is_open() == true){
 					//off <<
-					filename = info->datapath + slash + string("configs") + slash + string("default.tdf");
-					string* buffer2 = new string();
+					filename = info->datapath + slash + std::string("configs") + slash + std::string("default.tdf");
+					std::string* buffer2 = new std::string();
 					ReadFile(filename, buffer2);
 					off << *buffer2;
 					off.close();
@@ -847,13 +847,13 @@ namespace ntai {
 	    
 
 		// solobuild
-		set<std::string> solotemp;
-		string sb = Get_mod_tdf()->SGetValueMSG("AI\\SoloBuild");
+		std::set<std::string> solotemp;
+		std::string sb = Get_mod_tdf()->SGetValueMSG("AI\\SoloBuild");
 		CTokenizer<CIsComma>::Tokenize(solotemp, sb, CIsComma());
 
 
 		if(!solotemp.empty()){
-			for(set<string>::iterator i = solotemp.begin(); i != solotemp.end(); ++i){
+			for(std::set<std::string>::iterator i = solotemp.begin(); i != solotemp.end(); ++i){
 				CUnitTypeData* u = this->UnitDefLoader->GetUnitTypeDataByName(*i);
 				if(u){
 					u->SetSoloBuild(true);
@@ -866,13 +866,13 @@ namespace ntai {
 		CTokenizer<CIsComma>::Tokenize(Pl->AlwaysAntiStall, Get_mod_tdf()->SGetValueMSG("AI\\AlwaysAntiStall"), CIsComma());
 		//Pl->AlwaysAntiStall = bds::set_cont(Pl->AlwaysAntiStall, Get_mod_tdf()->SGetValueMSG("AI\\AlwaysAntiStall"));
 
-		vector<string> singlebuild;
+		std::vector<std::string> singlebuild;
 		sb = Get_mod_tdf()->SGetValueMSG("AI\\SingleBuild");
 		CTokenizer<CIsComma>::Tokenize(singlebuild, sb);
 
 		if(singlebuild.empty() == false){
-			for(vector<string>::iterator i= singlebuild.begin(); i != singlebuild.end(); ++i){
-				string s = *i;
+			for(std::vector<std::string>::iterator i= singlebuild.begin(); i != singlebuild.end(); ++i){
+				std::string s = *i;
 				trim(s);
 				tolowercase(s);
 
@@ -929,28 +929,28 @@ namespace ntai {
 		return (v >0);
 	}
 
-	void tolowercase(string &str){
-		std::transform(str.begin(), str.end(), str.begin(), (int (*)(int))tolower);
+	void tolowercase(std::string &str){
+		std::transform(str.begin(), str.end(), str.begin(), (int (*)(int))std::tolower);
 	}
 
-	bool Global::ReadFile(string filename, string* buffer){
+	bool Global::ReadFile(std::string filename, std::string* buffer){
 		char buf[1000];
 		int ebsize= 0;
-		ifstream fp;
+		std::ifstream fp;
 
 		strcpy(buf, filename.c_str());
 		cb->GetValue(AIVAL_LOCATE_FILE_R, buf);
 
-		fp.open(buf, ios::in);
+		fp.open(buf, std::ios::in);
 		if(fp.is_open() == false){
-			L.header(string(" :: error loading file :: ") + filename + endline);
+			L.header(std::string(" :: error loading file :: ") + filename + endline);
 			int size = G->cb->GetFileSize(filename.c_str());
 			if(size >0){
 				char* c = new char[size+1];
 				bool fg = cb->ReadFile(filename.c_str(), c, size+1);
 				if(fg==true){
 					//
-					*buffer = string(c);
+					*buffer = std::string(c);
 					return true;
 				}else{
 					return false;
@@ -965,7 +965,7 @@ namespace ntai {
 				ebsize++;
 			}
 			if(ebsize == 0){
-				L.header(string(" :: error loading contents of file :: ") + filename + endline);
+				L.header(std::string(" :: error loading contents of file :: ") + filename + endline);
 				return false;
 			}else{
 				return true;
@@ -1135,7 +1135,7 @@ namespace ntai {
 	}
 
 	void Global::FireEvent(CMessage &message){
-		if(message.GetType() == string("")){
+		if(message.GetType() == std::string("")){
 			return;
 		}
 

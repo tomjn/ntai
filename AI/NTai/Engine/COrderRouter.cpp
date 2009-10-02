@@ -55,7 +55,7 @@ namespace ntai {
 		}
 		if(newer == true){
 			if(CommandCache.empty() == false){
-				for(vector<TCommand>::iterator i = CommandCache.begin(); i != CommandCache.end();++i){
+				for(std::vector<TCommand>::iterator i = CommandCache.begin(); i != CommandCache.end();++i){
 					if(i->clear == true) continue;
 					if(i->unit == c.unit){
 						i->clear = true;
@@ -88,7 +88,7 @@ namespace ntai {
 			if( hg >20){
 				for(int j = 2;  j <(hg/2) ; j++){
 					if(CommandCache.empty() == false){
-						for(vector<TCommand>::iterator i = CommandCache.begin(); i != CommandCache.end();++i){
+						for(std::vector<TCommand>::iterator i = CommandCache.begin(); i != CommandCache.end();++i){
 							if(i->clear == true){
 								CommandCache.erase(i);
 								break;
@@ -108,8 +108,8 @@ namespace ntai {
 			a -= 4;
 		}
 		if(CommandCache.empty() == false){
-			set<int> timed_out_units;
-			for(vector<TCommand>::iterator i = CommandCache.begin();i != CommandCache.end();++i){
+			std::set<int> timed_out_units;
+			for(std::vector<TCommand>::iterator i = CommandCache.begin();i != CommandCache.end();++i){
 				if(i->clear == true) continue;
 				switch(i->type)	{
 					case B_CMD :{
@@ -152,7 +152,7 @@ namespace ntai {
 				}
 			}
 			if(timed_out_units.empty()== false){
-				for(set<int>::iterator i = timed_out_units.begin(); i != timed_out_units.end(); i++){
+				for(std::set<int>::iterator i = timed_out_units.begin(); i != timed_out_units.end(); i++){
 					G->Actions->ScheduleIdle(*i);
 				}
 			}
@@ -162,7 +162,7 @@ namespace ntai {
 	void COrderRouter::UnitDestroyed(int uid){
 		if((-1<uid)&&(uid<MAX_UNITS-1)){
 			if(CommandCache.empty() == false){
-				for(vector<TCommand>::iterator i = CommandCache.begin(); i != CommandCache.end();++i){
+				for(std::vector<TCommand>::iterator i = CommandCache.begin(); i != CommandCache.end();++i){
 					if(i->unit == uid){
 						i->clear = true;
 					}else if(SubjectOf(*i, uid)){

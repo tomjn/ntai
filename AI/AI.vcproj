@@ -261,10 +261,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\NTai\Helpers\Terrain\CBuildingPlacer.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\NTai\Core\CCached.cpp"
 				>
 			</File>
@@ -440,6 +436,14 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Building Placement"
+				>
+				<File
+					RelativePath=".\NTai\Helpers\Terrain\CBuildingPlacer.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -452,10 +456,6 @@
 			</File>
 			<File
 				RelativePath=".\NTai\Core\AIExport.h"
-				>
-			</File>
-			<File
-				RelativePath=".\NTai\Helpers\Terrain\CBuildingPlacer.h"
 				>
 			</File>
 			<File
@@ -679,6 +679,18 @@
 				</File>
 				<File
 					RelativePath=".\NTai\Core\resource.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Building Placement"
+				>
+				<File
+					RelativePath=".\NTai\Helpers\Terrain\CBuildingPlacer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\NTai\Algorithms\Placement\IConstructionPlacer.h"
 					>
 				</File>
 			</Filter>
