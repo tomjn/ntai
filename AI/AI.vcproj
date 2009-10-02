@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\..\..\..\..\..\..\SpringTest\AI\Skirmish\NTai\10"
+			OutputDirectory="D:\Spring\AI\Skirmish\NTai\0.99"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -94,7 +94,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="D:\Spring\AI\Skirmish\NTai\0.99"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -135,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\..\..\game\AI\Skirmish\impls\$(ProjectName)-release.dll"
+				OutputFile="$(OutDir)\SkirmishAI.dll"
 				AdditionalLibraryDirectories="..\..\..\..\vclibs\Boost\lib"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
@@ -209,7 +209,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\..\..\game\AI\Skirmish\impls\$(ProjectName)-release-ecatch.dll"
+				OutputFile="$(OutDir)\SkirmishAI.dll"
 				AdditionalLibraryDirectories="..\..\..\..\vclibs\Boost\lib"
 				GenerateDebugInformation="true"
 				AssemblyDebug="2"
