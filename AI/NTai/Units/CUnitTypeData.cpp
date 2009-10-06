@@ -106,6 +106,35 @@ namespace ntai {
 		r += (buildSpacing*8);
 		buildSpacing = r;
 
+		isMineLayer = false;
+		if(CanConstruct()){
+
+			const std::vector<CommandDescription>* di = G->cb->GetUnitCommands(uid);
+			if(di != 0){
+				int mines = 0;
+				int nonmines = 0;
+
+				for(std::vector<CommandDescription>::const_iterator is = di->begin(); is != di->end();++is){
+					if(is->id<0){
+
+						// retrieve the unit type information
+						CUnitTypeData* p = G->UnitDefLoader->GetUnitTypeDataByName(is->name);
+
+						if(p->IsMine()){
+							mines++;
+						} else {
+							nonmines++;
+						}
+					}
+				}
+				if(nonmines == 0){
+					if(mines > 0){
+						isMineLayer = true;
+					}
+				}
+			}
+		}
+
 	}
 
 	const UnitDef* CUnitTypeData::GetUnitDef(){
@@ -201,6 +230,18 @@ namespace ntai {
 		if(IsAirCraft()&&(ud->type == std::string("Bomber"))) return true;
 		return false;
 	}
+
+
+	bool CUnitTypeData::IsMine(){
+		if(ud == 0) return false;
+		return (ud->canKamikaze && IsMobile());
+	}
+
+	bool CUnitTypeData::IsMineLayer(){
+		if(ud == 0) return false;
+		return isMineLayer;
+	}
+
 
 	bool CUnitTypeData::IsAIRSUPPORT(){
 		NLOG("CUnitTypeData::IsAIRSUPPORT");

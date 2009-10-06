@@ -1183,7 +1183,7 @@ namespace ntai {
 			if(is->id<0){
 
 				// retrieve the unit type information
-				CUnitTypeData* p =G->UnitDefLoader->GetUnitTypeDataByName(is->name);
+				CUnitTypeData* p = G->UnitDefLoader->GetUnitTypeDataByName(is->name);
 				const UnitDef* pd = p->GetUnitDef();
 
 				if(pd->canKamikaze&&((pd->canfly == false)&&(pd->movedata == 0))){

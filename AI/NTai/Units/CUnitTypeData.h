@@ -21,6 +21,9 @@ namespace ntai {
 		bool IsFighter();
 		bool IsBomber();
 
+		bool IsMine();
+		bool IsMineLayer();
+
 		bool IsUWCapable(){
 			return IsUWStructure()||IsShip()||IsSub();
 		}
@@ -84,6 +87,8 @@ namespace ntai {
 		bool canConstruct;
 
 		float buildSpacing;
+
+		bool isMineLayer;
 
 	};
 }
