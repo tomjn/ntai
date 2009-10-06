@@ -611,9 +611,9 @@ namespace ntai {
 				
 				CUnitTypeData* p =G->UnitDefLoader->GetUnitTypeDataByName(is->name);
 
-
-				if(p->GetUnitDef()->builder&&((p->GetUnitDef()->movedata !=0)||p->GetUnitDef()->canfly)){
+				if(p->GetUnitDef()->builder&&p->IsMobile()){
 					if(G->Pl->feasable(p,utd)==false) continue;
+					if(p->IsMineLayer()) continue;
 					if(p->GetUnitDef()->floater){
 						if(G->info->spacemod||water){
 							float temp = G->efficiency->GetEfficiency(p->GetUnitDef()->name);
