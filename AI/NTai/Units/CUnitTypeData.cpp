@@ -108,23 +108,17 @@ namespace ntai {
 
 		isMineLayer = false;
 		if(CanConstruct()){
-
-			const std::vector<CommandDescription>* di = G->cb->GetUnitCommands(uid);
-			if(di != 0){
+			if(!ud->buildOptions.empty()){
 				int mines = 0;
 				int nonmines = 0;
 
-				for(std::vector<CommandDescription>::const_iterator is = di->begin(); is != di->end();++is){
-					if(is->id<0){
-
-						// retrieve the unit type information
-						CUnitTypeData* p = G->UnitDefLoader->GetUnitTypeDataByName(is->name);
-
-						if(p->IsMine()){
-							mines++;
-						} else {
-							nonmines++;
-						}
+				for(std::map<int,std::string>::const_iterator is = ud->buildOptions.begin(); is != ud->buildOptions.end();++is){
+					// retrieve the unit type information
+					CUnitTypeData* p = G->UnitDefLoader->GetUnitTypeDataByName(is->second);
+					if(p->IsMine()){
+						mines++;
+					} else {
+						nonmines++;
 					}
 				}
 				if(nonmines == 0){
