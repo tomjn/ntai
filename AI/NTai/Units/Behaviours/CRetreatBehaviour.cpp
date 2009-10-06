@@ -13,6 +13,7 @@ namespace ntai {
 		G = GL;
 		this->uid = uid;
 		active = false;
+		valid = true;
 	}
 
 	CRetreatBehaviour::~CRetreatBehaviour(){

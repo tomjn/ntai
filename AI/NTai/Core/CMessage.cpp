@@ -50,6 +50,9 @@ std::string CMessage::GetType(){
 	return message_type;
 }
 
+bool CMessage::IsType(std::string type){
+	return (message_type == type);
+}
 void CMessage::SetType(std::string type){
 	message_type = type;
 }

@@ -70,7 +70,7 @@ namespace ntai {
 	}
 
 	void Log::Open(bool plain){
-		char buffer[1000];
+		//char buffer[1000];
 		if( Lmagic != 95768){
 			Lmagic = 95768;
 			First = true;
@@ -85,17 +85,17 @@ namespace ntai {
 			std::string filename = G->info->datapath + slash + "Logs" + slash;
 
 			//             DDD MMM DD HH:MM:SS YYYY_X - NTAI.log
-			filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE9.79.log";
+			filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE9.9.log";
 			//sprintf(c, "%2.2d-%2.2d-%4.4d %2.2d%2.2d [%d]XE9.79.log",
 			//		now2->tm_mon+1, now2->tm_mday, now2->tm_year + 1900, now2->tm_hour,
 			//		now2->tm_min, G->Cached->team);
 			//filename += c;
-			strcpy(buffer, filename.c_str());
-			G->cb->GetValue(AIVAL_LOCATE_FILE_W, buffer);
-			logFile.open(buffer);
+			//strcpy(buffer, filename.c_str());
+			//G->cb->GetValue(AIVAL_LOCATE_FILE_W, buffer);
+			logFile.open(filename.c_str());
 			if(logFile.is_open() == false){
 				logFile.close();
-				logFile.open(buffer);
+				logFile.open(filename.c_str());
 				if(logFile.is_open() == false){
 					iprint(std::string("Error!!! ") + filename + std::string(" refused to open!"));
 					verbose = true;
@@ -147,9 +147,9 @@ namespace ntai {
 			now2->tm_mon+1, now2->tm_mday, now2->tm_year + 1900, now2->tm_hour,
 			now2->tm_min, G->Cached->team);
 			filename += c;
-			strcpy(buffer, filename.c_str());
-			G->cb->GetValue(AIVAL_LOCATE_FILE_W, buffer);
-			logFile.open(buffer);
+			/*strcpy(buffer, filename.c_str());
+			G->cb->GetValue(AIVAL_LOCATE_FILE_W, buffer);*/
+			logFile.open(filename.c_str());
 			plaintext = false;
 			std::string mu ="</table><style type='text/css'>\n<!--\nbody,td,th {\n	font-family: sans-serif;\n	color: #111111;\nfont-size: 12px;\n\n}\nbody {\n	background-color: #FFFFFF;\n\n}\n.c {color: #FF2222}\n.e {color: #FFCC11}\n-->\n</style>\n";
 			mu+= "<b><br><br>NTAI XE Log File <br>\n<span class='c'>Programmed and maintained by AF Copyright (C) 2006 AF<br>\nReleased under the GPL 2.0 Liscence </p></span></b><br> \n<table width='98%'border='0' cellpadding='0' cellspacing='0' bordercolor='#999999'>\n";
@@ -170,7 +170,7 @@ namespace ntai {
 	void Log::print(std::string message){
 		if(message.empty() == true) return;
 		if (!G) {
-			CLOG(message);
+			//NLOG(message);
 			return;
 		}
 		std::string gtime;
@@ -195,7 +195,7 @@ namespace ntai {
 		}
 		if (logFile.is_open() == true){
 	#ifdef TNLOG
-			cout << gtime << std::endl << std::flush;
+			std::cout << gtime << std::endl << std::flush;
 #endif
 	logFile << gtime << std::flush;
 		}
@@ -237,11 +237,15 @@ namespace ntai {
 
 	void Log::eprint(std::string message){
 		if(plaintext == true){
-			G->cb->SendTextMsg(message.c_str(), 3);
+			if(G){
+				G->cb->SendTextMsg(message.c_str(), 3);
+			}
 			print(message);
 			return;
 		} else{
-			G->cb->SendTextMsg(message.c_str(), 1000);
+			if(G){
+				G->cb->SendTextMsg(message.c_str(), 1000);
+			}
 			std::string msg = "<span class='e'>" + message + "</span>";
 			print(msg);
 		}

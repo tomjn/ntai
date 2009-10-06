@@ -14,6 +14,7 @@ namespace ntai {
 		
 		this->uid = uid;
 		turnedOn = false;
+		valid = true;
 	}
 
 	CMetalMakerBehaviour::~CMetalMakerBehaviour(){
@@ -24,7 +25,7 @@ namespace ntai {
 
 		CUnit* unit = G->GetUnit(uid);
 		turnedOn = G->cb->IsUnitActivated(uid);
-		energyUse=min(unit->GetUnitDataType()->GetUnitDef()->energyUpkeep,1.0f);
+		energyUse=std::min(unit->GetUnitDataType()->GetUnitDef()->energyUpkeep,1.0f);
 		return true;
 	}
 

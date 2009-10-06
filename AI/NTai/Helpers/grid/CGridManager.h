@@ -172,7 +172,7 @@ namespace ntai {
 
 		void SetCellsInRadius(float3 MapPos, float Radius, float Value);
 
-		boost::mutex cellmutex;
+		//boost::mutex cellmutex;
 	private:
 		CGridCell* GetCell(int Index);
 		bool IsInitialized;

@@ -1,6 +1,6 @@
-#include <boost/thread/thread.hpp>
-#include <boost/thread/mutex.hpp>
-
+//#include <boost/thread/thread.hpp>
+//#include <boost/thread/mutex.hpp>
+#include <string>
 namespace ntai {
 	class CGridCell{
 	public:
@@ -23,7 +23,7 @@ namespace ntai {
 
 		void ApplyModifier(float Modifier);
 	private:
-		boost::mutex cell_mutex;
+		//boost::mutex cell_mutex;
 		float CellValue;
 		int Index;
 		int ChangeTime;

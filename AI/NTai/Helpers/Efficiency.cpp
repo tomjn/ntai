@@ -8,6 +8,7 @@ namespace ntai {
 	bool saved=false;
 
 	CEfficiency::CEfficiency(Global* GL){
+		G = GL;
 		loaded = false;
 		firstload = false;
 		iterations = 0;
@@ -23,6 +24,7 @@ namespace ntai {
 	}
 
 	bool CEfficiency::Init(){
+		assert(G);
 		G->L.print("Loading unit data");
 		LoadUnitData();
 		G->L.print("Unit data loaded");

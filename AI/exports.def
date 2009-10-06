@@ -1,0 +1,9 @@
+LIBRARY      "NTai"
+DESCRIPTION  'Tom Nowell\'s (AF) NTai'
+
+EXPORTS
+    ; Explicit exports can go here
+ 	init	@1
+ 	handleEvent			@2
+	release			@3
+	getLevelOfSupportFor			@4

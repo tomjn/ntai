@@ -83,7 +83,7 @@ namespace ntai{
 	}
 
 	void CGridManager::Rebuild() {
-		boost::mutex::scoped_lock lock(cellmutex);
+//		boost::mutex::scoped_lock lock(cellmutex);
 		if(!grid.empty()){
 			for(std::map<int,CGridCell*>::iterator i = grid.begin(); i != grid.end(); ++i){
 				CGridCell* c = i->second;
@@ -101,7 +101,7 @@ namespace ntai{
 
 	CGridCell* CGridManager::GetCell(int Index) {
 		if(CellExists(Index)){
-			boost::mutex::scoped_lock lock(cellmutex);
+			//boost::mutex::scoped_lock lock(cellmutex);
 			return grid[Index];
 		}else{
 			return DefaultCell;
@@ -185,7 +185,7 @@ namespace ntai{
 	}
 
 	float CGridManager::GetValue(int Index, float DefaultValue){
-		boost::mutex::scoped_lock lock(cellmutex);
+//		boost::mutex::scoped_lock lock(cellmutex);
 		std::map<int,CGridCell* >::iterator i = grid.find(Index);
 		if(i == grid.end()){
 			// Cell doesnt exist! It hasnt been created yet or was deleted
@@ -228,7 +228,7 @@ namespace ntai{
 
 	void CGridManager::SetValuebyIndex(int Index, float Value) {
 		if(CellExists(Index)){
-			boost::mutex::scoped_lock lock(cellmutex);
+//			boost::mutex::scoped_lock lock(cellmutex);
 			CGridCell* cell=grid[Index];
 			if(Value < MinimumValue){
 				sortedcells.erase(cell);
@@ -242,7 +242,7 @@ namespace ntai{
 			if(Value < MinimumValue){
 				return;
 			}
-			boost::mutex::scoped_lock lock(cellmutex);
+			//boost::mutex::scoped_lock lock(cellmutex);
 			CGridCell* cell =new CGridCell();
 			cell->Initialize(Index);
 			cell->SetValue(Value);
@@ -323,7 +323,7 @@ namespace ntai{
 	}
 
 	bool CGridManager::CellExists(int Index) {
-		boost::mutex::scoped_lock lock(cellmutex);
+//		boost::mutex::scoped_lock lock(cellmutex);
 		std::map<int, CGridCell* >::iterator i = grid.find(Index);
 		return (i != grid.end());
 	}
@@ -395,7 +395,7 @@ namespace ntai{
 	}
 
 	void CGridManager::ApplyModifier(float Modifier) {
-		boost::mutex::scoped_lock lock(cellmutex);
+//		boost::mutex::scoped_lock lock(cellmutex);
 		if(!grid.empty()){
 			for(std::map<int,CGridCell* >::iterator i = grid.begin(); i != grid.end(); ++i){
 				CGridCell* p = i->second;
@@ -419,7 +419,7 @@ namespace ntai{
 	void CGridManager::ApplyModifierAtIndex(int Index, float Modifier){
 		if(ValidIndex(Index)){
 			if(CellExists(Index)){
-				boost::mutex::scoped_lock lock(cellmutex);
+//				boost::mutex::scoped_lock lock(cellmutex);
 				CGridCell* p =GetCell(Index);
 				p->ApplyModifier(Modifier);
 			}
@@ -428,7 +428,7 @@ namespace ntai{
 
 	int CGridManager::GetHighestIndex() {
 		if(sortedcells.empty()==false){
-			boost::mutex::scoped_lock lock(cellmutex);
+//			boost::mutex::scoped_lock lock(cellmutex);
 			CGridCell* p = *(sortedcells.begin());
 			return p->GetIndex();
 		}
@@ -449,7 +449,7 @@ namespace ntai{
 				}
 			}
 			{
-				boost::mutex::scoped_lock lock(cellmutex);
+//				boost::mutex::scoped_lock lock(cellmutex);
 				if(sortedcells.empty()==false){
 					for(std::set<CGridCell*,cmpCell>::iterator i = sortedcells.begin(); i != sortedcells.end(); ++i){
 						CGridCell* p = *i;
@@ -466,7 +466,7 @@ namespace ntai{
 	int CGridManager::GetHighestindexInRadius(float3 MapPos, float Radius) {
 		if(ValidMapPos(MapPos)){
 			if(sortedcells.empty()==false){
-				boost::mutex::scoped_lock lock(cellmutex);
+//				boost::mutex::scoped_lock lock(cellmutex);
 				for(std::set<CGridCell*,cmpCell>::iterator i = sortedcells.begin(); i != sortedcells.end(); ++i){
 					CGridCell* p = *i;
 					float3 PMapPos = this->GridtoMap(IndextoGrid(p->GetIndex()));

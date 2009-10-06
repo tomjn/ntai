@@ -13,6 +13,7 @@ namespace ntai {
 		//
 		G = GL;
 		this->uid = uid;
+		valid = true;
 	}
 
 	CMoveFailReclaimBehaviour::~CMoveFailReclaimBehaviour(){

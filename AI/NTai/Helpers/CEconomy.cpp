@@ -165,7 +165,7 @@ namespace ntai {
 
 			// randomly do this so there's a 1/3 chance
 			int randnum = G->mrand()%4;
-			randnum = max(randnum,1);
+			randnum = std::max(randnum,1);
 			return (G->cb->GetCurrentFrame()%randnum == 0);
 
 		}else{
@@ -184,13 +184,13 @@ namespace ntai {
 		 then say yes, else say no */
 
 		float x = (float)atof(G->Get_mod_tdf()->SGetValueDef("0.8","ECONOMY\\RULES\\metalstorage").c_str());
-		x = max(x,0.01f);
+		x = std::max(x,0.01f);
 
 		if(G->cb->GetMetal() >G->cb->GetMetalStorage () * x){
 			
 			// randomly do this so there's a 1/3 chance
 			int randnum = G->mrand()%4;
-			randnum = max(1,randnum);
+			randnum = std::max(1,randnum);
 			return (G->cb->GetCurrentFrame()%randnum == 0);
 
 		}else{

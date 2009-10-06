@@ -10,16 +10,16 @@ LGPL 2 licence 2004+
 
 namespace ntai {
 
-	ThreadPool* pool=0;
-	extern ThreadPool* pool;
+	//ThreadPool* pool=0;
+	//extern ThreadPool* pool;
 
 	CBuildingPlacer::CBuildingPlacer(Global* GL){
 		G=GL;
 		valid=true;
 
-		if(pool ==0){
+		/*if(pool ==0){
 			pool= new ThreadPool(8,200);
-		}
+		}*/
 	}
 
 	CBuildingPlacer::~CBuildingPlacer(){
@@ -102,7 +102,7 @@ namespace ntai {
 			}
 		}
 
-		blockingmap.Initialize(mapdim, float3(32, 0, 32), true);
+		blockingmap.Initialize(mapdim, float3(64, 0, 64), true);
 		blockingmap.SetDefaultGridValue(0);
 		blockingmap.SetMinimumValue(1);
 
@@ -288,7 +288,7 @@ namespace ntai {
 			}
 
 			int* iunits = new int[10000];
-			int itemp = G->GetEnemyUnits(iunits, q, (float)max(building->GetUnitDef()->zsize, building->GetUnitDef()->xsize)*8);
+			int itemp = G->GetEnemyUnits(iunits, q, (float)std::max(building->GetUnitDef()->zsize, building->GetUnitDef()->xsize)*8);
 			delete [] iunits;
 
 			if(itemp>0){
@@ -460,7 +460,8 @@ namespace ntai {
 	    
 		CBuildAlgorithm cb (this, reciever, builderpos, builder, building, freespace, &blockingmap, G->cb->GetHeightMap(), float3((float)G->cb->GetMapWidth(), 0, (float)G->cb->GetMapHeight()), G);
 
-		pool->invoke(cb);
+		cb();
+		//pool->invoke(cb);
 	}
 
 	void CBuildingPlacer::Block(float3 pos, CUnitTypeData* utd){

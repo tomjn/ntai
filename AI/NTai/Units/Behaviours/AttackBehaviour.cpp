@@ -14,6 +14,7 @@ namespace ntai {
 		G = GL;
 		engaged = false;
 		this->uid = uid;
+		valid = true;
 	}
 
 	CAttackBehaviour::~CAttackBehaviour(){

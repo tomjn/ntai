@@ -153,10 +153,10 @@ namespace ntai {
 		float borderh=0;
 
 		float maxDif=unitdef->maxHeightDif;
-		int x1 = (int)max(0.f,(pos.x-(unitdef->xsize*0.5f*SQUARE_SIZE))/SQUARE_SIZE);
-		int x2 = min(G->cb->GetMapWidth()*SQUARE_SIZE,x1+unitdef->xsize);
-		int z1 = (int)max(0.f,(pos.z-(unitdef->zsize*0.5f*SQUARE_SIZE))/SQUARE_SIZE);
-		int z2 = min(G->cb->GetMapHeight()*SQUARE_SIZE,z1+unitdef->zsize);
+		int x1 = (int)std::max(0.f,(pos.x-(unitdef->xsize*0.5f*SQUARE_SIZE))/SQUARE_SIZE);
+		int x2 = std::min(G->cb->GetMapWidth()*SQUARE_SIZE,x1+unitdef->xsize);
+		int z1 = (int)std::max(0.f,(pos.z-(unitdef->zsize*0.5f*SQUARE_SIZE))/SQUARE_SIZE);
+		int z2 = std::min(G->cb->GetMapHeight()*SQUARE_SIZE,z1+unitdef->zsize);
 
 		if (x1 > G->cb->GetMapWidth()*SQUARE_SIZE) x1 = G->cb->GetMapWidth()*SQUARE_SIZE;
 		if (x2 < 0) x2 = 0;
@@ -172,10 +172,10 @@ namespace ntai {
 					numBorder++;
 					borderh+=h;
 				}
-				if(minh<min(h,orgh)-maxDif)
-					minh=min(h,orgh)-maxDif;
-				if(maxh>max(h,orgh)+maxDif)
-					maxh=max(h,orgh)+maxDif;
+				if(minh<std::min(h,orgh)-maxDif)
+					minh=std::min(h,orgh)-maxDif;
+				if(maxh>std::max(h,orgh)+maxDif)
+					maxh=std::max(h,orgh)+maxDif;
 			}
 		}
 		float h=borderh/numBorder;

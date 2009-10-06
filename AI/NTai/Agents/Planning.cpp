@@ -113,7 +113,7 @@ namespace ntai {
 		}
 
 		if(G->info->antistall==7){ // SIMULATIVE ANTISTALL ALGORITHM V7
-			float ti = (building->GetUnitDef()->buildTime/max(builder->GetUnitDef()->buildSpeed,0.1f) + Max_Stall_Time)*(32/30);
+			float ti = (building->GetUnitDef()->buildTime/std::max(builder->GetUnitDef()->buildSpeed,0.1f) + Max_Stall_Time)*(32/30);
 
 			// Energy Cost/Second
 			float e_usage = G->cb->GetEnergyUsage()+( building->GetUnitDef()->energyCost/ti);
@@ -136,7 +136,7 @@ namespace ntai {
 
 		if(G->info->antistall==2){// XE8 ANTISTALL ALGORITHM V2
 
-			float BuildTime = building->GetUnitDef()->buildTime / max(builder->GetUnitDef()->buildSpeed,0.1f);
+			float BuildTime = building->GetUnitDef()->buildTime / std::max(builder->GetUnitDef()->buildSpeed,0.1f);
 
 			// Energy Cost/Second
 			float EPerS = (building->GetUnitDef()->energyCost*0.9f) / BuildTime;
@@ -160,8 +160,8 @@ namespace ntai {
 		if((G->info->antistall == 3)||(G->info->antistall == 5)){ // ANTISTALL ALGORITHM V3+5
 			NLOG("ANTISTALL ALGORITHM V3+5");
 
-			float t = (building->GetUnitDef()->buildTime/max(builder->GetUnitDef()->buildSpeed,0.1f) + Max_Stall_Time)*(32/30);
-			t = max(t,0.1f);
+			float t = (building->GetUnitDef()->buildTime/std::max(builder->GetUnitDef()->buildSpeed,0.1f) + Max_Stall_Time)*(32/30);
+			t = std::max(t,0.1f);
 
 			if(building->GetUnitDef()->energyCost > 100.0f){
 

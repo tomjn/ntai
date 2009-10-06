@@ -2,14 +2,11 @@
 
 namespace ntai {
 
-	int* garbage = 0;
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 	Chaser::Chaser(){
 		G = 0;
-		if(garbage == 0){
-			garbage = new int[10000];
-		}
+		garbage = new int[10000];
 	}
 
 	void Chaser::InitAI(Global* GLI){
@@ -330,7 +327,7 @@ namespace ntai {
 			if(upthresh){
 				threshold = int(threshold * thresh_percentage_incr);
 				threshold = int(threshold + thresh_increase);
-				threshold = min(threshold, max_threshold);
+				threshold = std::min(threshold, max_threshold);
 				G->L << "new threshold :: "<< threshold<<"\n";
 			}
 		}else{

@@ -187,6 +187,15 @@ namespace ntai {
 		if(paused){
 			return;
 		}
+		if(!dead_handlers.empty()){
+			//
+			for(std::set<IModule* >::iterator k = dead_handlers.begin(); k != dead_handlers.end(); ++k){
+				IModule* h = (*k);
+				handlers.erase(h);
+			}
+			dead_handlers.erase(dead_handlers.begin(), dead_handlers.end());
+			dead_handlers.clear();
+		}
 
 		START_EXCEPTION_HANDLING
 		if(!msgqueue.empty()){
@@ -194,7 +203,6 @@ namespace ntai {
 			int n = 0;
 			if(!handlers.empty()){
 			
-				
 				for(std::vector<CMessage>::iterator mi = msgqueue.begin(); mi != msgqueue.end(); ++mi){
 					if(mi->IsDead(GetCurrentFrame())){
 						continue;
@@ -203,10 +211,11 @@ namespace ntai {
 					n++;
 
 					for(std::set<IModule* >::iterator k = handlers.begin(); k != handlers.end(); ++k){
-						if((*k)->IsValid()){
-							(*k)->RecieveMessage(*mi);
+						IModule* h = (*k);
+						if(h->IsValid()){
+							h->RecieveMessage(*mi);
 						}else{
-							RemoveHandler((*k));
+							RemoveHandler(h);
 						}
 					}
 					for(int i = 0; i < MAX_UNITS; i++){
@@ -934,14 +943,14 @@ namespace ntai {
 	}
 
 	bool Global::ReadFile(std::string filename, std::string* buffer){
-		char buf[1000];
+		//char buf[1000];
 		int ebsize= 0;
 		std::ifstream fp;
 
-		strcpy(buf, filename.c_str());
-		cb->GetValue(AIVAL_LOCATE_FILE_R, buf);
+		/*strcpy(buf, filename.c_str());
+		cb->GetValue(AIVAL_LOCATE_FILE_R, buf);*/
 
-		fp.open(buf, std::ios::in);
+		fp.open(filename.c_str(), std::ios::in);
 		if(fp.is_open() == false){
 			L.header(std::string(" :: error loading file :: ") + filename + endline);
 			int size = G->cb->GetFileSize(filename.c_str());
@@ -1131,6 +1140,7 @@ namespace ntai {
 	}
 
 	void Global::RegisterMessageHandler(IModule* handler){
+		assert(handler);
 		handlers.insert(handler);
 	}
 
@@ -1145,6 +1155,7 @@ namespace ntai {
 	}
 
 	void Global::DestroyHandler(IModule* handler){
+		assert(handler);
 		handler->DestroyModule();
 
 		if(!handlers.empty()){

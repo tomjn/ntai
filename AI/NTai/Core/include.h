@@ -47,11 +47,11 @@ namespace ntai{
 
 // Boost headers
 
-#include <boost/thread/thread.hpp>
-#include <boost/thread/mutex.hpp>
-
-typedef boost::mutex mutex;
-typedef boost::mutex::scoped_lock scoped_lock;
+//#include <boost/thread/thread.hpp>
+//#include <boost/thread/mutex.hpp>
+//
+//typedef boost::mutex mutex;
+//typedef boost::mutex::scoped_lock scoped_lock;
 
 // engine includes
 #include "../SDK/AI.h"										// AI interface includes

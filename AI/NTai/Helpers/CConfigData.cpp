@@ -16,16 +16,18 @@ namespace ntai {
 		mod_tdf = new TdfParser(G);
 		
 		//CLOG("Loading AI.tdf with TdfParser");
-		TdfParser cs(G);
-		cs.LoadFile("AI/AI.tdf");
+		/*TdfParser cs(G);
+		cs.LoadFile("AI/AI.tdf");*/
 		
 		//CLOG("Retrieving datapath value");
 
 		datapath = aiexport_getDataDir(true);//cs.SGetValueDef(std::string(, "AI/Skirmish/NTai/data");
+		//datapath += "data\\";
+		//datapath += slash;
 
-		CLOG("Getting tdfpath value");
+		NLOG("Getting tdfpath value");
 		
-		CLOG("Loading modinfo.tdf");
+		NLOG("Loading modinfo.tdf");
 		TdfParser sf(G);
 		if(sf.LoadFile("modinfo.tdf")){
 			G->L.print("modinfo.tdf loaded into parser");
@@ -33,7 +35,7 @@ namespace ntai {
 			G->L.eprint("error modinfo.tdf retrieval failed");
 		}
 		const char* modname = G->cb->GetModName();
-		tdfpath =  sf.SGetValueDef(std::string(modname), "MOD\\NTAI\\tdfpath");
+		tdfpath =  sf.SGetValueDef(std::string(modname), "MOD\\ShortName");
 	}
 
 	CConfigData::~CConfigData(){

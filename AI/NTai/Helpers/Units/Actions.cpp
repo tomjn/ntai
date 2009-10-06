@@ -134,7 +134,7 @@ bool CActions::Repair(int uid, int unit){
     if(umhealth == 0) return false;
 
     float Remainder = 1.0f - uhealth / umhealth;
-    float RemainingTime = udi->buildTime / max(bud->buildSpeed, 0.1f) * Remainder;
+    float RemainingTime = udi->buildTime / std::max(bud->buildSpeed, 0.1f) * Remainder;
 
     if (RemainingTime < 30.0f) return false;
 
@@ -323,7 +323,7 @@ bool CActions::AttackNear(int unit, float LOSmultiplier){
 	CUnitTypeData* utd = G->UnitDefLoader->GetUnitTypeDataById(ud->id);
 
     int* en = new int[10000];
-    int e = G->GetEnemyUnits(en, G->GetUnitPos(unit), max(G->cb->GetUnitMaxRange(unit), ud->losRadius)*LOSmultiplier);
+	int e = G->GetEnemyUnits(en, G->GetUnitPos(unit), std::max(G->cb->GetUnitMaxRange(unit), ud->losRadius)*LOSmultiplier);
 
     if(e>0){
         float best_score = 0;

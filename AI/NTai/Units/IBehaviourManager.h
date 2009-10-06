@@ -1,10 +1,8 @@
 
 namespace ntai {
-	//
 
-	class IBehaviourManager {
-		//
-
+	class IBehaviourManager  : public IModule {
+	public:
 		AddBehaviour(IBehaviour* b);
 		DeleteBehaviour(IBehaviour* b);
 	}

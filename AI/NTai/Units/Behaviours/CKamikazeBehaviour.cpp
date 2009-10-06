@@ -15,6 +15,7 @@ namespace ntai {
 		engaged = false;
 		this->uid = uid;
 		maxrange = G->cb->GetUnitMaxRange(uid);
+		valid = true;
 	}
 
 	CKamikazeBehaviour::~CKamikazeBehaviour(){

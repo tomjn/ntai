@@ -26,7 +26,7 @@ namespace ntai {
 	}
 
 	float CGridCell::GetValue(){
-		boost::mutex::scoped_lock lock(cell_mutex);
+//		boost::mutex::scoped_lock lock(cell_mutex);
 		return CellValue;
 	}
 
@@ -35,7 +35,7 @@ namespace ntai {
 	}
 
 	void CGridCell::SetValue(float Value){
-		boost::mutex::scoped_lock lock(cell_mutex);
+//		boost::mutex::scoped_lock lock(cell_mutex);
 		CellValue=Value;
 	}
 
@@ -44,18 +44,18 @@ namespace ntai {
 	}
 
 	int CGridCell::GetLastChangeTime(){
-		boost::mutex::scoped_lock lock(cell_mutex);
+//		boost::mutex::scoped_lock lock(cell_mutex);
 		return ChangeTime;
 	}
 
 	bool CGridCell::SetLastChangeTime(int TimeFrame){
-		boost::mutex::scoped_lock lock(cell_mutex);
+//		boost::mutex::scoped_lock lock(cell_mutex);
 		ChangeTime=TimeFrame;
 		return true;
 	}
 
 	void CGridCell::ApplyModifier(float Modifier){
-		boost::mutex::scoped_lock lock(cell_mutex);
+//		boost::mutex::scoped_lock lock(cell_mutex);
 		CellValue *= Modifier;
 	}
 

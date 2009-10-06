@@ -2,7 +2,7 @@
 
 namespace ntai {
 
-	class CBPlan: public boost::noncopyable{ // This is not used for factories building units.
+	class CBPlan {//: public boost::noncopyable{ // This is not used for factories building units.
 	public:
 		CBPlan();
 	//	CBPlan();

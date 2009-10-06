@@ -59,11 +59,27 @@ namespace ntai {
 		CUnitTypeData* utd = u->GetUnitDataType();
 
 		std::vector<std::string> vl;
+		std::string listname = utd->GetName();
+		if(G->info->_abstract){
+			// default configuration file!!!!!
+			if(utd->IsFactory()){
+				listname = "factory";
+			} else if (utd->IsHub()){
+				listname = "hub";
+			} else if (utd->CanConstruct()){
+				//
+				if(utd->GetUnitDef()->isCommander){
+					listname = "commander";
+				} else {
+					listname = "builder";
+				}
+			}
+		}
 		std::string sl;
 		if(G->Cached->cheating){
-			sl= G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\CHEAT\\")+utd->GetName());
-		}else{
-			sl = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\NORMAL\\")+utd->GetName());
+			sl = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\CHEAT\\")+listname);
+		} else {
+			sl = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\NORMAL\\")+listname);
 		}
 
 		tolowercase(sl);
@@ -73,7 +89,7 @@ namespace ntai {
 			CTokenizer<CIsComma>::Tokenize(vl, sl, CIsComma());
 			if(vl.empty() == false){
 				int randnum = G->mrand()%vl.size();
-				us = vl.at(min(randnum,max(int(vl.size()-1),1)));
+				us = vl.at(std::min(randnum,std::max(int(vl.size()-1),1)));
 			}
 		}
 

@@ -389,7 +389,7 @@ namespace ntai {
 				if(p->IsAttacker()){
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					temp -= (G->mrand()%max(int(temp/4),1));
+					temp -= (G->mrand()%std::max(int(temp/4),1));
 					if(temp > best_score){
 						best_score = temp;
 						best = p->GetName();
@@ -419,7 +419,7 @@ namespace ntai {
 				if(p->IsBomber()){
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					temp = temp - G->mrand()%max(int(temp/4),1);
+					temp = temp - G->mrand()%std::max(int(temp/4),1);
 					if(temp > best_score){
 						best_score = temp;
 						best = p->GetName();
@@ -446,7 +446,7 @@ namespace ntai {
 				if(p->IsFighter()){
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					temp = temp - G->mrand()%max(int(temp/4),1);
+					temp = temp - G->mrand()%std::max(int(temp/4),1);
 					if(temp > best_score){
 						best_score = temp;
 						best = p->GetName();
@@ -473,7 +473,7 @@ namespace ntai {
 				if(p->IsGunship()){
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					temp = temp - G->mrand()%max(int(temp/4),1);
+					temp = temp - G->mrand()%std::max(int(temp/4),1);
 					if(temp > best_score){
 						best_score = temp;
 						best = p->GetName();
@@ -516,7 +516,7 @@ namespace ntai {
 				if(good == true){
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					temp = temp - G->mrand()%min((int)(temp/3),1);
+					temp = temp - G->mrand()%std::min((int)(temp/3),1);
 					if(temp > best_score){
 						best_score = temp;
 						best = p->GetName();
@@ -556,7 +556,7 @@ namespace ntai {
 				if(found == true){
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					temp = temp - G->mrand()%max(int(temp/4),1);
+					temp = temp - G->mrand()%std::max(int(temp/4),1);
 					if(temp > best_score){
 						best_score = temp;
 						best = p->GetName();
@@ -586,7 +586,7 @@ namespace ntai {
 
 					float temp = G->efficiency->GetEfficiency(p->GetName());
 					temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-					int r = G->mrand()%max(int(temp/4),1)+1;
+					int r = G->mrand()%std::max(int(temp/4),1)+1;
 					temp += (float)abs(r);
 
 					if(temp > best_score){
@@ -624,7 +624,7 @@ namespace ntai {
 							}
 							temp*=p->GetUnitDef()->buildSpeed;
 							temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-							temp = temp - G->mrand()%max(int(temp/4),1);
+							temp = temp - G->mrand()%std::max(int(temp/4),1);
 							if(temp > best_score){
 								best_score = temp;
 								best = p->GetName();
@@ -752,6 +752,9 @@ namespace ntai {
 			// remove entries from the beginning of the list of potential items
 			// so that the randnum'th entry is at the begining of the list
 			while(randnum > 0){
+				if(possibles.size() == 1){
+					break;
+				}
 				possibles.pop_front();
 			}
 			
@@ -1425,7 +1428,7 @@ namespace ntai {
 					if(p->IsUWStructure()!=(water||G->info->spacemod)) continue;
 					float temp = G->efficiency->GetEfficiency(pd->name);
 					temp /= (pd->energyCost+(pd->metalCost*45));
-					int r = G->mrand()%max(int(temp/4),1)+1;
+					int r = G->mrand()%std::max(int(temp/4),1)+1;
 					temp += (float)abs(r);
 					if(temp > best_score){
 						best_score = temp;
@@ -1458,7 +1461,7 @@ namespace ntai {
 					if(p->IsUWStructure()!=(water||G->info->spacemod)) continue;
 					float temp = G->efficiency->GetEfficiency(pd->name);
 					temp /= (pd->energyCost+(pd->metalCost*45));
-					int r = G->mrand()%max(int(temp/4),1)+1;
+					int r = G->mrand()%std::max(int(temp/4),1)+1;
 					temp += (float)abs(r);
 					if(temp > best_score){
 						best_score = temp;

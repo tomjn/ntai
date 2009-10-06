@@ -13,6 +13,7 @@ public:
 	void* GetOtherParameters();
 
 	std::string GetType();
+	bool IsType(std::string type);
 	void SetType(std::string type);
 
 	int GetFrame();

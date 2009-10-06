@@ -10,7 +10,7 @@
 // arguements, by the time they had the chance to officially change it people had already
 // gotten used to it. But I didn't know this back then and it's easier to leave this macro
 // in for the moment
-#define slash "/"
+#define slash "\\"
 
 
 #define EXCEPTION
@@ -84,7 +84,7 @@
 // NLOG only prints to the Log file
 // Uncomment #define TNLOG further up to enable this extensive logging
 #ifdef TNLOG
-#define NLOG(a) (G->L.print(string("<")+to_string(G->Cached->team)+string(">")+string("function :: ") + a + string(endline)))
+#define NLOG(a) (G->L.print(std::string("<")+to_string(G->Cached->team)+std::string(">function :: ") + a + std::string(endline)))
 #define CLOG(a) {cb->SendTextMsg(a,1);}
 #endif
 #ifndef TNLOG

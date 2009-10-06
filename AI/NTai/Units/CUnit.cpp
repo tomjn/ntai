@@ -57,8 +57,11 @@ namespace ntai {
 			std::list<IBehaviour* >::iterator i = behaviours.begin();
 			for(; i != behaviours.end(); ++i){
 				IBehaviour* b = (*i);
+				G->RemoveHandler(b);
 				delete b;
 			}
+			behaviours.erase(behaviours.begin(),behaviours.end());
+			behaviours.clear();
 		}
 	}
 
@@ -123,10 +126,6 @@ namespace ntai {
 				taskManager->RemoveAllTasks();
 				//G->RemoveHandler(taskManager);
 
-				if(!behaviours.empty()){
-					behaviours.erase(behaviours.begin(),behaviours.end());
-					behaviours.clear();
-				}
 				this->End();
 				return;
 			}
@@ -250,6 +249,9 @@ namespace ntai {
 
 				}
 			}
+		} else {
+			//
+			int a = 5;
 		}
 		return true;
 	}
