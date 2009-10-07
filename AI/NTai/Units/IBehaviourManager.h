@@ -3,8 +3,12 @@ namespace ntai {
 
 	class IBehaviourManager  : public IModule {
 	public:
-		AddBehaviour(IBehaviour* b);
-		DeleteBehaviour(IBehaviour* b);
-	}
+		IBehaviourManager(Global* G, CUnit* u);
+
+		virtual void AddBehaviour(IBehaviour* b)=0;
+		virtual void DeleteBehaviour(IBehaviour* b)=0;
+
+		virtual void LoadBehaviours()=0;
+	};
 
 }

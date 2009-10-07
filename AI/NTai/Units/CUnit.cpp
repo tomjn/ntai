@@ -68,7 +68,7 @@ namespace ntai {
 	bool CUnit::Init(){
 
 		NLOG("CUnit::Init");
-		if((G->GetCurrentFrame() > 32)&&utd->IsMobile()){
+		if((G->GetCurrentFrame() > 32) && utd->IsMobile()){
 			currentTask = new CLeaveBuildSpotTask(G,uid,utd);
 			currentTask->Init();
 			G->RegisterMessageHandler(currentTask);
@@ -270,5 +270,15 @@ namespace ntai {
 	ITaskManager* CUnit::GetTaskManager(){
 		//
 		return taskManager;
+	}
+	
+	void CUnit::SetBehaviourManager(IBehaviourManager* behaviourManager){
+		//
+		this->behaviourManager = behaviourManager;
+	}
+
+	IBehaviourManager* CUnit::GetBehaviourManager(){
+		//
+		return behaviourManager;
 	}
 }

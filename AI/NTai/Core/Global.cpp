@@ -374,7 +374,9 @@ namespace ntai {
 		CUnit* u = new CUnit(G, unit);
 		unit_array[unit] = u;
 		ITaskManager* taskManager = new CConfigTaskManager(G,unit);
+		IBehaviourManager* behaviourManager = 0;
 		u->SetTaskManager(taskManager);
+		u->SetBehaviourManager(behaviourManager);
 		u->Init();
 		//RegisterMessageHandler(Unit);
 		CMessage message("unitcreated");

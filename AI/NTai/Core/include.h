@@ -65,11 +65,16 @@ namespace ntai{
 #include "../Units/CUnitTypeData.h"							// Holder for unit type specific data
 #include "../Core/CMessage.h"								// generic event message class
 #include "../Core/IModule.h"								// Base class for AI objects
-#include "../Units/IBehaviour.h"							// Behaviour base class
 
-#include "../Units/ITaskManager.h"							// Attack nearby enemies
-#include "../Units/ITaskManagerFactory.h"					// Attack nearby enemies
-#include "../Units/CConfigTaskManager.h"					// Attack nearby enemies
+#include "../Units/IBehaviour.h"							// Behaviour base class
+#include "../Units/IBehaviourManager.h"						// 
+
+#include "../Units/ITaskManager.h"							// 
+#include "../Units/ITaskManagerFactory.h"					// 
+#include "../Units/CConfigTaskManager.h"					// 
+
+
+
 #include "../Units/CUnit.h"
 #include "../Helpers/Log.h"									// Logging class
 #include "../Helpers/Units/CUnitDefLoader.h"				// Loads unitdefs

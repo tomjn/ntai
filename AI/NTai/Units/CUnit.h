@@ -31,11 +31,15 @@ namespace ntai {
 
 		void SetTaskManager(ITaskManager* taskManager);
 		ITaskManager* GetTaskManager();
+
+		void SetBehaviourManager(IBehaviourManager* behaviourManager);
+		IBehaviourManager* GetBehaviourManager();
 	protected:
 		
 		bool doingplan;
 		uint curplan;
 		ITaskManager* taskManager;
+		IBehaviourManager* behaviourManager;
 		bool under_construction;
 		IModule* currentTask;
 		std::list< IBehaviour* > behaviours;
