@@ -102,7 +102,7 @@ namespace ntai {
 			}
 		}
 
-		blockingmap.Initialize(mapdim, float3(64, 0, 64), true);
+		blockingmap.Initialize(mapdim, float3(96, 0, 96), true);
 		blockingmap.SetDefaultGridValue(0);
 		blockingmap.SetMinimumValue(1);
 
