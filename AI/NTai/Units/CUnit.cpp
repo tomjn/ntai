@@ -66,8 +66,10 @@ namespace ntai {
 	}
 
 	bool CUnit::Init(){
-
 		NLOG("CUnit::Init");
+
+		taskManager->Init();
+		behaviourManager->Init();
 		if((G->GetCurrentFrame() > 32) && utd->IsMobile()){
 			currentTask = new CLeaveBuildSpotTask(G,uid,utd);
 			currentTask->Init();
@@ -113,7 +115,7 @@ namespace ntai {
 		}else if(message.GetType() == std::string("unitfinished")){
 			if(message.GetParameter(0) == this->uid){
 				under_construction = false;
-				LoadBehaviours();
+				behaviourManager->LoadBehaviours();
 			}
 		}else if(message.GetType() == std::string("unitdestroyed")){
 			if(message.GetParameter(0) == uid){
@@ -161,99 +163,6 @@ namespace ntai {
 	int CUnit::GetID(){
 		NLOG("CUnit::GetID");
 		return uid;
-	}
-
-	bool CUnit::LoadBehaviours(){
-		std::string d = G->Get_mod_tdf()->SGetValueDef("auto","AI\\behaviours\\"+utd->GetName());
-
-		std::vector<std::string> v;
-		CTokenizer<CIsComma>::Tokenize(v, d, CIsComma());
-
-		if(!v.empty()){
-			for(std::vector<std::string>::iterator vi = v.begin(); vi != v.end(); ++vi){
-
-				std::string s = *vi;
-
-				trim(s);
-				tolowercase(s);
-
-				if(s == "none"){
-					return true;
-				} else if(s == "metalmaker"){
-					CMetalMakerBehaviour* m = new CMetalMakerBehaviour(G, GetID());
-					AddBehaviour(m);
-				} else if(s == "attacker"){
-					CAttackBehaviour* a = new CAttackBehaviour(G, GetID());
-					AddBehaviour(a);
-				} else if(s == "dgun"){
-					CDGunBehaviour* a = new CDGunBehaviour(G, GetID());
-					AddBehaviour(a);
-				} else if(s == "retreat"){
-					CRetreatBehaviour* a = new CRetreatBehaviour(G, GetID());
-					AddBehaviour(a);
-				} else if(s == "kamikaze"){
-					CKamikazeBehaviour* a = new CKamikazeBehaviour(G, GetID());
-					AddBehaviour(a);
-				} else if(s == "staticdefence"){
-					CStaticDefenceBehaviour* a = new CStaticDefenceBehaviour(G, GetID());
-					AddBehaviour(a);
-				} else if(s == "movefailreclaim"){
-					CMoveFailReclaimBehaviour* a = new CMoveFailReclaimBehaviour(G, GetID());
-					AddBehaviour(a);
-				} else if(s == "auto"){
-					// we have to decide what this units behaviours should be automatically
-					// check each type of unit for pre-requisites and then assign the behaviour
-					// accordingly.
-
-					if(utd->IsAttacker()){
-						CAttackBehaviour* a = new CAttackBehaviour(G, GetID());
-						AddBehaviour(a);
-					}
-
-					if(utd->IsMetalMaker()||(utd->IsMex() && utd->GetUnitDef()->onoffable ) ){
-						CMetalMakerBehaviour* m = new CMetalMakerBehaviour(G, GetID());
-						AddBehaviour(m);
-						
-					}
-					
-					if(utd->CanDGun()){
-						CDGunBehaviour* a = new CDGunBehaviour(G, GetID());
-						AddBehaviour(a);
-					}
-
-					
-
-					if(utd->GetUnitDef()->canmove || utd->GetUnitDef()->canfly){
-						CRetreatBehaviour* a = new CRetreatBehaviour(G, GetID());
-						AddBehaviour(a);
-
-						if(utd->GetUnitDef()->canReclaim){
-							CMoveFailReclaimBehaviour* mb = new CMoveFailReclaimBehaviour(G, GetID());
-							AddBehaviour(mb);
-						}
-
-					}else{
-						/* this unit can't move, if it can fire a weapon though give it
-						   the static defence behaviour*/
-
-						if(utd->GetUnitDef()->weapons.empty()==false){
-							CStaticDefenceBehaviour* a = new CStaticDefenceBehaviour(G, GetID());
-							AddBehaviour(a);
-						}
-					}
-
-					/*At the moment I can't think of a viable way of testing for the kamakaze
-					  behaviour. It's usually a specialized behaviour though so a modder is
-					  likely to mark it out in toolkit as a kamikaze unit
-					*/
-
-				}
-			}
-		} else {
-			//
-			int a = 5;
-		}
-		return true;
 	}
 	
 	void CUnit::AddBehaviour(IBehaviour* b){
