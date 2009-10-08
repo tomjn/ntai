@@ -25,8 +25,6 @@ namespace ntai {
 		int GetID();
 		int GetAge();
 
-		bool LoadBehaviours();
-
 		void AddBehaviour(IBehaviour* b);
 
 		void SetTaskManager(ITaskManager* taskManager);
