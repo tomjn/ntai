@@ -71,9 +71,6 @@ namespace ntai{
 
 #include "../Units/ITaskManager.h"							// 
 #include "../Units/ITaskManagerFactory.h"					// 
-#include "../Units/CConfigTaskManager.h"					// 
-
-
 
 #include "../Units/CUnit.h"
 #include "../Helpers/Log.h"									// Logging class
@@ -81,13 +78,17 @@ namespace ntai{
 #include "../Engine/TCommand.h"								// Unit cached command data structure
 #include "../Helpers/CWorkerThread.h"						// Some threading stuff
 
+
+#include "../Units/CConfigBehaviourManager.h"				// 
+#include "../Units/CConfigTaskManager.h"					// 
+
 #include "../Core/CCached.h"								// Cached data storage class
 #include "../Engine/COrderRouter.h"							// Caches orders and issues them so the engine doesnt give an overflow message
 #include "../Helpers/CEconomy.h"							// Economy Construction rules
 
 #include "../Helpers/Terrain/Map.h"							// Common Map related procedures such as which corner of the mapare we in
 
-#include "../Helpers/Efficiency.h"
+#include "../Helpers/Efficiency.h"							// 
 #include "../Helpers/CConfigData.h"							// Stores data from the mod.tdf and AI.tdf files
 #include "../Helpers/CTokenizer.h"							// Tokenizes a string based on a delimiter aka String.split() in java
 #include "../Helpers/Terrain/RadarHandler.h"				// Spaces out radar tower placement so they cover more area and dont overlap

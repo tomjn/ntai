@@ -272,6 +272,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NTai\Units\CConfigBehaviourManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NTai\Helpers\CConfigData.cpp"
 				>
 			</File>
@@ -564,6 +568,10 @@
 			<Filter
 				Name="units"
 				>
+				<File
+					RelativePath=".\NTai\Units\CConfigBehaviourManager.h"
+					>
+				</File>
 				<File
 					RelativePath=".\NTai\Units\CConfigTaskManager.h"
 					>

@@ -1,6 +1,6 @@
 
 namespace ntai {
-	class CAttackBehaviour : public IBehaviour{
+	class CAttackBehaviour : public IBehaviour {
 	public:
 		CAttackBehaviour(Global* GL, int uid);
 		virtual ~CAttackBehaviour();
