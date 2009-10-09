@@ -611,24 +611,30 @@ namespace ntai {
 				
 				CUnitTypeData* p =G->UnitDefLoader->GetUnitTypeDataByName(is->name);
 
-				if(p->GetUnitDef()->builder&&p->IsMobile()){
-					if(G->Pl->feasable(p,utd)==false) continue;
+				if(p->GetUnitDef()->builder && p->IsMobile()){
 					if(p->IsMineLayer()) continue;
-					if(p->GetUnitDef()->floater){
-						if(G->info->spacemod||water){
-							float temp = G->efficiency->GetEfficiency(p->GetUnitDef()->name);
-							if(!p->GetUnitDef()->buildOptions.empty()){
-								for(std::map<int,std::string>::const_iterator i = p->GetUnitDef()->buildOptions.begin(); i != p->GetUnitDef()->buildOptions.end(); ++i){
-									temp += G->efficiency->GetEfficiency(i->second);
-								}
+					if(G->Pl->feasable(p,utd)==false) continue;
+					
+					bool process = true;
+					
+					if(G->info->spacemod||water){
+						if(!p->GetUnitDef()->floater){
+							process = false;
+						}
+					}
+					if(process){
+						float temp = G->efficiency->GetEfficiency(p->GetUnitDef()->name);
+						if(!p->GetUnitDef()->buildOptions.empty()){
+							for(std::map<int,std::string>::const_iterator i = p->GetUnitDef()->buildOptions.begin(); i != p->GetUnitDef()->buildOptions.end(); ++i){
+								temp += G->efficiency->GetEfficiency(i->second);
 							}
-							temp*=p->GetUnitDef()->buildSpeed;
-							temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
-							temp = temp - G->mrand()%std::max(int(temp/4),1);
-							if(temp > best_score){
-								best_score = temp;
-								best = p->GetName();
-							}
+						}
+						temp*=p->GetUnitDef()->buildSpeed;
+						temp /= (p->GetUnitDef()->energyCost+(p->GetUnitDef()->metalCost*45));
+						temp = temp - G->mrand()%std::max(int(temp/4),1);
+						if(temp > best_score){
+							best_score = temp;
+							best = p->GetName();
 						}
 					}
 				}

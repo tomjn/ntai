@@ -25,7 +25,8 @@ namespace ntai {
 
 	void CConfigTaskManager::TaskFinished(){
 		//
-		if(!EraseFirst()){
+		EraseFirst();
+		if(!HasTasks()){
 			LoadTaskList();
 		}
 	}

@@ -27,6 +27,8 @@ namespace ntai {
 		// Set up the values that need the passed parameters
 		this->ud = ud;
 		this->G = G;
+
+		checkedMineLayer = false;
 		std::string n = ud->name;
 		trim(n);
 		tolowercase(n);
@@ -105,29 +107,6 @@ namespace ntai {
 		float r = sqrt(pow((float)ud->xsize*8,2)+pow((float)ud->zsize*8,2))/2;
 		r += (buildSpacing*8);
 		buildSpacing = r;
-
-		isMineLayer = false;
-		if(CanConstruct()){
-			if(!ud->buildOptions.empty()){
-				int mines = 0;
-				int nonmines = 0;
-
-				for(std::map<int,std::string>::const_iterator is = ud->buildOptions.begin(); is != ud->buildOptions.end();++is){
-					// retrieve the unit type information
-					CUnitTypeData* p = G->UnitDefLoader->GetUnitTypeDataByName(is->second);
-					if(p->IsMine()){
-						mines++;
-					} else {
-						nonmines++;
-					}
-				}
-				if(nonmines == 0){
-					if(mines > 0){
-						isMineLayer = true;
-					}
-				}
-			}
-		}
 
 	}
 
@@ -233,6 +212,34 @@ namespace ntai {
 
 	bool CUnitTypeData::IsMineLayer(){
 		if(ud == 0) return false;
+		
+
+		if(!checkedMineLayer){
+			isMineLayer = false;
+			if(CanConstruct()){
+				if(!ud->buildOptions.empty()){
+					int mines = 0;
+					int nonmines = 0;
+
+					for(std::map<int,std::string>::const_iterator is = ud->buildOptions.begin(); is != ud->buildOptions.end();++is){
+						// retrieve the unit type information
+						CUnitTypeData* p = G->UnitDefLoader->GetUnitTypeDataByName(is->second);
+						if(p->IsMine()){
+							mines++;
+						} else {
+							nonmines++;
+						}
+					}
+					//if(nonmines == 0){
+						if(mines > 0){
+							isMineLayer = true;
+						}
+					//}
+				}
+			}
+			checkedMineLayer = true;
+		}
+		
 		return isMineLayer;
 	}
 

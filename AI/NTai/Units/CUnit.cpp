@@ -93,13 +93,14 @@ namespace ntai {
 					if(!currentTask->IsValid()){
 						//
 						taskManager->TaskFinished();
-						currentTask = taskManager->GetNextTask();
+						currentTask = 0;
+						/*taskManager->GetNextTask();
 						if(currentTask != 0){
 							currentTask->Init();
 							G->RegisterMessageHandler(currentTask);
 						}else{
 							currentTask = 0;
-						}
+						}*/
 					}
 				}else{
 					//

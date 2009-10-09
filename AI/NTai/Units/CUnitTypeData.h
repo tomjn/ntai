@@ -89,6 +89,7 @@ namespace ntai {
 		float buildSpacing;
 
 		bool isMineLayer;
+		bool checkedMineLayer;
 
 	};
 }
