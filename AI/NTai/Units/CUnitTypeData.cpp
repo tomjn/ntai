@@ -335,4 +335,22 @@ namespace ntai {
 	float CUnitTypeData::GetSpacing(){
 		return buildSpacing;
 	}
+
+	bool CUnitTypeData::CanBuild(std::string name){
+		NLOG("CManufacturer::CanBuild");
+		std::string n = name;
+		tolowercase(n);
+		trim(n);
+		if(!ud->buildOptions.empty()){
+			for(std::map<int,std::string>::const_iterator i = ud->buildOptions.begin(); i !=ud->buildOptions.end(); ++i){
+				std::string k = i->second;
+				tolowercase(k);
+				trim(k);
+				if(k==n){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

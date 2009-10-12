@@ -165,8 +165,8 @@ namespace ntai {
 
 			if(building->GetUnitDef()->energyCost > 100.0f){
 
-				if(G->Economy->BuildPower(true)&&(!building->IsEnergy())){
-					return false;
+				if(G->Economy->BuildPower(true)&&(building->IsEnergy())){
+					return true;
 				}
 
 				NLOG("ANTISTALL mk2");
@@ -194,8 +194,8 @@ namespace ntai {
 			if(building->GetUnitDef()->metalCost>50){
 				NLOG("ANTISTALL mk5");
 				
-				if(G->Economy->BuildMex(true)&& (!building->IsMex())){
-					return false;
+				if(G->Economy->BuildMex(true)&& (building->IsMex())){
+					return true;
 				}
 
 				NLOG("ANTISTALL mk6");

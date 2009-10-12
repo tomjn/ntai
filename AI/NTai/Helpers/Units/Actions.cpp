@@ -665,6 +665,7 @@ bool CActions::OffensiveRepairRetreat(int uid, float radius){
             }
 
             delete[] en;
+			en = 0;
 
             if(ValidUnitID(r_uid)){
                 return Repair(uid, r_uid);
@@ -672,15 +673,19 @@ bool CActions::OffensiveRepairRetreat(int uid, float radius){
 
         }else{
             delete[] en;
+			en = 0;
 
             // runaway!!!!!!!!!!!!!!!!!!
 			return MoveToStrike(uid, G->Map->nbasepos(compos), false);
         }
     }
 
-    delete [] en;
+	if(en != 0){
+		delete [] en;
+	}
     return false;
 }
+
 bool CActions::RepairNearby(int uid, float radius){
     NLOG("CActions::RepairNearby");
     const UnitDef* udi = G->cb->GetUnitDef(uid);

@@ -141,8 +141,12 @@ namespace ntai {
 
 				CUnitTypeData* b = G->UnitDefLoader->GetUnitTypeDataByName(q);
 				if(b != 0){
-					IModule* t = new CUnitConstructionTask(G,u->GetID(),utd,b);
-					tasks.push_back(t);
+					if(u->GetUnitDataType()->CanBuild(q)){
+						IModule* t = new CUnitConstructionTask(G,u->GetID(),utd,b);
+						tasks.push_back(t);
+					} else {
+						continue;
+					}
 				}else if(q == std::string("")){
 					continue;
 				}else if(q == std::string("b_na")){

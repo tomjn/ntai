@@ -251,7 +251,7 @@ namespace ntai {
 			bestPosition = blockingmap->GridtoMap(bestPosition);
 		}else{
 			std::string es = "bad pos(1)"+to_string(e);
-			G->L.iprint(es);
+			G->L.print(es);
 
 			// its invalid so assign an error value
 			bestPosition = UpVector;

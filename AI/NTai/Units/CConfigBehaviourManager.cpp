@@ -61,7 +61,7 @@ namespace ntai {
 						u->AddBehaviour(a);
 					}
 
-					if(u->GetUnitDataType()->IsMetalMaker()||(u->GetUnitDataType()->IsMex() && u->GetUnitDataType()->GetUnitDef()->onoffable ) ){
+					if(u->GetUnitDataType()->IsMetalMaker()){/*||(u->GetUnitDataType()->IsMex() && u->GetUnitDataType()->GetUnitDef()->onoffable )){*/ 
 						CMetalMakerBehaviour* m = new CMetalMakerBehaviour(G, u->GetID());
 						u->AddBehaviour(m);
 						

@@ -458,6 +458,10 @@
 					RelativePath=".\NTai\Helpers\Terrain\CBuildingPlacer.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\NTai\Algorithms\Placement\CConstructionPlacerFactory.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -709,6 +713,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\NTai\Algorithms\Placement\CConstructionPlacerFactory.h"
+					>
+				</File>
+				<File
 					RelativePath=".\NTai\Algorithms\Placement\IConstructionPlacer.h"
 					>
 				</File>
@@ -867,10 +875,6 @@
 				RelativePath="..\..\..\Wrappers\LegacyCpp\Event\AIWeaponFiredEvent.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="CUtil"
-			>
 		</Filter>
 	</Files>
 	<Globals>

@@ -65,6 +65,8 @@ namespace ntai {
 		bool CanConstruct();
 
 		float GetSpacing();
+
+		bool CanBuild(std::string name);
 	private:
 		Global* G;
 		const UnitDef* ud;
