@@ -138,14 +138,14 @@ namespace ntai {
 		//boost::mutex::scoped_lock lock(io_mutex[building->id]);
 		if(!reciever->IsValid()) return;
 		float3 bestPosition = UpVector;
-		float bestDistance = 500000.0f;
-		if(G->L.IsVerbose()){
+		//float bestDistance = 500000.0f;
+		/*if(G->L.IsVerbose()){
 			AIHCAddMapPoint ac;
 			ac.label=new char[11];
 			ac.label="build algo";
 			ac.pos = builderpos;
 			G->cb->HandleCommand(AIHCAddMapPointId,&ac);
-		}
+		}*/
 
 		float search_radius = freespace+3000;
 		if(builder->IsHub()){
@@ -154,93 +154,67 @@ namespace ntai {
 		CUBuild b;
 		b.Init(G, builder, 0);
 		int e=0;
-		std::vector<float3> cells = blockingmap->GetCellsInRadius(builderpos, search_radius, e);
 
-		if(!cells.empty()){
+		int x,y,dx,dy;
+		x = y = 0;
+		dx = 0;
+		//dy = G->mrand() % 3;
+		dy = -1;
 
-			bestDistance = freespace+2001;
+		int s = search_radius/blockingmap->GetCellWidth();
+		int t = s;
+		int maxI = t*t;
+		float3 buildergridpos = blockingmap->MaptoGrid(builderpos);
+		for(int i =0; i < maxI; i++){
+			if((-s/2 < x) &&(x <= s/2)){
+				if ( ((-s/2) < y)&&(y <= (s/2))){
+					
+					// DO STUFF...
+					float3 pos = buildergridpos;
+					pos.x += x;
+					pos.y += y;
+					if(blockingmap->ValidGridPos(pos)){
+						if(blockingmap->GetValuebyGrid(pos,0) == 0){
+							//
 
-			for(std::vector<float3>::iterator i = cells.begin(); i != cells.end(); ++i){// for each cell
 
-				if(!valid){
-					bestPosition = UpVector;
-					break;
-				}
+							float3 mpos = blockingmap->GridtoMap(pos);
+							// check our blocking map
+							std::vector<float3> cells2 = blockingmap->GetCellsInRadius(mpos, freespace);
 
-				// check the reciever is still valid
-				// The reciever may have died during this threads running so we need to stop if its
-				// invalid to prevent running overtime
-				if(reciever->IsValid()==false){
-					break;
-				}
+							bool good = true;
+							if(!cells2.empty()){
 
-				float3 gpos = *i;
+								
+								//for each cell
+								for(std::vector<float3>::iterator i2 = cells2.begin(); i2 != cells2.end(); ++i2){
 
-				if(blockingmap->ValidGridPos(gpos)==false){
-					continue;
-				}
+									if (blockingmap->GetValuebyGrid(*i2) == 3){
 
-				float3 mpos = blockingmap->GridtoMap(gpos);
+										good = false;
+										break;
+									}
+								}
 
-				if(blockingmap->ValidMapPos(mpos)==false){
-					continue;
-				}
+							}
 
-				float distance = mpos.distance2D(builderpos);
-
-				if(distance < bestDistance){
-					bool good = true;
-
-					// check our blocking map
-					std::vector<float3> cells2 = blockingmap->GetCellsInRadius(mpos, freespace);
-
-					if(!cells2.empty()){
-
-						//for each cell
-						for(std::vector<float3>::iterator i2 = cells2.begin(); i2 != cells2.end(); ++i2){
-
-							if (blockingmap->GetValuebyGrid(*i2) == 3){
-
-								good = false;
-								break;
+							if(good){
+								if(G->cb->CanBuildAt(building->GetUnitDef(), mpos)==true){
+									bestPosition = pos;
+									break;
+								}
 							}
 						}
-
-					}else{
-
-						good = false;//continue;
 					}
-
-					// if good == false then the previous check gave a negative result so exit
-					if(!good){
-						continue;
-					}
-
-					// Check if the engine says we can build here
-					// This incorporates checking the terrain
-					if(G->cb->CanBuildAt(building->GetUnitDef(), mpos)==false){
-						continue;
-					}
-
-					// update best position/distance
-					bestPosition = gpos;
-					bestDistance = distance;
-				}else{
-					continue;
 				}
 			}
-
-			if(!b.OkBuildSelection(building->GetName())){
-				bestPosition = UpVector;
+			if( (x == y) || ((x < 0) && (x == -y)) || ((x > 0) && (x == 1-y))){
+				t = dx;
+				dx = -dy;
+				dy = t;
 			}
-
-		}else{
-
-			// no surrounding cells?! assign an error value
-			std::string es = "no cells: "+to_string(e);
-			G->L.iprint(es);
-
-			bestPosition= UpVector;
+			x += dx;
+			y += dy;
 		}
 
 		e = blockingmap->ValidGridPosE(bestPosition);
