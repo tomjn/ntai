@@ -20,7 +20,7 @@ namespace ntai {
 
 		float3 mapdim= float3((float)G->cb->GetMapWidth()*SQUARE_SIZE, 0, (float)G->cb->GetMapHeight()*SQUARE_SIZE);
 		Grid.Initialize(mapdim, float3(1024, 0, 1024), true);
-		Grid.ApplyModifierOnUpdate(0.9f, (15 SECONDS));
+		Grid.ApplyModifierOnUpdate(0.9f, (5 SECONDS));
 		Grid.SetDefaultGridValue(5.0f);
 		Grid.SetMinimumValue(10.0f);
 
