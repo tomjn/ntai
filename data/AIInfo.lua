@@ -21,21 +21,21 @@ local infos = {
 	},
 	{
 		key    = 'version',
-		value  = 'XE9.9', -- AI version - !This comment is used for parsing!
+		value  = 'XE10', -- AI version - !This comment is used for parsing!
 	},
 	{
 		key    = 'name',
-		value  = 'AF/Tom J Nowells Skirmish AI (NTai). Uses config files.',
+		value  = 'NTai',
 		desc   = 'human readable name.',
 	},
 	{
 		key    = 'description',
-		value  = 'Competetive AI that supports most TA based Mods and plays decently.',
+		value  = 'Reconfigurable AI.',
 		desc   = 'tooltip.',
 	},
 	{
 		key    = 'url',
-		value  = 'http://spring.clan-sy.com/wiki/AI:NTai',
+		value  = 'http://www.darkstars.co.uk/projects/ai/ntai/',
 		desc   = 'URL with more detailed info about the AI',
 	},
 	{
@@ -56,4 +56,3 @@ local infos = {
 }
 
 return infos
-
