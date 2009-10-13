@@ -89,7 +89,8 @@ namespace ntai {
 		if(Good == false){
 			if(acallback->GetCurrentFrame() == (6 SECONDS)){
 				//
-				acallback->SendTextMsg("Error :: InitAI() in XE9.79 failed, please notify AF at once",1);
+				acallback->SendTextMsg("Error :: InitAI() in failed, please notify AF at once",1);
+				acallback->SendTextMsg(AI_NAME,1);
 				acallback->SendTextMsg("Error :: www.darkstars.co.uk",1);
 			}
 			return;

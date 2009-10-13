@@ -85,8 +85,8 @@ namespace ntai {
 			std::string filename = G->info->datapath + slash + "Logs" + slash;
 
 			//             DDD MMM DD HH:MM:SS YYYY_X - NTAI.log
-			filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE9.9.log";
-			//sprintf(c, "%2.2d-%2.2d-%4.4d %2.2d%2.2d [%d]XE9.79.log",
+			filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE10.log";
+			//sprintf(c, "%2.2d-%2.2d-%4.4d %2.2d%2.2d [%d]XE10.log",
 			//		now2->tm_mon+1, now2->tm_mday, now2->tm_year + 1900, now2->tm_hour,
 			//		now2->tm_min, G->Cached->team);
 			//filename += c;
@@ -102,7 +102,7 @@ namespace ntai {
 					return;
 				}
 			}
-			header(" :: NTAI XE9.9+ Log File \n :: Programmed and maintained by AF/T.Nowell \n :: Copyright (C) 2004 Tom Nowell/AF \n");
+			header(" :: NTAI XE10 Log File \n :: Programmed and maintained by AF/T.Nowell \n :: Copyright (C) 2004 Tom Nowell/AF \n");
 			logFile << " :: Game started: " << now2->tm_mday << "." << now2->tm_mon << "." << 1900 + now2->tm_year << "  " << now2->tm_hour << ":" << now2->tm_min << ":" << now2->tm_sec << std::endl << std::endl <<  std::flush;
 			TdfParser cp(G);
 			cp.LoadFile("modinfo.tdf");
@@ -143,7 +143,7 @@ namespace ntai {
 			filename += "Logs";
 			filename += slash;
 			//                                      DDD MMM DD HH:MM:SS YYYY_X - NTAI.htm
-			sprintf(c, "%2.2d-%2.2d-%4.4d %2.2d%2.2d [%d] - NTAIXE9.79.htm",
+			sprintf(c, "%2.2d-%2.2d-%4.4d %2.2d%2.2d [%d] - NTAIXE10.htm",
 			now2->tm_mon+1, now2->tm_mday, now2->tm_year + 1900, now2->tm_hour,
 			now2->tm_min, G->Cached->team);
 			filename += c;
@@ -152,7 +152,7 @@ namespace ntai {
 			logFile.open(filename.c_str());
 			plaintext = false;
 			std::string mu ="</table><style type='text/css'>\n<!--\nbody,td,th {\n	font-family: sans-serif;\n	color: #111111;\nfont-size: 12px;\n\n}\nbody {\n	background-color: #FFFFFF;\n\n}\n.c {color: #FF2222}\n.e {color: #FFCC11}\n-->\n</style>\n";
-			mu+= "<b><br><br>NTAI XE Log File <br>\n<span class='c'>Programmed and maintained by AF Copyright (C) 2006 AF<br>\nReleased under the GPL 2.0 Liscence </p></span></b><br> \n<table width='98%'border='0' cellpadding='0' cellspacing='0' bordercolor='#999999'>\n";
+			mu+= "<b><br><br>NTAI XE10 Log File <br>\n<span class='c'>Programmed and maintained by AF Copyright (C) 2006 AF<br>\nReleased under the GPL 2.0 Liscence </p></span></b><br> \n<table width='98%'border='0' cellpadding='0' cellspacing='0' bordercolor='#999999'>\n";
 			header(mu);
 			time_t tval;
 			char buf[128];

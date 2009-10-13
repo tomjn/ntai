@@ -13,7 +13,7 @@ namespace ntai{
 	class CUnit;
 	
 	// The name NTAI gives to the spring engine.
-	const char AI_NAME[]= {"NTai XE9.9+"};
+	const char AI_NAME[]= {"NTai XE10"};
 }
 
 //using namespace ntai;
