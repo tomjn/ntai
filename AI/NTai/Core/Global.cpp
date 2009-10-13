@@ -782,7 +782,7 @@ namespace ntai {
 		L.print("Initialisising");
 
 		mrand.seed(uint(time(NULL)*team));
-		std::string filename = info->datapath + "\\data\\" +  info->tdfpath + std::string(".tdf");
+		std::string filename = info->datapath +  info->tdfpath + std::string(".tdf");
 		std::string* buffer = new std::string();
 		TdfParser* q = new TdfParser(this);
 
