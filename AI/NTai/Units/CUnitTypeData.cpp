@@ -33,6 +33,8 @@ namespace ntai {
 		trim(n);
 		tolowercase(n);
 		this->unit_name = n;
+		hasWaterWeapons = false;
+		hasLandWeapons = false;
 		
 		G->Get_mod_tdf()->GetDef(repairDeferRange,"0","Resource\\ConstructionRepairRanges\\"+unit_name);
 
@@ -108,6 +110,20 @@ namespace ntai {
 		r += (buildSpacing*8);
 		buildSpacing = r;
 
+		if(ud->weapons.empty()){
+			std::vector<UnitDef::UnitDefWeapon>::const_iterator i;
+			for(i = ud->weapons.begin(); i != ud->weapons.end(); ++i){
+				if(hasWaterWeapons && hasLandWeapons){
+					continue;
+				}
+				if(i->def->waterweapon){
+					this->hasWaterWeapons = true;
+				} else {
+					this->hasLandWeapons = true;
+				}
+			}
+		}
+
 	}
 
 	const UnitDef* CUnitTypeData::GetUnitDef(){
@@ -144,6 +160,10 @@ namespace ntai {
 		if(ud->canfly == true) return true;
 		if(ud->canhover == true) return true;
 		return false;
+	}
+
+	bool CUnitTypeData::IsStationary(){
+		return (!this->IsMobile());
 	}
 
 	bool CUnitTypeData::IsFactory(){
@@ -352,5 +372,25 @@ namespace ntai {
 			}
 		}
 		return false;
+	}
+
+	bool CUnitTypeData::HasWaterWeapons(){
+		//
+		if(!HasWeapons()){
+			return false;
+		}
+		return hasWaterWeapons;
+	}
+
+	bool CUnitTypeData::HasLandWeapons(){
+		//
+		if(!HasWeapons()){
+			return false;
+		}
+		return hasLandWeapons;
+	}
+
+	bool CUnitTypeData::HasWeapons(){
+		return (!GetUnitDef()->weapons.empty());
 	}
 }

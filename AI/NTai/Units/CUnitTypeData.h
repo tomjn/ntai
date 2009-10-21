@@ -34,6 +34,7 @@ namespace ntai {
 		bool IsSub(){ return false;}
 
 		bool IsMobile();
+		bool IsStationary();
 
 		bool IsAIRSUPPORT();
 
@@ -67,6 +68,11 @@ namespace ntai {
 		float GetSpacing();
 
 		bool CanBuild(std::string name);
+
+		bool HasWaterWeapons();
+		bool HasLandWeapons();
+
+		bool HasWeapons();
 	private:
 		Global* G;
 		const UnitDef* ud;
@@ -92,6 +98,9 @@ namespace ntai {
 
 		bool isMineLayer;
 		bool checkedMineLayer;
+
+		bool hasWaterWeapons;
+		bool hasLandWeapons;
 
 	};
 }
