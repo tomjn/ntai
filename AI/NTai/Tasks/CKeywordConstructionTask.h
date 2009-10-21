@@ -1,5 +1,5 @@
 namespace ntai {
-	class CKeywordConstructionTask : public IModule {
+	class CKeywordConstructionTask : public ITask {
 	public:
 		CKeywordConstructionTask(Global* GL, int unit, btype type);
 		void RecieveMessage(CMessage &message);

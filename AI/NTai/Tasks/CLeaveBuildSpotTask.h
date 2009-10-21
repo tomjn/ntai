@@ -1,6 +1,6 @@
 
 namespace ntai {
-	class CLeaveBuildSpotTask : public IModule {
+	class CLeaveBuildSpotTask : public ITask {
 	public:
 		CLeaveBuildSpotTask(Global* GL, int unit, CUnitTypeData* ud);
 		void RecieveMessage(CMessage &message);
