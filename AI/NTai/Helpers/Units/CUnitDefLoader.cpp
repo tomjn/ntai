@@ -40,6 +40,8 @@ namespace ntai {
 		// The unitdeflist array will be passed to the engine where it will be filled with pointers
 		UnitDefList = new const UnitDef*[unum];
 
+		memset(UnitDefList,0,sizeof(UnitDef*)*unum);
+
 		// retrieve the list of unit definition pointers from the engine
 		G->cb->GetUnitDefList(UnitDefList);
 
@@ -48,6 +50,7 @@ namespace ntai {
 
 			// retrieve the units definition
 			const UnitDef* pud = UnitDefList[n];
+			if(!pud) continue;
 
 			// initialize a UnitTypeData object
 			CUnitTypeData* cutd = new CUnitTypeData();
