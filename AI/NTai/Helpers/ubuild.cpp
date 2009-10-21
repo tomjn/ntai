@@ -793,16 +793,33 @@ namespace ntai {
 
 				if(Useless(p)) continue;
 
-				if((p->GetUnitDef()->weapons.empty() == false)&&(!p->GetUnitDef()->isFeature)&&(!p->IsMobile())){
-					if((G->info->spacemod == true)||(water == true)){
-						if(G->Pl->feasable(p,utd)==false) continue;
-						possibles.push_back(p->GetName());
-						defnum++;
-					} else if (pd->floater == false){
-						if(G->Pl->feasable(p,utd)==false) continue;
-						possibles.push_back(p->GetName());
-						defnum++;
+				if(p->HasWeapons()&& (!p->GetUnitDef()->isFeature) && p->IsStationary()){
+					if((G->info->spacemod)||water){
+						if (!pd->floater){
+							continue;
+						}
+					} else {
+						if(pd->floater){
+							continue;
+						}
 					}
+
+					// if we're not on land and this unit has no land defences, skip it!
+					// we're not in the business of building anti water stuff on land as
+					// we dont have the means of detecting coastline yet
+					if(p->HasWaterWeapons()){
+						if(!water){
+							if(!p->HasLandWeapons()){
+								continue;
+							}
+						}
+					}
+
+					if(G->Pl->feasable(p,utd)==false){
+						continue;
+					}
+					possibles.push_back(p->GetName());
+					defnum++;
 				}
 			}
 		}
