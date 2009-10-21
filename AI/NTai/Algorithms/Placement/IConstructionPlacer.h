@@ -49,5 +49,12 @@ namespace ntai {
 		 */
 		virtual float3 GetResult()=0;
 
+
+		/**
+		 * @brief: 
+		 *
+		 */
+		virtual int SearchRating(CUnitTypeData* targetunit);
+
 	};
 }
