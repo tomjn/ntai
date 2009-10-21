@@ -317,45 +317,6 @@ namespace ntai {
 			//if(reciever->IsValid()){
 			reciever->RecieveMessage(m);
 			return;
-		} else if(G->DTHandler->IsDragonsTeeth(building->GetName())){ // dragon teeth for dragon teeth rings
-
-			if(G->DTHandler->DTNeeded()){
-				q = G->DTHandler->GetDTBuildSite(builderpos);
-				if(G->Map->CheckFloat3(q) == false){
-					G->L.print(std::string("zero DT co-ordinates intercepted :: ")+ to_string(q.x) + std::string(",")+to_string(q.y)+std::string(",")+to_string(q.z));
-					q = UpVector;
-				}else if(builder->IsHub()&&(builder->GetUnitDef()->buildDistance < q.distance2D(builderpos))){
-					q = UpVector;
-				}
-			}else{
-				q = UpVector;
-			}
-
-			CMessage m("buildposition");
-			m.AddParameter(q);
-			reciever->RecieveMessage(m);
-
-			return;
-		} else if((building->GetUnitDef()->type == std::string("Building"))&&(!building->GetUnitDef()->builder)&&building->GetUnitDef()->weapons.empty()&&(building->GetUnitDef()->radarRadius > 100)){ // Radar!
-	        
-			if(builder->IsHub()){
-				q = G->RadarHandler->NextSite(builderpos, building->GetUnitDef(), (int)builder->GetUnitDef()->buildDistance);
-			} else {
-				q = G->RadarHandler->NextSite(builderpos, building->GetUnitDef(), 1200);
-			}
-
-			if(G->Map->CheckFloat3(q) == false){
-				G->L.print(std::string("zero radar placement co-ordinates intercepted  :: ")+ to_string(q.x) + std::string(",")+to_string(q.y)+std::string(",")+to_string(q.z));
-	            
-				q = UpVector;
-
-				CMessage m("buildposition");
-				m.AddParameter(q);
-				reciever->RecieveMessage(m);
-
-				return;
-			}
-
 		}else if(building->GetUnitDef()->needGeo){
 
 			NLOG("CBuildingPlacer::GetBuildPosMessage geo");
@@ -419,6 +380,45 @@ namespace ntai {
 			delete[] f;
 
 			return;
+		} else if(G->DTHandler->IsDragonsTeeth(building->GetName())){ // dragon teeth for dragon teeth rings
+
+			if(G->DTHandler->DTNeeded()){
+				q = G->DTHandler->GetDTBuildSite(builderpos);
+				if(G->Map->CheckFloat3(q) == false){
+					G->L.print(std::string("zero DT co-ordinates intercepted :: ")+ to_string(q.x) + std::string(",")+to_string(q.y)+std::string(",")+to_string(q.z));
+					q = UpVector;
+				}else if(builder->IsHub()&&(builder->GetUnitDef()->buildDistance < q.distance2D(builderpos))){
+					q = UpVector;
+				}
+			}else{
+				q = UpVector;
+			}
+
+			CMessage m("buildposition");
+			m.AddParameter(q);
+			reciever->RecieveMessage(m);
+
+			return;
+		} else if((building->GetUnitDef()->type == std::string("Building"))&&(!building->GetUnitDef()->builder)&&building->GetUnitDef()->weapons.empty()&&(building->GetUnitDef()->radarRadius > 100)){ // Radar!
+	        
+			if(builder->IsHub()){
+				q = G->RadarHandler->NextSite(builderpos, building->GetUnitDef(), (int)builder->GetUnitDef()->buildDistance);
+			} else {
+				q = G->RadarHandler->NextSite(builderpos, building->GetUnitDef(), 1200);
+			}
+
+			if(G->Map->CheckFloat3(q) == false){
+				G->L.print(std::string("zero radar placement co-ordinates intercepted  :: ")+ to_string(q.x) + std::string(",")+to_string(q.y)+std::string(",")+to_string(q.z));
+	            
+				q = UpVector;
+
+				CMessage m("buildposition");
+				m.AddParameter(q);
+				reciever->RecieveMessage(m);
+
+				return;
+			}
+
 		}
 
 		if(!builder->IsHub()){
