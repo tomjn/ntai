@@ -41,6 +41,8 @@ namespace ntai {
 		IAICallback* acallback;
 
 		bool Good;
+
+		const SSkirmishAICallback* callback;
 	};
 
 }

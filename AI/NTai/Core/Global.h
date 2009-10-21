@@ -16,7 +16,7 @@ namespace ntai {
 	public:
 		//destructor/constructor
 		virtual ~Global(); // destructor
-		Global(IGlobalAICallback* callback); // constructor
+		Global(IGlobalAICallback* igcallback, const SSkirmishAICallback* callback); // constructor
 
 		CMetalHandler* M; // mex positioning
 		Log L; // Logging class
@@ -27,6 +27,8 @@ namespace ntai {
 		IAICheats* chcb;
 		IAICallback* cb;// engine callback interface
 		IGlobalAICallback* gcb;// global AI engine callback interface
+
+		const SSkirmishAICallback* callback;
 
 		Chaser* Ch;// Chaser Agent, deals with attacking and things such as kamikaze units/dgunning/stockpiling missiles/several attack unit behaviours
 		CUnitDefLoader* UnitDefLoader;

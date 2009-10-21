@@ -21,21 +21,24 @@ namespace ntai {
 
 	CNTai::CNTai(const SSkirmishAICallback* callback){
 		G = 0;
+		this->callback = callback;
 	}
 
 	CNTai::~CNTai(){
-		delete G;
+		if(G){
+			delete G;
+		}
 	}
 
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-	void CNTai::InitAI(IGlobalAICallback* callback, int team){
-		cg = callback;
+	void CNTai::InitAI(IGlobalAICallback* gaicallback, int team){
+		cg = gaicallback;
 		acallback = cg->GetAICallback();
 		Good = true;
 	#ifdef EXCEPTION
 		try{
-			G = new Global(callback);
+			G = new Global(gaicallback, callback);
 			G->Cached->team = team;
 		}catch(std::exception& e){
 			Good = false;

@@ -32,9 +32,10 @@ namespace ntai {
 		return true;
 	}
 
-	Global::Global(IGlobalAICallback* callback){
+	Global::Global(IGlobalAICallback* igcallback, const SSkirmishAICallback* callback){
 		G = this;
-		gcb = callback;
+		this->callback = callback;
+		gcb = igcallback;
 		cb = gcb->GetAICallback();
 		if(cb == 0){
 			throw std::string(" error cb ==0");
@@ -61,7 +62,7 @@ namespace ntai {
 		L.print("logging started");
 		
 		CLOG("Retrieving cheat interface");
-		chcb = callback->GetCheatInterface();
+		chcb = igcallback->GetCheatInterface();
 		CLOG("cheat interface retrieved");
 
 		CLOG("Creating Actions class");
@@ -790,8 +791,10 @@ namespace ntai {
 		if(s!=-1){
 
 			q->LoadFile(filename);
+			L.print(filename);
 			L.print("Mod TDF loaded");
-			filename = info->datapath + "/" + q->SGetValueDef("configs/default.tdf", "NTai\\modconfig");
+			filename = info->datapath + q->SGetValueDef("configs\\default.tdf", "NTai\\modconfig");
+			L.print(filename);
 
 		} else {/////////////////
 
@@ -812,7 +815,7 @@ namespace ntai {
 				off <<"\tmodname=" << w->SGetValueMSG("MOD\\Name") << ";" << std::endl;
 				off << "}" << std::endl;
 				off.close();
-				filename = info->datapath + slash + std::string("configs") + slash +  info->tdfpath + std::string(".tdf");
+				filename = info->datapath + std::string("configs") + slash +  info->tdfpath + std::string(".tdf");
 				off.open(filename.c_str());
 				if(off.is_open() == true){
 					//off <<
@@ -829,9 +832,11 @@ namespace ntai {
 
 		//
 		if(cb->GetFileSize(filename.c_str())!=-1){
-			Get_mod_tdf()->LoadFile(filename);
-			L.print("Mod TDF loaded");
-
+			if(Get_mod_tdf()->LoadFile(filename)){
+				L.print("config loaded");
+			} else{
+				L.print("config not loaded");
+			}
 		} else {/////////////////
 
 			info->_abstract = true;

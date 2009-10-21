@@ -24,6 +24,9 @@ typedef unsigned short ushort;
 
 // Spring Engine
 
+#include "ExternalAI/Interface/SSkirmishAILibrary.h"
+#include "ExternalAI/Interface/SSkirmishAICallback.h"
+
 #include "ExternalAI/IGlobalAI.h" // Interface spring uses to make AI callouts
 #include "ExternalAI/IAICallback.h" // AI Callback
 #include "ExternalAI/IGlobalAICallback.h" //GlobalAI callback
