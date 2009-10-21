@@ -103,6 +103,7 @@ namespace ntai{
 
 // Unit Tasks
 
+#include "../Tasks/ITask.h"										// Task interface
 #include "../Tasks/CUnitConstructionTask.h"						// A task for building things by name
 #include "../Tasks/CConsoleTask.h"								// Outputs a message to the chat console
 #include "../Tasks/CKeywordConstructionTask.h"					// Handles a universal build keyword/action
