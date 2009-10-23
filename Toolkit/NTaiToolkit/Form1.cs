@@ -22,10 +22,6 @@ namespace NTaiToolkit
             this.currentselected = "";
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
             this.InitializeComponent();
-            Assembly _assembly = Assembly.GetExecutingAssembly();
-            StreamReader _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream("NTaiToolkit.TextFile1.txt"));
-            string helpText = _textStreamReader.ReadToEnd();
-            this.richTextBox1.Text = helpText;
             this.mod = new CMod();
             this.buildtree = new CBuildtree(this);
             this.mod.f = this;
@@ -80,11 +76,13 @@ namespace NTaiToolkit
                     this.currentbuildqueue.Items.Add(text1);
                     this.currentbuildqueue.SelectedItem = text1;
                     this.currentqueue.ClearSelected();
+                    this.taskActionsGroupBox.Enabled = true;
                 }
                 else
                 {
                     MessageBox.Show("A tasklist with this name already exists");
                     this.currentbuildqueue.SelectedItem = text1;
+                    this.taskActionsGroupBox.Enabled = true;
                 }
                 
             }
@@ -526,23 +524,12 @@ namespace NTaiToolkit
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.ll_OpenConfigFile = new System.Windows.Forms.LinkLabel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label54 = new System.Windows.Forms.Label();
             this.UnitsTab = new System.Windows.Forms.TabPage();
-            this.label61 = new System.Windows.Forms.Label();
             this.label60 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.TaskQueues = new System.Windows.Forms.CheckedListBox();
@@ -654,7 +641,7 @@ namespace NTaiToolkit
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.taskActionsGroupBox = new System.Windows.Forms.GroupBox();
             this.button8 = new System.Windows.Forms.Button();
             this.InsertWord = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -669,11 +656,6 @@ namespace NTaiToolkit
             this.newtasklistbox = new System.Windows.Forms.TextBox();
             this.button11 = new System.Windows.Forms.Button();
             this.btn_CreateNewTaskList = new System.Windows.Forms.Button();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             this.currentqueue = new System.Windows.Forms.ListBox();
             this.keywords = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
@@ -688,11 +670,31 @@ namespace NTaiToolkit
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.quicksetchecks = new System.Windows.Forms.CheckedListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label65 = new System.Windows.Forms.Label();
             this.refresh = new System.Windows.Forms.Button();
             this.debugsave = new System.Windows.Forms.RichTextBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.mainTabs.SuspendLayout();
             this.StartTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -750,7 +752,7 @@ namespace NTaiToolkit
             ((System.ComponentModel.ISupportInitialize)(this.factorymetalgapRule)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.factoryenergyRule)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.taskActionsGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.keywords.SuspendLayout();
@@ -759,16 +761,31 @@ namespace NTaiToolkit
             this.tabPage5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            this.groupBox17.SuspendLayout();
+            this.groupBox18.SuspendLayout();
+            this.groupBox19.SuspendLayout();
+            this.groupBox20.SuspendLayout();
+            this.groupBox21.SuspendLayout();
+            this.groupBox22.SuspendLayout();
+            this.groupBox23.SuspendLayout();
+            this.groupBox24.SuspendLayout();
+            this.groupBox25.SuspendLayout();
             this.SuspendLayout();
             // 
             // Units
             // 
             this.Units.BackColor = System.Drawing.Color.White;
-            this.Units.ForeColor = System.Drawing.Color.Gray;
+            this.Units.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Units.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Units.HorizontalScrollbar = true;
-            this.Units.Location = new System.Drawing.Point(6, 42);
+            this.Units.ItemHeight = 16;
+            this.Units.Location = new System.Drawing.Point(9, 42);
             this.Units.Name = "Units";
-            this.Units.Size = new System.Drawing.Size(413, 615);
+            this.Units.Size = new System.Drawing.Size(364, 498);
             this.Units.TabIndex = 1;
             this.Units.SelectedIndexChanged += new System.EventHandler(this.Units_SelectedIndexChanged);
             this.Units.SelectedValueChanged += new System.EventHandler(this.Units_SelectedValueChanged);
@@ -793,35 +810,24 @@ namespace NTaiToolkit
             // 
             // StartTab
             // 
-            this.StartTab.BackColor = System.Drawing.Color.DarkGray;
+            this.StartTab.BackColor = System.Drawing.SystemColors.Control;
             this.StartTab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.StartTab.Controls.Add(this.label67);
-            this.StartTab.Controls.Add(this.linkLabel3);
-            this.StartTab.Controls.Add(this.label66);
-            this.StartTab.Controls.Add(this.label63);
-            this.StartTab.Controls.Add(this.label62);
-            this.StartTab.Controls.Add(this.linkLabel1);
-            this.StartTab.Controls.Add(this.label29);
-            this.StartTab.Controls.Add(this.modlabel);
-            this.StartTab.Controls.Add(this.label8);
-            this.StartTab.Controls.Add(this.label7);
-            this.StartTab.Controls.Add(this.linkLabel2);
-            this.StartTab.Controls.Add(this.ll_OpenConfigFile);
+            this.StartTab.Controls.Add(this.groupBox6);
             this.StartTab.Location = new System.Drawing.Point(4, 22);
             this.StartTab.Name = "StartTab";
             this.StartTab.Padding = new System.Windows.Forms.Padding(3);
             this.StartTab.Size = new System.Drawing.Size(967, 666);
             this.StartTab.TabIndex = 2;
-            this.StartTab.Text = "Welcome";
-            this.StartTab.UseVisualStyleBackColor = true;
+            this.StartTab.Text = "Start";
             this.StartTab.Click += new System.EventHandler(this.StartTab_Click);
             // 
             // label67
             // 
             this.label67.AutoSize = true;
             this.label67.BackColor = System.Drawing.Color.Transparent;
+            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label67.ForeColor = System.Drawing.Color.LightGray;
-            this.label67.Location = new System.Drawing.Point(58, 226);
+            this.label67.Location = new System.Drawing.Point(23, 64);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(231, 13);
             this.label67.TabIndex = 15;
@@ -835,7 +841,7 @@ namespace NTaiToolkit
             this.linkLabel3.ForeColor = System.Drawing.Color.LightGray;
             this.linkLabel3.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabel3.LinkColor = System.Drawing.Color.LightGray;
-            this.linkLabel3.Location = new System.Drawing.Point(58, 210);
+            this.linkLabel3.Location = new System.Drawing.Point(23, 48);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(76, 16);
             this.linkLabel3.TabIndex = 14;
@@ -846,8 +852,9 @@ namespace NTaiToolkit
             // 
             this.label66.AutoSize = true;
             this.label66.BackColor = System.Drawing.Color.Transparent;
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label66.ForeColor = System.Drawing.Color.Black;
-            this.label66.Location = new System.Drawing.Point(58, 280);
+            this.label66.Location = new System.Drawing.Point(23, 118);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(180, 13);
             this.label66.TabIndex = 13;
@@ -857,20 +864,22 @@ namespace NTaiToolkit
             // 
             this.label63.AutoSize = true;
             this.label63.BackColor = System.Drawing.Color.Transparent;
+            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label63.ForeColor = System.Drawing.Color.Black;
-            this.label63.Location = new System.Drawing.Point(58, 367);
+            this.label63.Location = new System.Drawing.Point(23, 205);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(303, 26);
+            this.label63.Size = new System.Drawing.Size(265, 26);
             this.label63.TabIndex = 12;
-            this.label63.Text = "Makes a zip archive in the /AI/NTai/ folder that can be shared\r\nUse this to distr" +
-                "ibute/send configs or issue error reports";
+            this.label63.Text = "Makes a zip archive that can be shared\r\nUse this to distribute/send configs or is" +
+                "sue error reports";
             // 
             // label62
             // 
             this.label62.AutoSize = true;
             this.label62.BackColor = System.Drawing.Color.Transparent;
+            this.label62.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label62.ForeColor = System.Drawing.Color.Black;
-            this.label62.Location = new System.Drawing.Point(58, 324);
+            this.label62.Location = new System.Drawing.Point(23, 162);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(279, 13);
             this.label62.TabIndex = 11;
@@ -883,7 +892,7 @@ namespace NTaiToolkit
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.linkLabel1.ForeColor = System.Drawing.Color.Black;
             this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(58, 351);
+            this.linkLabel1.Location = new System.Drawing.Point(23, 189);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(217, 16);
             this.linkLabel1.TabIndex = 10;
@@ -895,11 +904,11 @@ namespace NTaiToolkit
             // 
             this.label29.AutoSize = true;
             this.label29.BackColor = System.Drawing.Color.Transparent;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.ForeColor = System.Drawing.Color.Black;
-            this.label29.Location = new System.Drawing.Point(56, 530);
+            this.label29.Location = new System.Drawing.Point(23, 290);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(854, 72);
+            this.label29.Size = new System.Drawing.Size(825, 36);
             this.label29.TabIndex = 8;
             this.label29.Text = resources.GetString("label29.Text");
             // 
@@ -907,8 +916,9 @@ namespace NTaiToolkit
             // 
             this.modlabel.AutoSize = true;
             this.modlabel.BackColor = System.Drawing.Color.Transparent;
-            this.modlabel.ForeColor = System.Drawing.Color.Black;
-            this.modlabel.Location = new System.Drawing.Point(8, 650);
+            this.modlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modlabel.ForeColor = System.Drawing.Color.LightGray;
+            this.modlabel.Location = new System.Drawing.Point(23, 390);
             this.modlabel.Name = "modlabel";
             this.modlabel.Size = new System.Drawing.Size(572, 13);
             this.modlabel.TabIndex = 7;
@@ -921,11 +931,11 @@ namespace NTaiToolkit
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(364, 291);
+            this.label8.Location = new System.Drawing.Point(329, 129);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(149, 16);
+            this.label8.Size = new System.Drawing.Size(235, 16);
             this.label8.TabIndex = 6;
-            this.label8.Text = "AF Darkstars 2004-2007";
+            this.label8.Text = "AF/Tom J Nowell Darkstars 2004-2010";
             // 
             // label7
             // 
@@ -933,11 +943,11 @@ namespace NTaiToolkit
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(362, 264);
+            this.label7.Location = new System.Drawing.Point(327, 102);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(206, 27);
+            this.label7.Size = new System.Drawing.Size(193, 27);
             this.label7.TabIndex = 5;
-            this.label7.Text = "NTai Toolkit V0.29";
+            this.label7.Text = "NTai Toolkit V0.3";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // linkLabel2
@@ -947,14 +957,14 @@ namespace NTaiToolkit
             this.linkLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel2.ForeColor = System.Drawing.Color.Black;
             this.linkLabel2.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel2.Location = new System.Drawing.Point(57, 308);
+            this.linkLabel2.Location = new System.Drawing.Point(22, 146);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(81, 16);
             this.linkLabel2.TabIndex = 2;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Save Config";
-            this.linkLabel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.linkLabel2_MouseClick);
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            this.linkLabel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.linkLabel2_MouseClick);
             // 
             // ll_OpenConfigFile
             // 
@@ -963,7 +973,7 @@ namespace NTaiToolkit
             this.ll_OpenConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ll_OpenConfigFile.ForeColor = System.Drawing.Color.White;
             this.ll_OpenConfigFile.LinkColor = System.Drawing.Color.Black;
-            this.ll_OpenConfigFile.Location = new System.Drawing.Point(57, 264);
+            this.ll_OpenConfigFile.Location = new System.Drawing.Point(22, 102);
             this.ll_OpenConfigFile.Name = "ll_OpenConfigFile";
             this.ll_OpenConfigFile.Size = new System.Drawing.Size(82, 16);
             this.ll_OpenConfigFile.TabIndex = 1;
@@ -973,230 +983,95 @@ namespace NTaiToolkit
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(62)))));
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage1.Controls.Add(this.richTextBox1);
-            this.tabPage1.Controls.Add(this.label54);
+            this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(967, 666);
             this.tabPage1.TabIndex = 8;
-            this.tabPage1.Text = "Stuck?: Help & Troubleshooting";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Text = "Help";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(62)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(118, 10);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(841, 648);
-            this.richTextBox1.TabIndex = 9;
-            this.richTextBox1.Text = "";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.BackColor = System.Drawing.Color.Transparent;
-            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.ForeColor = System.Drawing.Color.White;
-            this.label54.Location = new System.Drawing.Point(8, 10);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(104, 31);
-            this.label54.TabIndex = 0;
-            this.label54.Text = "Stuck?";
             // 
             // UnitsTab
             // 
-            this.UnitsTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
-            this.UnitsTab.Controls.Add(this.label61);
-            this.UnitsTab.Controls.Add(this.label60);
-            this.UnitsTab.Controls.Add(this.label59);
-            this.UnitsTab.Controls.Add(this.label58);
-            this.UnitsTab.Controls.Add(this.label57);
-            this.UnitsTab.Controls.Add(this.label56);
-            this.UnitsTab.Controls.Add(this.label55);
-            this.UnitsTab.Controls.Add(this.label47);
-            this.UnitsTab.Controls.Add(this.label31);
-            this.UnitsTab.Controls.Add(this.label45);
-            this.UnitsTab.Controls.Add(this.label44);
-            this.UnitsTab.Controls.Add(this.label34);
-            this.UnitsTab.Controls.Add(this.label33);
-            this.UnitsTab.Controls.Add(this.label30);
-            this.UnitsTab.Controls.Add(this.tabControl1);
-            this.UnitsTab.Controls.Add(this.label21);
-            this.UnitsTab.Controls.Add(this.label20);
-            this.UnitsTab.Controls.Add(this.label19);
-            this.UnitsTab.Controls.Add(this.label18);
-            this.UnitsTab.Controls.Add(this.ExclusionZone);
-            this.UnitsTab.Controls.Add(this.RepairRange);
-            this.UnitsTab.Controls.Add(this.MaxEnergy);
-            this.UnitsTab.Controls.Add(this.MinEnergy);
-            this.UnitsTab.Controls.Add(this.KamikazeCheck);
-            this.UnitsTab.Controls.Add(this.Units);
-            this.UnitsTab.Controls.Add(this.AttackCheck);
-            this.UnitsTab.Controls.Add(this.SolobuildCheck);
-            this.UnitsTab.Controls.Add(this.SinglebuildCheck);
-            this.UnitsTab.Controls.Add(this.AlwaysantistallCheck);
-            this.UnitsTab.Controls.Add(this.NeverantistallCheck);
-            this.UnitsTab.Controls.Add(this.Firingstatecombo);
-            this.UnitsTab.Controls.Add(this.label2);
-            this.UnitsTab.Controls.Add(this.label1);
-            this.UnitsTab.Controls.Add(this.Movestatecombo);
+            this.UnitsTab.BackColor = System.Drawing.SystemColors.Control;
+            this.UnitsTab.Controls.Add(this.groupBox24);
+            this.UnitsTab.Controls.Add(this.groupBox23);
+            this.UnitsTab.Controls.Add(this.groupBox22);
             this.UnitsTab.Location = new System.Drawing.Point(4, 22);
             this.UnitsTab.Name = "UnitsTab";
             this.UnitsTab.Padding = new System.Windows.Forms.Padding(3);
             this.UnitsTab.Size = new System.Drawing.Size(967, 666);
             this.UnitsTab.TabIndex = 0;
-            this.UnitsTab.Text = "Edit Units and Assign Tasklists";
-            this.UnitsTab.UseVisualStyleBackColor = true;
-            this.UnitsTab.Enter += new System.EventHandler(this.UnitsTab_Enter);
+            this.UnitsTab.Text = "Units";
             this.UnitsTab.Leave += new System.EventHandler(this.UnitsTab_Leave);
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(434, 358);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(127, 13);
-            this.label61.TabIndex = 43;
-            this.label61.Text = "type being built too close.";
+            this.UnitsTab.Enter += new System.EventHandler(this.UnitsTab_Enter);
             // 
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(434, 345);
+            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.Location = new System.Drawing.Point(6, 280);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(225, 13);
+            this.label60.Size = new System.Drawing.Size(197, 26);
             this.label60.TabIndex = 42;
-            this.label60.Text = "Exclusion zones prevent two units of the same";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(434, 280);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(222, 13);
-            this.label59.TabIndex = 41;
-            this.label59.Text = "radius rather than starting a new construction.";
+            this.label60.Text = "Exclusion zones prevent two units of the\r\nsame type being built too close.";
             // 
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(434, 267);
+            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label58.Location = new System.Drawing.Point(6, 212);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(217, 13);
+            this.label58.Size = new System.Drawing.Size(203, 26);
             this.label58.TabIndex = 40;
-            this.label58.Text = "Repair unfinished units of this type within this";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(434, 181);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(169, 13);
-            this.label57.TabIndex = 39;
-            this.label57.Text = "of energy needed to build this unit.";
+            this.label58.Text = "Repair unfinished units of this type within\r\nthis radius rather than buildign a n" +
+                "ew one.";
             // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(434, 168);
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(6, 121);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(226, 13);
+            this.label56.Size = new System.Drawing.Size(169, 26);
             this.label56.TabIndex = 38;
-            this.label56.Text = "These are the minimum and maximum amounts";
+            this.label56.Text = "Minimum and maximum amounts\r\nof energy needed to build this unit.";
             this.label56.Click += new System.EventHandler(this.label56_Click);
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(434, 70);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(99, 13);
-            this.label55.TabIndex = 37;
-            this.label55.Text = "factories or are built";
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(434, 56);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(217, 13);
-            this.label47.TabIndex = 36;
-            this.label47.Text = "and movement options of units as they leave";
-            this.label47.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(434, 42);
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(6, 26);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(218, 13);
+            this.label31.Size = new System.Drawing.Size(206, 26);
             this.label31.TabIndex = 35;
-            this.label31.Text = "Initial behaviour states, NTai will set the firing";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(688, 52);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(208, 13);
-            this.label45.TabIndex = 34;
-            this.label45.Text = "assign it to the units you want to use it with";
+            this.label31.Text = "NTai will set the initial firing andmovement \r\noptions of units as they are built" +
+                "";
             // 
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(688, 39);
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Location = new System.Drawing.Point(6, 29);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(204, 13);
+            this.label44.Size = new System.Drawing.Size(237, 26);
             this.label44.TabIndex = 33;
-            this.label44.Text = "Create a TaskList in the tasklists tab then ";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(687, 7);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(188, 20);
-            this.label34.TabIndex = 32;
-            this.label34.Text = "Assign This Unit Tasklists";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(433, 7);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(96, 20);
-            this.label33.TabIndex = 31;
-            this.label33.Text = "Edit Options";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(8, 7);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(195, 20);
-            this.label30.TabIndex = 30;
-            this.label30.Text = "Select a Unit to Edit below";
+            this.label44.Text = "Create a TaskList in the tasklists tab then assign \r\nit to the units you want to " +
+                "use it with";
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Location = new System.Drawing.Point(684, 67);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Location = new System.Drawing.Point(9, 62);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(275, 590);
+            this.tabControl1.Size = new System.Drawing.Size(287, 478);
             this.tabControl1.TabIndex = 29;
             // 
             // tabPage6
@@ -1205,7 +1080,7 @@ namespace NTaiToolkit
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(267, 564);
+            this.tabPage6.Size = new System.Drawing.Size(279, 452);
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Normal TaskLists";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1213,11 +1088,11 @@ namespace NTaiToolkit
             // TaskQueues
             // 
             this.TaskQueues.BackColor = System.Drawing.SystemColors.Window;
-            this.TaskQueues.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TaskQueues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TaskQueues.FormattingEnabled = true;
-            this.TaskQueues.Location = new System.Drawing.Point(3, 0);
+            this.TaskQueues.Location = new System.Drawing.Point(6, 6);
             this.TaskQueues.Name = "TaskQueues";
-            this.TaskQueues.Size = new System.Drawing.Size(258, 525);
+            this.TaskQueues.Size = new System.Drawing.Size(267, 437);
             this.TaskQueues.TabIndex = 20;
             this.TaskQueues.ThreeDCheckBoxes = true;
             this.TaskQueues.SelectedIndexChanged += new System.EventHandler(this.TaskQueues_SelectedIndexChanged);
@@ -1228,24 +1103,26 @@ namespace NTaiToolkit
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(267, 564);
+            this.tabPage7.Size = new System.Drawing.Size(279, 456);
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Cheat mode TaskLists";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // cheattaskqueue
             // 
+            this.cheattaskqueue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cheattaskqueue.FormattingEnabled = true;
-            this.cheattaskqueue.Location = new System.Drawing.Point(0, 0);
+            this.cheattaskqueue.Location = new System.Drawing.Point(6, 6);
             this.cheattaskqueue.Name = "cheattaskqueue";
-            this.cheattaskqueue.Size = new System.Drawing.Size(264, 559);
+            this.cheattaskqueue.Size = new System.Drawing.Size(255, 437);
             this.cheattaskqueue.TabIndex = 0;
             this.cheattaskqueue.SelectedIndexChanged += new System.EventHandler(this.cheattaskqueue_SelectedIndexChanged);
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(434, 376);
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(6, 311);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(109, 13);
             this.label21.TabIndex = 28;
@@ -1254,7 +1131,8 @@ namespace NTaiToolkit
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(434, 308);
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(6, 243);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(68, 13);
             this.label20.TabIndex = 27;
@@ -1263,7 +1141,8 @@ namespace NTaiToolkit
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(434, 227);
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(6, 180);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(100, 13);
             this.label19.TabIndex = 26;
@@ -1272,7 +1151,8 @@ namespace NTaiToolkit
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(434, 201);
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(6, 154);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(97, 13);
             this.label18.TabIndex = 25;
@@ -1280,122 +1160,133 @@ namespace NTaiToolkit
             // 
             // ExclusionZone
             // 
-            this.ExclusionZone.Location = new System.Drawing.Point(554, 374);
+            this.ExclusionZone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExclusionZone.Location = new System.Drawing.Point(126, 309);
             this.ExclusionZone.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.ExclusionZone.Name = "ExclusionZone";
-            this.ExclusionZone.Size = new System.Drawing.Size(105, 20);
+            this.ExclusionZone.Size = new System.Drawing.Size(103, 20);
             this.ExclusionZone.TabIndex = 24;
             this.ExclusionZone.ValueChanged += new System.EventHandler(this.ExclusionZone_ValueChanged);
             // 
             // RepairRange
             // 
-            this.RepairRange.Location = new System.Drawing.Point(554, 306);
+            this.RepairRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RepairRange.Location = new System.Drawing.Point(126, 241);
             this.RepairRange.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.RepairRange.Name = "RepairRange";
-            this.RepairRange.Size = new System.Drawing.Size(105, 20);
+            this.RepairRange.Size = new System.Drawing.Size(103, 20);
             this.RepairRange.TabIndex = 23;
             this.RepairRange.ValueChanged += new System.EventHandler(this.RepairRange_ValueChanged);
             // 
             // MaxEnergy
             // 
-            this.MaxEnergy.Location = new System.Drawing.Point(554, 225);
+            this.MaxEnergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaxEnergy.Location = new System.Drawing.Point(126, 178);
             this.MaxEnergy.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
             this.MaxEnergy.Name = "MaxEnergy";
-            this.MaxEnergy.Size = new System.Drawing.Size(105, 20);
+            this.MaxEnergy.Size = new System.Drawing.Size(103, 20);
             this.MaxEnergy.TabIndex = 22;
             this.MaxEnergy.ValueChanged += new System.EventHandler(this.MaxEnergy_ValueChanged);
             // 
             // MinEnergy
             // 
-            this.MinEnergy.Location = new System.Drawing.Point(554, 199);
+            this.MinEnergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinEnergy.Location = new System.Drawing.Point(126, 152);
             this.MinEnergy.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
             this.MinEnergy.Name = "MinEnergy";
-            this.MinEnergy.Size = new System.Drawing.Size(105, 20);
+            this.MinEnergy.Size = new System.Drawing.Size(103, 20);
             this.MinEnergy.TabIndex = 21;
             this.MinEnergy.ValueChanged += new System.EventHandler(this.MinEnergy_ValueChanged);
             // 
             // KamikazeCheck
             // 
             this.KamikazeCheck.AutoSize = true;
-            this.KamikazeCheck.Location = new System.Drawing.Point(437, 641);
+            this.KamikazeCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KamikazeCheck.Location = new System.Drawing.Point(9, 509);
             this.KamikazeCheck.Name = "KamikazeCheck";
-            this.KamikazeCheck.Size = new System.Drawing.Size(226, 17);
+            this.KamikazeCheck.Size = new System.Drawing.Size(168, 17);
             this.KamikazeCheck.TabIndex = 19;
-            this.KamikazeCheck.Text = "Kamikaze -  Self destruct near enemy units";
+            this.KamikazeCheck.Text = "Self destruct near enemy units";
             this.KamikazeCheck.UseVisualStyleBackColor = true;
             this.KamikazeCheck.CheckedChanged += new System.EventHandler(this.KamikazeCheck_CheckedChanged);
             // 
             // AttackCheck
             // 
-            this.AttackCheck.Location = new System.Drawing.Point(437, 444);
+            this.AttackCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AttackCheck.Location = new System.Drawing.Point(9, 335);
             this.AttackCheck.Name = "AttackCheck";
-            this.AttackCheck.Size = new System.Drawing.Size(241, 18);
+            this.AttackCheck.Size = new System.Drawing.Size(241, 25);
             this.AttackCheck.TabIndex = 0;
             this.AttackCheck.Text = "This unit is an attacker";
             this.AttackCheck.CheckedChanged += new System.EventHandler(this.AttackCheckChanged);
             // 
             // SolobuildCheck
             // 
-            this.SolobuildCheck.Location = new System.Drawing.Point(437, 468);
+            this.SolobuildCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SolobuildCheck.Location = new System.Drawing.Point(9, 366);
             this.SolobuildCheck.Name = "SolobuildCheck";
-            this.SolobuildCheck.Size = new System.Drawing.Size(241, 40);
+            this.SolobuildCheck.Size = new System.Drawing.Size(220, 40);
             this.SolobuildCheck.TabIndex = 2;
             this.SolobuildCheck.Text = "Build as few of these at the same time\r\nas possible";
             this.SolobuildCheck.CheckedChanged += new System.EventHandler(this.SolobuildCheck_CheckedChanged);
             // 
             // SinglebuildCheck
             // 
-            this.SinglebuildCheck.Location = new System.Drawing.Point(437, 514);
+            this.SinglebuildCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SinglebuildCheck.Location = new System.Drawing.Point(9, 412);
             this.SinglebuildCheck.Name = "SinglebuildCheck";
-            this.SinglebuildCheck.Size = new System.Drawing.Size(241, 29);
+            this.SinglebuildCheck.Size = new System.Drawing.Size(220, 16);
             this.SinglebuildCheck.TabIndex = 3;
-            this.SinglebuildCheck.Text = "Dont build multiple units of this type if possible";
+            this.SinglebuildCheck.Text = "Only build one of these (rebuildable)";
             this.SinglebuildCheck.CheckedChanged += new System.EventHandler(this.SinglebuildCheck_CheckedChanged);
             // 
             // AlwaysantistallCheck
             // 
-            this.AlwaysantistallCheck.Location = new System.Drawing.Point(437, 549);
+            this.AlwaysantistallCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AlwaysantistallCheck.Location = new System.Drawing.Point(9, 434);
             this.AlwaysantistallCheck.Name = "AlwaysantistallCheck";
-            this.AlwaysantistallCheck.Size = new System.Drawing.Size(241, 32);
+            this.AlwaysantistallCheck.Size = new System.Drawing.Size(220, 21);
             this.AlwaysantistallCheck.TabIndex = 4;
-            this.AlwaysantistallCheck.Text = "Always run the antistall algorithm on this if on";
+            this.AlwaysantistallCheck.Text = "Always run the antistall algorithm on this";
             this.AlwaysantistallCheck.CheckedChanged += new System.EventHandler(this.AlwaysantistallCheck_CheckedChanged);
             // 
             // NeverantistallCheck
             // 
-            this.NeverantistallCheck.Location = new System.Drawing.Point(437, 587);
+            this.NeverantistallCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NeverantistallCheck.Location = new System.Drawing.Point(9, 461);
             this.NeverantistallCheck.Name = "NeverantistallCheck";
-            this.NeverantistallCheck.Size = new System.Drawing.Size(241, 48);
+            this.NeverantistallCheck.Size = new System.Drawing.Size(220, 42);
             this.NeverantistallCheck.TabIndex = 5;
-            this.NeverantistallCheck.Text = "This unit is a basic resource unit, never run\r\nthe antistall algorithm on this";
+            this.NeverantistallCheck.Text = "This is a basic resource unit, never run\r\n the antistall algorithm";
             this.NeverantistallCheck.CheckedChanged += new System.EventHandler(this.NeverantistallCheck_CheckedChanged);
             // 
             // Firingstatecombo
             // 
+            this.Firingstatecombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Firingstatecombo.FormattingEnabled = true;
             this.Firingstatecombo.Items.AddRange(new object[] {
             "Hold Fire",
             "Return Fire",
             "Fire at Will"});
-            this.Firingstatecombo.Location = new System.Drawing.Point(525, 95);
+            this.Firingstatecombo.Location = new System.Drawing.Point(97, 59);
             this.Firingstatecombo.Name = "Firingstatecombo";
-            this.Firingstatecombo.Size = new System.Drawing.Size(134, 21);
+            this.Firingstatecombo.Size = new System.Drawing.Size(132, 21);
             this.Firingstatecombo.TabIndex = 6;
             this.Firingstatecombo.SelectedIndexChanged += new System.EventHandler(this.Firingstatecombo_SelectedIndexChanged);
             this.Firingstatecombo.SelectedValueChanged += new System.EventHandler(this.Firingstatecombo_SelectedValueChanged);
@@ -1403,7 +1294,8 @@ namespace NTaiToolkit
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(434, 125);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 89);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 9;
@@ -1412,7 +1304,8 @@ namespace NTaiToolkit
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(434, 98);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 7;
@@ -1420,21 +1313,23 @@ namespace NTaiToolkit
             // 
             // Movestatecombo
             // 
+            this.Movestatecombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Movestatecombo.FormattingEnabled = true;
             this.Movestatecombo.Items.AddRange(new object[] {
             "Hold Position",
             "Maneouvre",
             "Roam"});
-            this.Movestatecombo.Location = new System.Drawing.Point(525, 122);
+            this.Movestatecombo.Location = new System.Drawing.Point(97, 86);
             this.Movestatecombo.Name = "Movestatecombo";
-            this.Movestatecombo.Size = new System.Drawing.Size(134, 21);
+            this.Movestatecombo.Size = new System.Drawing.Size(132, 21);
             this.Movestatecombo.TabIndex = 8;
             this.Movestatecombo.SelectedIndexChanged += new System.EventHandler(this.Movestatecombo_SelectedIndexChanged);
             this.Movestatecombo.SelectedValueChanged += new System.EventHandler(this.Movestatecombo_SelectedValueChanged);
             // 
             // modTDFtab
             // 
-            this.modTDFtab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.modTDFtab.BackColor = System.Drawing.SystemColors.Control;
+            this.modTDFtab.Controls.Add(this.groupBox25);
             this.modTDFtab.Controls.Add(this.groupBox12);
             this.modTDFtab.Controls.Add(this.groupBox11);
             this.modTDFtab.Controls.Add(this.groupBox7);
@@ -1445,12 +1340,12 @@ namespace NTaiToolkit
             this.modTDFtab.Padding = new System.Windows.Forms.Padding(3);
             this.modTDFtab.Size = new System.Drawing.Size(967, 666);
             this.modTDFtab.TabIndex = 1;
-            this.modTDFtab.Text = "Global Config Options";
-            this.modTDFtab.UseVisualStyleBackColor = true;
+            this.modTDFtab.Text = "Options";
             this.modTDFtab.Click += new System.EventHandler(this.modTDFtab_Click);
             // 
             // groupBox12
             // 
+            this.groupBox12.BackColor = System.Drawing.Color.White;
             this.groupBox12.Controls.Add(this.label73);
             this.groupBox12.Controls.Add(this.label69);
             this.groupBox12.Controls.Add(this.maxAttackSize);
@@ -1462,9 +1357,9 @@ namespace NTaiToolkit
             this.groupBox12.Controls.Add(this.initialAttackSize);
             this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.groupBox12.ForeColor = System.Drawing.Color.Black;
-            this.groupBox12.Location = new System.Drawing.Point(406, 18);
+            this.groupBox12.Location = new System.Drawing.Point(486, 70);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(553, 194);
+            this.groupBox12.Size = new System.Drawing.Size(385, 194);
             this.groupBox12.TabIndex = 73;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Attack Groups";
@@ -1491,7 +1386,7 @@ namespace NTaiToolkit
             // maxAttackSize
             // 
             this.maxAttackSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.maxAttackSize.Location = new System.Drawing.Point(293, 52);
+            this.maxAttackSize.Location = new System.Drawing.Point(278, 52);
             this.maxAttackSize.Name = "maxAttackSize";
             this.maxAttackSize.Size = new System.Drawing.Size(95, 20);
             this.maxAttackSize.TabIndex = 7;
@@ -1509,7 +1404,7 @@ namespace NTaiToolkit
             // AttackIncrementPercentage
             // 
             this.AttackIncrementPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.AttackIncrementPercentage.Location = new System.Drawing.Point(293, 150);
+            this.AttackIncrementPercentage.Location = new System.Drawing.Point(278, 150);
             this.AttackIncrementPercentage.Name = "AttackIncrementPercentage";
             this.AttackIncrementPercentage.Size = new System.Drawing.Size(95, 20);
             this.AttackIncrementPercentage.TabIndex = 5;
@@ -1527,7 +1422,7 @@ namespace NTaiToolkit
             // AttackIncrementValue
             // 
             this.AttackIncrementValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.AttackIncrementValue.Location = new System.Drawing.Point(293, 124);
+            this.AttackIncrementValue.Location = new System.Drawing.Point(278, 124);
             this.AttackIncrementValue.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -1555,7 +1450,7 @@ namespace NTaiToolkit
             // initialAttackSize
             // 
             this.initialAttackSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.initialAttackSize.Location = new System.Drawing.Point(293, 25);
+            this.initialAttackSize.Location = new System.Drawing.Point(278, 25);
             this.initialAttackSize.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -1567,14 +1462,15 @@ namespace NTaiToolkit
             // 
             // groupBox11
             // 
+            this.groupBox11.BackColor = System.Drawing.Color.White;
             this.groupBox11.Controls.Add(this.label38);
             this.groupBox11.Controls.Add(this.label53);
             this.groupBox11.Controls.Add(this.normal_handicap);
             this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox11.ForeColor = System.Drawing.Color.Black;
-            this.groupBox11.Location = new System.Drawing.Point(406, 220);
+            this.groupBox11.Location = new System.Drawing.Point(486, 270);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(553, 75);
+            this.groupBox11.Size = new System.Drawing.Size(385, 75);
             this.groupBox11.TabIndex = 72;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Cheating";
@@ -1602,13 +1498,14 @@ namespace NTaiToolkit
             // normal_handicap
             // 
             this.normal_handicap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.normal_handicap.Location = new System.Drawing.Point(293, 42);
+            this.normal_handicap.Location = new System.Drawing.Point(278, 42);
             this.normal_handicap.Name = "normal_handicap";
-            this.normal_handicap.Size = new System.Drawing.Size(80, 20);
+            this.normal_handicap.Size = new System.Drawing.Size(95, 20);
             this.normal_handicap.TabIndex = 63;
             // 
             // groupBox7
             // 
+            this.groupBox7.BackColor = System.Drawing.Color.White;
             this.groupBox7.Controls.Add(this.label71);
             this.groupBox7.Controls.Add(this.label70);
             this.groupBox7.Controls.Add(this.mexnoweaponradius);
@@ -1628,7 +1525,7 @@ namespace NTaiToolkit
             this.groupBox7.Controls.Add(this.label14);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox7.ForeColor = System.Drawing.Color.Black;
-            this.groupBox7.Location = new System.Drawing.Point(16, 220);
+            this.groupBox7.Location = new System.Drawing.Point(96, 241);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(384, 356);
             this.groupBox7.TabIndex = 69;
@@ -1808,16 +1705,17 @@ namespace NTaiToolkit
             // 
             // groupBox5
             // 
+            this.groupBox5.BackColor = System.Drawing.Color.White;
             this.groupBox5.Controls.Add(this.spacemod);
             this.groupBox5.Controls.Add(this.Antistall);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.ForeColor = System.Drawing.Color.Black;
-            this.groupBox5.Location = new System.Drawing.Point(406, 301);
+            this.groupBox5.Location = new System.Drawing.Point(486, 351);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(553, 80);
+            this.groupBox5.Size = new System.Drawing.Size(385, 80);
             this.groupBox5.TabIndex = 67;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Mod Options";
+            this.groupBox5.Text = "Game Options";
             // 
             // spacemod
             // 
@@ -1836,15 +1734,15 @@ namespace NTaiToolkit
             this.Antistall.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Antistall.Location = new System.Drawing.Point(12, 48);
             this.Antistall.Name = "Antistall";
-            this.Antistall.Size = new System.Drawing.Size(467, 17);
+            this.Antistall.Size = new System.Drawing.Size(208, 17);
             this.Antistall.TabIndex = 19;
-            this.Antistall.Text = "Use Antistall algorithm (wont build if it\'ll cause nanostall/zero stored resource" +
-                "s)(recommend off)";
+            this.Antistall.Text = "Use Antistall algorithm (recommend off)";
             this.Antistall.UseVisualStyleBackColor = true;
             this.Antistall.CheckedChanged += new System.EventHandler(this.Antistall_CheckedChanged);
             // 
             // groupBox4
             // 
+            this.groupBox4.BackColor = System.Drawing.Color.White;
             this.groupBox4.Controls.Add(this.label72);
             this.groupBox4.Controls.Add(this.label64);
             this.groupBox4.Controls.Add(this.Author);
@@ -1855,9 +1753,9 @@ namespace NTaiToolkit
             this.groupBox4.Controls.Add(this.Version);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Black;
-            this.groupBox4.Location = new System.Drawing.Point(16, 8);
+            this.groupBox4.Location = new System.Drawing.Point(96, 70);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(384, 204);
+            this.groupBox4.Size = new System.Drawing.Size(384, 165);
             this.groupBox4.TabIndex = 66;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Version + Credits";
@@ -1866,7 +1764,7 @@ namespace NTaiToolkit
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label72.Location = new System.Drawing.Point(5, 136);
+            this.label72.Location = new System.Drawing.Point(5, 127);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(339, 13);
             this.label72.TabIndex = 66;
@@ -1876,7 +1774,7 @@ namespace NTaiToolkit
             // 
             this.label64.AutoSize = true;
             this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(6, 22);
+            this.label64.Location = new System.Drawing.Point(6, 32);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(358, 13);
             this.label64.TabIndex = 65;
@@ -1885,7 +1783,7 @@ namespace NTaiToolkit
             // Author
             // 
             this.Author.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Author.Location = new System.Drawing.Point(63, 42);
+            this.Author.Location = new System.Drawing.Point(63, 52);
             this.Author.Name = "Author";
             this.Author.Size = new System.Drawing.Size(310, 20);
             this.Author.TabIndex = 0;
@@ -1895,7 +1793,7 @@ namespace NTaiToolkit
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(5, 45);
+            this.label9.Location = new System.Drawing.Point(5, 55);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(38, 13);
             this.label9.TabIndex = 2;
@@ -1904,7 +1802,7 @@ namespace NTaiToolkit
             // Message
             // 
             this.Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Message.Location = new System.Drawing.Point(63, 107);
+            this.Message.Location = new System.Drawing.Point(63, 104);
             this.Message.Name = "Message";
             this.Message.Size = new System.Drawing.Size(310, 20);
             this.Message.TabIndex = 1;
@@ -1914,7 +1812,7 @@ namespace NTaiToolkit
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(5, 110);
+            this.label10.Location = new System.Drawing.Point(6, 107);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 13);
             this.label10.TabIndex = 3;
@@ -1924,7 +1822,7 @@ namespace NTaiToolkit
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 71);
+            this.label11.Location = new System.Drawing.Point(6, 81);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(42, 13);
             this.label11.TabIndex = 4;
@@ -1933,7 +1831,7 @@ namespace NTaiToolkit
             // Version
             // 
             this.Version.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Version.Location = new System.Drawing.Point(63, 68);
+            this.Version.Location = new System.Drawing.Point(63, 78);
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(310, 20);
             this.Version.TabIndex = 5;
@@ -1941,6 +1839,7 @@ namespace NTaiToolkit
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.groupBox13);
             this.tabPage2.Controls.Add(this.MaxAntiStallBox);
             this.tabPage2.Controls.Add(this.groupBox9);
@@ -1949,15 +1848,15 @@ namespace NTaiToolkit
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(967, 666);
             this.tabPage2.TabIndex = 10;
-            this.tabPage2.Text = "Adv Config Options";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Text = "Adv Options";
             // 
             // groupBox13
             // 
+            this.groupBox13.BackColor = System.Drawing.Color.White;
             this.groupBox13.Controls.Add(this.interpolate);
             this.groupBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox13.ForeColor = System.Drawing.Color.Black;
-            this.groupBox13.Location = new System.Drawing.Point(8, 334);
+            this.groupBox13.Location = new System.Drawing.Point(207, 364);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(553, 74);
             this.groupBox13.TabIndex = 75;
@@ -1977,6 +1876,7 @@ namespace NTaiToolkit
             // 
             // MaxAntiStallBox
             // 
+            this.MaxAntiStallBox.BackColor = System.Drawing.Color.White;
             this.MaxAntiStallBox.Controls.Add(this.label41);
             this.MaxAntiStallBox.Controls.Add(this.StallTimeMobile);
             this.MaxAntiStallBox.Controls.Add(this.StallTimeImMobile);
@@ -1986,7 +1886,7 @@ namespace NTaiToolkit
             this.MaxAntiStallBox.Controls.Add(this.label52);
             this.MaxAntiStallBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaxAntiStallBox.ForeColor = System.Drawing.Color.Black;
-            this.MaxAntiStallBox.Location = new System.Drawing.Point(8, 414);
+            this.MaxAntiStallBox.Location = new System.Drawing.Point(207, 444);
             this.MaxAntiStallBox.Name = "MaxAntiStallBox";
             this.MaxAntiStallBox.Size = new System.Drawing.Size(553, 186);
             this.MaxAntiStallBox.TabIndex = 73;
@@ -2080,6 +1980,7 @@ namespace NTaiToolkit
             // 
             // groupBox9
             // 
+            this.groupBox9.BackColor = System.Drawing.Color.White;
             this.groupBox9.Controls.Add(this.groupBox10);
             this.groupBox9.Controls.Add(this.label42);
             this.groupBox9.Controls.Add(this.groupBox8);
@@ -2094,7 +1995,7 @@ namespace NTaiToolkit
             this.groupBox9.Controls.Add(this.label24);
             this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox9.ForeColor = System.Drawing.Color.Black;
-            this.groupBox9.Location = new System.Drawing.Point(8, 6);
+            this.groupBox9.Location = new System.Drawing.Point(207, 36);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(553, 312);
             this.groupBox9.TabIndex = 72;
@@ -2573,51 +2474,46 @@ namespace NTaiToolkit
             // 
             // tabPage3
             // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPage3.Controls.Add(this.groupBox3);
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.groupBox21);
+            this.tabPage3.Controls.Add(this.groupBox20);
+            this.tabPage3.Controls.Add(this.taskActionsGroupBox);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.label51);
-            this.tabPage3.Controls.Add(this.label50);
-            this.tabPage3.Controls.Add(this.label49);
-            this.tabPage3.Controls.Add(this.label36);
-            this.tabPage3.Controls.Add(this.label35);
-            this.tabPage3.Controls.Add(this.currentqueue);
-            this.tabPage3.Controls.Add(this.keywords);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(967, 666);
             this.tabPage3.TabIndex = 5;
-            this.tabPage3.Text = "Create/Edit TaskLists";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Text = "TaskLists";
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
-            // groupBox3
+            // taskActionsGroupBox
             // 
-            this.groupBox3.Controls.Add(this.button8);
-            this.groupBox3.Controls.Add(this.InsertWord);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Controls.Add(this.button6);
-            this.groupBox3.Controls.Add(this.button7);
-            this.groupBox3.Controls.Add(this.button4);
-            this.groupBox3.Controls.Add(this.button5);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(805, 238);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(154, 246);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "List Actions";
+            this.taskActionsGroupBox.BackColor = System.Drawing.Color.White;
+            this.taskActionsGroupBox.Controls.Add(this.button8);
+            this.taskActionsGroupBox.Controls.Add(this.InsertWord);
+            this.taskActionsGroupBox.Controls.Add(this.button2);
+            this.taskActionsGroupBox.Controls.Add(this.button3);
+            this.taskActionsGroupBox.Controls.Add(this.button6);
+            this.taskActionsGroupBox.Controls.Add(this.button7);
+            this.taskActionsGroupBox.Controls.Add(this.button4);
+            this.taskActionsGroupBox.Controls.Add(this.button5);
+            this.taskActionsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taskActionsGroupBox.ForeColor = System.Drawing.Color.Black;
+            this.taskActionsGroupBox.Location = new System.Drawing.Point(443, 88);
+            this.taskActionsGroupBox.Name = "taskActionsGroupBox";
+            this.taskActionsGroupBox.Size = new System.Drawing.Size(107, 269);
+            this.taskActionsGroupBox.TabIndex = 26;
+            this.taskActionsGroupBox.TabStop = false;
+            this.taskActionsGroupBox.Text = "Actions";
             // 
             // button8
             // 
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button8.Location = new System.Drawing.Point(13, 29);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(135, 23);
+            this.button8.Size = new System.Drawing.Size(84, 23);
             this.button8.TabIndex = 12;
             this.button8.Text = "Insert At Start";
             this.button8.UseVisualStyleBackColor = true;
@@ -2626,9 +2522,9 @@ namespace NTaiToolkit
             // InsertWord
             // 
             this.InsertWord.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InsertWord.Location = new System.Drawing.Point(13, 55);
+            this.InsertWord.Location = new System.Drawing.Point(13, 58);
             this.InsertWord.Name = "InsertWord";
-            this.InsertWord.Size = new System.Drawing.Size(135, 23);
+            this.InsertWord.Size = new System.Drawing.Size(84, 23);
             this.InsertWord.TabIndex = 5;
             this.InsertWord.Text = "Insert At End";
             this.InsertWord.UseVisualStyleBackColor = true;
@@ -2637,9 +2533,9 @@ namespace NTaiToolkit
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(13, 81);
+            this.button2.Location = new System.Drawing.Point(13, 116);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 23);
+            this.button2.Size = new System.Drawing.Size(84, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "Move Up";
             this.button2.UseVisualStyleBackColor = true;
@@ -2648,9 +2544,9 @@ namespace NTaiToolkit
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(13, 107);
+            this.button3.Location = new System.Drawing.Point(13, 145);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(135, 23);
+            this.button3.Size = new System.Drawing.Size(84, 23);
             this.button3.TabIndex = 7;
             this.button3.Text = "Move Down";
             this.button3.UseVisualStyleBackColor = true;
@@ -2659,9 +2555,9 @@ namespace NTaiToolkit
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(13, 133);
+            this.button6.Location = new System.Drawing.Point(13, 87);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(135, 23);
+            this.button6.Size = new System.Drawing.Size(84, 23);
             this.button6.TabIndex = 10;
             this.button6.Text = "Move to Start";
             this.button6.UseVisualStyleBackColor = true;
@@ -2670,9 +2566,9 @@ namespace NTaiToolkit
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(13, 159);
+            this.button7.Location = new System.Drawing.Point(13, 174);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(135, 23);
+            this.button7.Size = new System.Drawing.Size(84, 23);
             this.button7.TabIndex = 11;
             this.button7.Text = "Move to End";
             this.button7.UseVisualStyleBackColor = true;
@@ -2681,20 +2577,20 @@ namespace NTaiToolkit
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(13, 185);
+            this.button4.Location = new System.Drawing.Point(13, 203);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(135, 23);
+            this.button4.Size = new System.Drawing.Size(84, 23);
             this.button4.TabIndex = 8;
-            this.button4.Text = "Remove selected task";
+            this.button4.Text = "Remove";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(13, 211);
+            this.button5.Location = new System.Drawing.Point(13, 232);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(135, 23);
+            this.button5.Size = new System.Drawing.Size(84, 23);
             this.button5.TabIndex = 9;
             this.button5.Text = "Clear all tasks";
             this.button5.UseVisualStyleBackColor = true;
@@ -2702,12 +2598,13 @@ namespace NTaiToolkit
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.currentbuildqueue);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(805, 7);
+            this.groupBox2.Location = new System.Drawing.Point(443, 16);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(154, 92);
+            this.groupBox2.Size = new System.Drawing.Size(181, 63);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Change TaskList";
@@ -2716,24 +2613,25 @@ namespace NTaiToolkit
             // 
             this.currentbuildqueue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentbuildqueue.FormattingEnabled = true;
-            this.currentbuildqueue.Location = new System.Drawing.Point(6, 44);
+            this.currentbuildqueue.Location = new System.Drawing.Point(6, 23);
             this.currentbuildqueue.MaxDropDownItems = 20;
             this.currentbuildqueue.Name = "currentbuildqueue";
-            this.currentbuildqueue.Size = new System.Drawing.Size(132, 21);
+            this.currentbuildqueue.Size = new System.Drawing.Size(162, 21);
             this.currentbuildqueue.Sorted = true;
             this.currentbuildqueue.TabIndex = 3;
             this.currentbuildqueue.SelectedIndexChanged += new System.EventHandler(this.currentbuildqueue_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.newtasklistbox);
             this.groupBox1.Controls.Add(this.button11);
             this.groupBox1.Controls.Add(this.btn_CreateNewTaskList);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(805, 119);
+            this.groupBox1.Location = new System.Drawing.Point(630, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(154, 113);
+            this.groupBox1.Size = new System.Drawing.Size(310, 63);
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "New TaskList";
@@ -2741,143 +2639,105 @@ namespace NTaiToolkit
             // newtasklistbox
             // 
             this.newtasklistbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newtasklistbox.Location = new System.Drawing.Point(13, 23);
+            this.newtasklistbox.Location = new System.Drawing.Point(6, 22);
             this.newtasklistbox.Name = "newtasklistbox";
-            this.newtasklistbox.Size = new System.Drawing.Size(135, 22);
+            this.newtasklistbox.Size = new System.Drawing.Size(147, 22);
             this.newtasklistbox.TabIndex = 0;
-            this.newtasklistbox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.newtasklistbox_PreviewKeyDown);
             this.newtasklistbox.TextChanged += new System.EventHandler(this.newtasklistbox_TextChanged);
+            this.newtasklistbox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.newtasklistbox_PreviewKeyDown);
             this.newtasklistbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.newtasklistbox_KeyDown);
             // 
             // button11
             // 
             this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.Location = new System.Drawing.Point(13, 77);
+            this.button11.Location = new System.Drawing.Point(214, 23);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(135, 23);
+            this.button11.Size = new System.Drawing.Size(89, 23);
             this.button11.TabIndex = 23;
-            this.button11.Text = "Create New list from File";
+            this.button11.Text = "Load from File";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // btn_CreateNewTaskList
             // 
             this.btn_CreateNewTaskList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_CreateNewTaskList.Location = new System.Drawing.Point(13, 54);
+            this.btn_CreateNewTaskList.Location = new System.Drawing.Point(159, 22);
             this.btn_CreateNewTaskList.Name = "btn_CreateNewTaskList";
-            this.btn_CreateNewTaskList.Size = new System.Drawing.Size(135, 23);
+            this.btn_CreateNewTaskList.Size = new System.Drawing.Size(49, 23);
             this.btn_CreateNewTaskList.TabIndex = 1;
-            this.btn_CreateNewTaskList.Text = "Create New TaskList";
+            this.btn_CreateNewTaskList.Text = "Add";
             this.btn_CreateNewTaskList.UseVisualStyleBackColor = true;
             this.btn_CreateNewTaskList.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(443, 59);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(316, 13);
-            this.label51.TabIndex = 22;
-            this.label51.Text = "Always check logfiles for reasons why tasks fail at /AI/NTai/logs/";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(443, 46);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(242, 13);
-            this.label50.TabIndex = 21;
-            this.label50.Text = "the bottom, skipping any that fail/cannot be done.";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(443, 33);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(337, 13);
-            this.label49.TabIndex = 20;
-            this.label49.Text = "Units following this tasklist will execute each task from the top down to";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(439, 3);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(169, 20);
-            this.label36.TabIndex = 16;
-            this.label36.Text = "Current TaskList Items";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(6, 3);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(167, 20);
-            this.label35.TabIndex = 15;
-            this.label35.Text = "Task List Items to Add";
-            // 
             // currentqueue
             // 
+            this.currentqueue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.currentqueue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentqueue.FormattingEnabled = true;
+            this.currentqueue.ItemHeight = 16;
             this.currentqueue.Items.AddRange(new object[] {
-            "please create a new tasklist to begin, type in the name of the",
-            "tasklist to the right and click create new tasklist to begin.",
+            "please create a new tasklist to begin, type in the name",
+            "of the tasklist to the aboveand click create add to begin.",
             "",
-            "Then add tasks using the two tabs to the left.",
-            "Todo this select a task item, then insert it using the buttons",
-            "on the right.",
+            "You can see tasks listed on the far left, and buttons to ",
+            "move add or insert tasks in yoru task list in the middle.",
             "",
-            "When you\'re done, goto the units tab, pick a unit, and give",
-            "this tasklist to it.",
+            "When you\'re done, goto the units tab, pick a unit, and",
+            "assign it this task list",
             "",
-            "Its not enough for a tasklist to exist, you have to \'assign\'/\'give\'",
-            "it to a unit, you need to tell the unit \"this is what your doing",
-            "in this list, this list  and this list\"."});
-            this.currentqueue.Location = new System.Drawing.Point(443, 79);
+            "Task lists tell units what to do, but liek a shoppign list,",
+            "you have to give ti to a unit so it knows which lists to",
+            "follow.",
+            "",
+            "If you are having trouble witha  tasklist not being followed,",
+            "check the AI error logs"});
+            this.currentqueue.Location = new System.Drawing.Point(9, 30);
             this.currentqueue.Name = "currentqueue";
-            this.currentqueue.Size = new System.Drawing.Size(356, 576);
+            this.currentqueue.Size = new System.Drawing.Size(367, 514);
             this.currentqueue.TabIndex = 4;
+            this.currentqueue.SelectedIndexChanged += new System.EventHandler(this.currentqueue_SelectedIndexChanged);
             // 
             // keywords
             // 
             this.keywords.Controls.Add(this.tabPage8);
             this.keywords.Controls.Add(this.tabPage9);
-            this.keywords.Location = new System.Drawing.Point(3, 28);
+            this.keywords.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.keywords.Location = new System.Drawing.Point(6, 25);
             this.keywords.Multiline = true;
             this.keywords.Name = "keywords";
             this.keywords.SelectedIndex = 0;
-            this.keywords.Size = new System.Drawing.Size(434, 632);
+            this.keywords.Size = new System.Drawing.Size(397, 604);
             this.keywords.TabIndex = 2;
             // 
             // tabPage8
             // 
             this.tabPage8.Controls.Add(this.universalkeywordsList);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Location = new System.Drawing.Point(4, 25);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(426, 606);
+            this.tabPage8.Size = new System.Drawing.Size(389, 575);
             this.tabPage8.TabIndex = 0;
-            this.tabPage8.Text = "Universal Keywords";
+            this.tabPage8.Text = "Generic Tasks";
             this.tabPage8.ToolTipText = "Mod independant rule based keywords";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // universalkeywordsList
             // 
+            this.universalkeywordsList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.universalkeywordsList.FormattingEnabled = true;
-            this.universalkeywordsList.Location = new System.Drawing.Point(1, 3);
+            this.universalkeywordsList.ItemHeight = 16;
+            this.universalkeywordsList.Location = new System.Drawing.Point(6, 8);
             this.universalkeywordsList.Name = "universalkeywordsList";
-            this.universalkeywordsList.Size = new System.Drawing.Size(422, 602);
+            this.universalkeywordsList.Size = new System.Drawing.Size(377, 546);
             this.universalkeywordsList.TabIndex = 0;
             // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.unitkeywords);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Location = new System.Drawing.Point(4, 25);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(426, 606);
+            this.tabPage9.Size = new System.Drawing.Size(389, 561);
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Build Unit";
             this.tabPage9.ToolTipText = "Units in the mod";
@@ -2885,32 +2745,33 @@ namespace NTaiToolkit
             // 
             // unitkeywords
             // 
+            this.unitkeywords.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.unitkeywords.FormattingEnabled = true;
             this.unitkeywords.HorizontalScrollbar = true;
-            this.unitkeywords.Location = new System.Drawing.Point(3, 4);
+            this.unitkeywords.ItemHeight = 16;
+            this.unitkeywords.Location = new System.Drawing.Point(6, 8);
             this.unitkeywords.Name = "unitkeywords";
-            this.unitkeywords.Size = new System.Drawing.Size(420, 602);
+            this.unitkeywords.Size = new System.Drawing.Size(377, 546);
             this.unitkeywords.Sorted = true;
             this.unitkeywords.TabIndex = 0;
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.label27);
+            this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage5.Controls.Add(this.groupBox18);
             this.tabPage5.Controls.Add(this.toolStrip1);
-            this.tabPage5.Controls.Add(this.quicksetchecks);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(967, 666);
             this.tabPage5.TabIndex = 9;
-            this.tabPage5.Text = "Set several unit properties at once";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPage5.Text = "Mass Set Unit Properties";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(8, 28);
+            this.label27.Location = new System.Drawing.Point(6, 31);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(824, 16);
             this.label27.TabIndex = 2;
@@ -2963,38 +2824,28 @@ namespace NTaiToolkit
             // 
             // quicksetchecks
             // 
+            this.quicksetchecks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.quicksetchecks.FormattingEnabled = true;
-            this.quicksetchecks.Location = new System.Drawing.Point(8, 62);
+            this.quicksetchecks.Location = new System.Drawing.Point(9, 65);
             this.quicksetchecks.Name = "quicksetchecks";
-            this.quicksetchecks.Size = new System.Drawing.Size(951, 589);
+            this.quicksetchecks.Size = new System.Drawing.Size(907, 484);
             this.quicksetchecks.TabIndex = 0;
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.label65);
-            this.tabPage4.Controls.Add(this.refresh);
-            this.tabPage4.Controls.Add(this.debugsave);
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.groupBox19);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(967, 666);
             this.tabPage4.TabIndex = 7;
             this.tabPage4.Text = "Debug";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(3, 609);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(267, 20);
-            this.label65.TabIndex = 2;
-            this.label65.Text = "This Page is for debug purposes";
             // 
             // refresh
             // 
-            this.refresh.Location = new System.Drawing.Point(839, 609);
+            this.refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refresh.Location = new System.Drawing.Point(827, 553);
             this.refresh.Name = "refresh";
             this.refresh.Size = new System.Drawing.Size(91, 24);
             this.refresh.TabIndex = 1;
@@ -3008,10 +2859,13 @@ namespace NTaiToolkit
             this.debugsave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.debugsave.BackColor = System.Drawing.Color.White;
-            this.debugsave.Location = new System.Drawing.Point(3, 3);
+            this.debugsave.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.debugsave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debugsave.ForeColor = System.Drawing.Color.Black;
+            this.debugsave.Location = new System.Drawing.Point(17, 30);
             this.debugsave.Name = "debugsave";
             this.debugsave.ReadOnly = true;
-            this.debugsave.Size = new System.Drawing.Size(956, 603);
+            this.debugsave.Size = new System.Drawing.Size(901, 517);
             this.debugsave.TabIndex = 0;
             this.debugsave.Text = "";
             // 
@@ -3028,10 +2882,291 @@ namespace NTaiToolkit
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "commar seperated list (*.txt)|*.txt";
             // 
+            // groupBox6
+            // 
+            this.groupBox6.BackColor = System.Drawing.Color.White;
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Controls.Add(this.label67);
+            this.groupBox6.Controls.Add(this.modlabel);
+            this.groupBox6.Controls.Add(this.label29);
+            this.groupBox6.Controls.Add(this.ll_OpenConfigFile);
+            this.groupBox6.Controls.Add(this.linkLabel3);
+            this.groupBox6.Controls.Add(this.linkLabel2);
+            this.groupBox6.Controls.Add(this.label66);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Controls.Add(this.label63);
+            this.groupBox6.Controls.Add(this.label62);
+            this.groupBox6.Controls.Add(this.linkLabel1);
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(16, 126);
+            this.groupBox6.MaximumSize = new System.Drawing.Size(934, 415);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(934, 415);
+            this.groupBox6.TabIndex = 16;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Toolkit";
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.BackColor = System.Drawing.Color.White;
+            this.groupBox14.Controls.Add(this.label46);
+            this.groupBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox14.Location = new System.Drawing.Point(9, 30);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(906, 152);
+            this.groupBox14.TabIndex = 10;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Q: Fast & Dirty Configs Howto";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(6, 29);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(625, 96);
+            this.label46.TabIndex = 0;
+            this.label46.Text = resources.GetString("label46.Text");
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.BackColor = System.Drawing.Color.White;
+            this.groupBox15.Controls.Add(this.label76);
+            this.groupBox15.Controls.Add(this.label75);
+            this.groupBox15.Controls.Add(this.label74);
+            this.groupBox15.Controls.Add(this.label48);
+            this.groupBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox15.Location = new System.Drawing.Point(9, 188);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(906, 230);
+            this.groupBox15.TabIndex = 11;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Q: I still dont Understand anything!";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(6, 33);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(781, 32);
+            this.label48.TabIndex = 0;
+            this.label48.Text = resources.GetString("label48.Text");
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(6, 77);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(274, 18);
+            this.label74.TabIndex = 1;
+            this.label74.Text = "\"But the builders arent building things!?!?\"";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label75.Location = new System.Drawing.Point(6, 105);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(805, 48);
+            this.label75.TabIndex = 2;
+            this.label75.Text = resources.GetString("label75.Text");
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label76.Location = new System.Drawing.Point(6, 168);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(789, 48);
+            this.label76.TabIndex = 3;
+            this.label76.Text = resources.GetString("label76.Text");
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.BackColor = System.Drawing.Color.White;
+            this.groupBox16.Controls.Add(this.groupBox17);
+            this.groupBox16.Controls.Add(this.groupBox14);
+            this.groupBox16.Controls.Add(this.groupBox15);
+            this.groupBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox16.Location = new System.Drawing.Point(16, 85);
+            this.groupBox16.MaximumSize = new System.Drawing.Size(934, 961);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(934, 497);
+            this.groupBox16.TabIndex = 12;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Stuck?";
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.label54);
+            this.groupBox17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox17.Location = new System.Drawing.Point(9, 424);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(906, 57);
+            this.groupBox17.TabIndex = 12;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Q: How do I make NTai Learn?";
+            this.groupBox17.Enter += new System.EventHandler(this.groupBox17_Enter);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(6, 30);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(175, 16);
+            this.label54.TabIndex = 0;
+            this.label54.Text = "Use the universal keywords.";
+            // 
+            // groupBox18
+            // 
+            this.groupBox18.BackColor = System.Drawing.Color.White;
+            this.groupBox18.Controls.Add(this.label27);
+            this.groupBox18.Controls.Add(this.quicksetchecks);
+            this.groupBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox18.Location = new System.Drawing.Point(16, 50);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(934, 566);
+            this.groupBox18.TabIndex = 3;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "Select Units";
+            // 
+            // groupBox19
+            // 
+            this.groupBox19.BackColor = System.Drawing.Color.White;
+            this.groupBox19.Controls.Add(this.debugsave);
+            this.groupBox19.Controls.Add(this.refresh);
+            this.groupBox19.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox19.Location = new System.Drawing.Point(16, 42);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(934, 583);
+            this.groupBox19.TabIndex = 3;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "Debug";
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.BackColor = System.Drawing.Color.White;
+            this.groupBox20.Controls.Add(this.keywords);
+            this.groupBox20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox20.Location = new System.Drawing.Point(26, 16);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(411, 635);
+            this.groupBox20.TabIndex = 27;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "Tasks";
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.BackColor = System.Drawing.Color.White;
+            this.groupBox21.Controls.Add(this.currentqueue);
+            this.groupBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox21.Location = new System.Drawing.Point(556, 88);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(384, 563);
+            this.groupBox21.TabIndex = 28;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "TaskList";
+            // 
+            // groupBox22
+            // 
+            this.groupBox22.BackColor = System.Drawing.Color.White;
+            this.groupBox22.Controls.Add(this.Units);
+            this.groupBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox22.Location = new System.Drawing.Point(17, 54);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(379, 559);
+            this.groupBox22.TabIndex = 44;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "Current Unit";
+            // 
+            // groupBox23
+            // 
+            this.groupBox23.BackColor = System.Drawing.Color.White;
+            this.groupBox23.Controls.Add(this.label31);
+            this.groupBox23.Controls.Add(this.Firingstatecombo);
+            this.groupBox23.Controls.Add(this.label60);
+            this.groupBox23.Controls.Add(this.Movestatecombo);
+            this.groupBox23.Controls.Add(this.label58);
+            this.groupBox23.Controls.Add(this.label1);
+            this.groupBox23.Controls.Add(this.KamikazeCheck);
+            this.groupBox23.Controls.Add(this.label2);
+            this.groupBox23.Controls.Add(this.SolobuildCheck);
+            this.groupBox23.Controls.Add(this.SinglebuildCheck);
+            this.groupBox23.Controls.Add(this.AttackCheck);
+            this.groupBox23.Controls.Add(this.AlwaysantistallCheck);
+            this.groupBox23.Controls.Add(this.label56);
+            this.groupBox23.Controls.Add(this.NeverantistallCheck);
+            this.groupBox23.Controls.Add(this.MinEnergy);
+            this.groupBox23.Controls.Add(this.label21);
+            this.groupBox23.Controls.Add(this.MaxEnergy);
+            this.groupBox23.Controls.Add(this.label20);
+            this.groupBox23.Controls.Add(this.label18);
+            this.groupBox23.Controls.Add(this.ExclusionZone);
+            this.groupBox23.Controls.Add(this.label19);
+            this.groupBox23.Controls.Add(this.RepairRange);
+            this.groupBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox23.Location = new System.Drawing.Point(402, 54);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(239, 559);
+            this.groupBox23.TabIndex = 45;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "Options";
+            // 
+            // groupBox24
+            // 
+            this.groupBox24.BackColor = System.Drawing.Color.White;
+            this.groupBox24.Controls.Add(this.label44);
+            this.groupBox24.Controls.Add(this.tabControl1);
+            this.groupBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox24.Location = new System.Drawing.Point(647, 54);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(302, 559);
+            this.groupBox24.TabIndex = 46;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "TaskLists";
+            // 
+            // groupBox25
+            // 
+            this.groupBox25.BackColor = System.Drawing.Color.White;
+            this.groupBox25.Controls.Add(this.checkBox1);
+            this.groupBox25.Controls.Add(this.label30);
+            this.groupBox25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox25.Location = new System.Drawing.Point(486, 437);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(385, 100);
+            this.groupBox25.TabIndex = 74;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "Non Supported Game";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(11, 30);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(317, 13);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "Only use this option if NTai cannot do anything at all in this game!!";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(12, 52);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(172, 17);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "SelfDestruct all units on startup";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(975, 692);
             this.Controls.Add(this.mainTabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -3039,15 +3174,12 @@ namespace NTaiToolkit
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NTai Toolkit V0.27";
+            this.Text = "NTai Toolkit V0.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.mainTabs.ResumeLayout(false);
             this.StartTab.ResumeLayout(false);
-            this.StartTab.PerformLayout();
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.UnitsTab.ResumeLayout(false);
-            this.UnitsTab.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
@@ -3109,8 +3241,7 @@ namespace NTaiToolkit
             ((System.ComponentModel.ISupportInitialize)(this.factorymetalgapRule)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.factoryenergyRule)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
+            this.taskActionsGroupBox.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -3122,7 +3253,27 @@ namespace NTaiToolkit
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
+            this.groupBox18.ResumeLayout(false);
+            this.groupBox18.PerformLayout();
+            this.groupBox19.ResumeLayout(false);
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox24.PerformLayout();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3159,12 +3310,7 @@ namespace NTaiToolkit
         String configfile2 = "";
         private Label label31;
         private Label label56;
-        private Label label55;
-        private Label label47;
-        private Label label59;
         private Label label58;
-        private Label label57;
-        private Label label61;
         private Label label60;
         private Label label66;
         private Label label63;
@@ -3228,9 +3374,31 @@ namespace NTaiToolkit
         private Label label24;
         private Label label72;
         private Label label73;
+        private GroupBox groupBox6;
+        private GroupBox groupBox14;
+        private Label label46;
+        private GroupBox groupBox15;
+        private Label label48;
+        private Label label74;
+        private Label label75;
+        private Label label76;
+        private GroupBox groupBox16;
+        private GroupBox groupBox17;
+        private Label label54;
+        private GroupBox groupBox18;
+        private GroupBox groupBox19;
+        private GroupBox groupBox21;
+        private GroupBox groupBox20;
+        private GroupBox groupBox22;
+        private GroupBox groupBox23;
+        private GroupBox groupBox24;
+        private GroupBox groupBox25;
+        private CheckBox checkBox1;
+        private Label label30;
         String configfile3 = "";
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            this.taskActionsGroupBox.Enabled = false;
             try
             {
                 //fix for multiple load problem
@@ -3273,7 +3441,7 @@ namespace NTaiToolkit
                     if (this.buildtree.Load(text2 + parser1.RootSection.GetStringValue(@"ntai\modconfig")))
                     {
                         configfile2 = parser1.RootSection.GetStringValue(@"ntai\modconfig");
-                        this.mod.LoadMod(this.openFileDialog.InitialDirectory + parser1.RootSection.GetStringValue(@"ntai\learndata"));
+                        this.mod.LoadMod(text2 + parser1.RootSection.GetStringValue(@"ntai\learndata"));
                         configfile3 = parser1.RootSection.GetStringValue(@"ntai\learndata");
                         this.mod.modname = parser1.RootSection.GetStringValue(@"ntai\modname");
                         this.modlabel.Text = this.mod.modname + " is loaded";
@@ -3329,6 +3497,7 @@ namespace NTaiToolkit
         {
             this.currentqueue.Items.Clear();
             ArrayList list1 = this.buildtree.GetTaskList(tasklist);
+            this.taskActionsGroupBox.Enabled = true;
             foreach (string text1 in list1)
             {
                 this.currentqueue.Items.Add(text1);
@@ -3841,7 +4010,7 @@ namespace NTaiToolkit
         private GroupBox groupBox11;
         private GroupBox groupBox12;
         private GroupBox groupBox2;
-        private GroupBox groupBox3;
+        private GroupBox taskActionsGroupBox;
         private GroupBox groupBox4;
         private GroupBox groupBox5;
         private GroupBox groupBox7;
@@ -3865,23 +4034,12 @@ namespace NTaiToolkit
         private Label label27;
         private Label label28;
         private Label label29;
-        private Label label30;
         private Label label32;
-        private Label label33;
-        private Label label34;
-        private Label label35;
-        private Label label36;
         private Label label37;
         private Label label38;
         private Label label44;
-        private Label label45;
-        private Label label49;
-        private Label label50;
-        private Label label51;
         private Label label53;
-        private Label label54;
         private Label label64;
-        private Label label65;
         private Label label7;
         private Label label8;
         private Label label9;
@@ -3905,7 +4063,6 @@ namespace NTaiToolkit
         private ToolStripComboBox QuicksetCombo;
         private Button refresh;
         public NumericUpDown RepairRange;
-        private RichTextBox richTextBox1;
         private CheckBox SinglebuildCheck;
         private CheckBox SolobuildCheck;
         public CheckBox spacemod;
@@ -4051,6 +4208,26 @@ namespace NTaiToolkit
         }
 
         private void Antistall_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox17_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void currentqueue_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

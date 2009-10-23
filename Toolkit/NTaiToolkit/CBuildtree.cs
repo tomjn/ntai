@@ -396,7 +396,7 @@ namespace NTaiToolkit
                 text1 = text1 + list1[num1];
                 if ((num1 + 1) < list1.Count)
                 {
-                    text1 = text1 + ",";
+                    text1 = text1 + ", ";
                 }
             }
             text1 = text1 + ";\n";
@@ -414,7 +414,7 @@ namespace NTaiToolkit
                 text1 = text1 + list1[num2];
                 if ((num2 + 1) < list1.Count)
                 {
-                    text1 = text1 + ",";
+                    text1 = text1 + ", ";
                 }
             }
             text1 = text1 + ";\n";
@@ -432,7 +432,7 @@ namespace NTaiToolkit
                 text1 = text1 + list1[num3];
                 if ((num3 + 1) < list1.Count)
                 {
-                    text1 = text1 + ",";
+                    text1 = text1 + ", ";
                 }
             }
             text1 = text1 + ";\n";
@@ -450,7 +450,7 @@ namespace NTaiToolkit
                 text1 = text1 + list1[num4];
                 if ((num4 + 1) < list1.Count)
                 {
-                    text1 = text1 + ",";
+                    text1 = text1 + ", ";
                 }
             }
             text1 = text1 + ";\n";
@@ -468,7 +468,7 @@ namespace NTaiToolkit
                 text1 = text1 + list1[num5];
                 if ((num5 + 1) < list1.Count)
                 {
-                    text1 = text1 + ",";
+                    text1 = text1 + ", ";
                 }
             }
             text1 = text1 + ";\n";
@@ -486,7 +486,7 @@ namespace NTaiToolkit
                 text1 = text1 + list1[num6];
                 if ((num6 + 1) < list1.Count)
                 {
-                    text1 = text1 + ",";
+                    text1 = text1 + ", ";
                 }
             }
             text1 = text1 + ";\n\n";
@@ -499,7 +499,7 @@ namespace NTaiToolkit
                     text1 = text1 + this.neverantistall[num7];
                     if ((num7 + 1) < this.neverantistall.Count)
                     {
-                        text1 = text1 + ",";
+                        text1 = text1 + ", ";
                     }
                 }
             }
@@ -512,7 +512,7 @@ namespace NTaiToolkit
                     text1 = text1 + this.alwaysantistall[num8];
                     if ((num8 + 1) < this.alwaysantistall.Count)
                     {
-                        text1 = text1 + ",";
+                        text1 = text1 + ", ";
                     }
                 }
             }
@@ -525,7 +525,7 @@ namespace NTaiToolkit
                     text1 = text1 + this.singlebuild[num9];
                     if ((num9 + 1) < this.singlebuild.Count)
                     {
-                        text1 = text1 + ",";
+                        text1 = text1 + ", ";
                     }
                 }
             }
@@ -538,7 +538,7 @@ namespace NTaiToolkit
                     text1 = text1 + this.solobuild[num10];
                     if ((num10 + 1) < this.solobuild.Count)
                     {
-                        text1 = text1 + ",";
+                        text1 = text1 + ", ";
                     }
                 }
             }
@@ -551,7 +551,7 @@ namespace NTaiToolkit
                     text1 = text1 + this.scouters[num11];
                     if ((num11 + 1) < this.scouters.Count)
                     {
-                        text1 = text1 + ",";
+                        text1 = text1 + ", ";
                     }
                 }
             }
@@ -564,7 +564,7 @@ namespace NTaiToolkit
                     text1 = text1 + this.attackers[num12];
                     if ((num12 + 1) < this.attackers.Count)
                     {
-                        text1 = text1 + ",";
+                        text1 = text1 + ", ";
                     }
                 }
             }
@@ -591,7 +591,7 @@ namespace NTaiToolkit
                         text1 = text1 + list2[num13];
                         if ((num13 + 1) < list2.Count)
                         {
-                            text1 = text1 + ",";
+                            text1 = text1 + ", ";
                         }
                     }
                     text1 = text1 + ";\n";
@@ -611,7 +611,7 @@ namespace NTaiToolkit
                         text1 = text1 + list3[num14];
                         if ((num14 + 1) < list3.Count)
                         {
-                            text1 = text1 + ",";
+                            text1 = text1 + ", ";
                         }
                     }
                     text1 = text1 + ";\n";
