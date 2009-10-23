@@ -88,19 +88,11 @@ namespace ntai {
 				return;
 			}
 
-			if(EVERY_((GetAge()%32+20))){
+			if(EVERY_((GetAge()%32+9))){
 				if(currentTask != 0){
 					if(!currentTask->IsValid()){
-						//
 						taskManager->TaskFinished();
 						currentTask = 0;
-						/*taskManager->GetNextTask();
-						if(currentTask != 0){
-							currentTask->Init();
-							G->RegisterMessageHandler(currentTask);
-						}else{
-							currentTask = 0;
-						}*/
 					}
 				}else{
 					//

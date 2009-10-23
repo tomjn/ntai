@@ -35,10 +35,19 @@ namespace ntai {
 		this->unit_name = n;
 		hasWaterWeapons = false;
 		hasLandWeapons = false;
+		exclusionRange = 0;
 		
-		G->Get_mod_tdf()->GetDef(repairDeferRange,"0","Resource\\ConstructionRepairRanges\\"+unit_name);
-
-		G->Get_mod_tdf()->GetDef(exclusionRange,"0","Resource\\ConstructionExclusionRanges\\"+unit_name);
+		if(IsFactory()){
+			G->Get_mod_tdf()->GetDef(exclusionRange,"800","Resource\\ConstructionExclusionRanges\\"+unit_name);
+			G->Get_mod_tdf()->GetDef(repairDeferRange,"800","Resource\\ConstructionRepairRanges\\"+unit_name);
+		}else{
+			G->Get_mod_tdf()->GetDef(exclusionRange,"0","Resource\\ConstructionExclusionRanges\\"+unit_name);
+			if(this->IsMobile()){
+				G->Get_mod_tdf()->GetDef(repairDeferRange,"600","Resource\\ConstructionRepairRanges\\"+unit_name);
+			}else{
+				G->Get_mod_tdf()->GetDef(repairDeferRange,"0","Resource\\ConstructionRepairRanges\\"+unit_name);
+			}
+		}
 
 		canConstruct = (ud->buildOptions.empty()==false);
 
