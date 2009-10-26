@@ -3,6 +3,7 @@
 
 namespace ntai {
 	CConfigData::CConfigData(Global* G){
+		this->G = G;
 		_abstract = true;
 		gaia = false;
 		spacemod = false;
@@ -64,12 +65,18 @@ namespace ntai {
 		scout_speed = (float)atof(mod_tdf->SGetValueDef("50", "AI\\scout_speed").c_str());
 
 		if(_abstract == true){
+			G->L.print("abstract is true, turning on dynamic selection");
 			dynamic_selection = true;
 		}
 
 		if(use_modabstracts == true){
 			_abstract = false;
 		}
-	    
+
+		if(dynamic_selection){
+			G->L.print("dynamic selection is on");
+		}else{
+			G->L.print("dynamic selection is off");
+		}
 	}
 }

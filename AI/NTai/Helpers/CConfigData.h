@@ -28,5 +28,7 @@ namespace ntai {
 		std::string tdfpath;
 		std::string datapath;
 		TdfParser* mod_tdf;
+	private:
+		Global* G;
 	};
 }
