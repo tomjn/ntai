@@ -65,6 +65,7 @@ namespace ntai {
 					trim(v);
 					if(v == GetName()){
 						attacker = true;
+						G->L.print("attacker found:"+GetName());
 						break;
 					}
 				}
@@ -72,21 +73,22 @@ namespace ntai {
 
 		}else{
 			// determine dynamically if this is an attacker
-			attacker =true;
-			if(ud->speed > G->info->scout_speed){
-				attacker = false; // cant be a scout either
-			} else if(ud->isCommander){
-				attacker = false; //no commanders
-			} else if(ud->builder){
-				attacker = false; // no builders either
-			} else if(ud->weapons.empty()){
-				attacker = false; // has to have a weapon
-			} else if((ud->canfly == false)&&(ud->movedata == 0)){
-				attacker = false; // no buildings
-			} else if(ud->transportCapacity != 0){
-				attacker = false; // no armed transports
-			} else if(ud->hoverAttack){
-				attacker = true; // obviously a gunship type thingymajig
+			attacker = false;
+			if(HasWeapons()){
+				attacker = true;
+				if(ud->speed > G->info->scout_speed){
+					if(!ud->canfly){
+						attacker = false; // cant be a scout either
+					}
+				} else if(ud->isCommander){
+					attacker = false; //no commanders
+				} else if(ud->builder){
+					attacker = false; // no builders either
+				} else if(this->IsStationary()){
+					attacker = false; // no buildings
+				} else if(ud->transportCapacity != 0){
+					attacker = false; // no armed transports
+				}
 			}
 		}
 
