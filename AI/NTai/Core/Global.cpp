@@ -51,6 +51,72 @@ namespace ntai {
 		CLOG("Creating Config holder class");
 		info = new CConfigData(G);
 
+		mrand.seed(uint(time(NULL)*cb->GetMyTeam()));
+		std::string filename = info->datapath +  info->tdfpath + std::string(".tdf");
+		std::string* buffer = new std::string();
+		TdfParser* q = new TdfParser(this);
+
+		int s =cb->GetFileSize(filename.c_str());
+		if(s!=-1){
+
+			q->LoadFile(filename);
+			L.print(filename);
+			L.print("Mod TDF loaded");
+			filename = info->datapath + q->SGetValueDef("configs\\default.tdf", "NTai\\modconfig");
+			L.print(filename);
+
+		} else {/////////////////
+
+			TdfParser* w = new TdfParser(this, "modinfo.tdf");
+			info->_abstract = true;
+			L.header(" :: mod.tdf failed to load, assuming default values");
+			L.header(endline);
+			// must write out a config and put in it the default stuff......
+			std::ofstream off;
+			//string filename = info->datapath + "/learn/" + info->tdfpath +".tdf";
+			off.open(filename.c_str());
+			if(off.is_open() == true){
+				//off <<
+				off << "[NTai]" << std::endl;
+				off << "{" << std::endl;
+				off << "\tlearndata=" << "learn/" << info->tdfpath <<".tdf;" << std::endl;
+				off << "\tmodconfig=" << "configs/" << info->tdfpath << ".tdf;" << std::endl;
+				off <<"\tmodname=" << w->SGetValueMSG("MOD\\Name") << ";" << std::endl;
+				off << "}" << std::endl;
+				off.close();
+				filename = info->datapath + std::string("configs") + slash +  info->tdfpath + std::string(".tdf");
+				off.open(filename.c_str());
+				if(off.is_open() == true){
+					//off <<
+					filename = info->datapath + slash + std::string("configs") + slash + std::string("default.tdf");
+					std::string* buffer2 = new std::string();
+					ReadFile(filename, buffer2);
+					off << *buffer2;
+					off.close();
+				}
+			}
+			delete w;
+		}
+		delete q;
+
+		//
+		if(cb->GetFileSize(filename.c_str())!=-1){
+			if(Get_mod_tdf()->LoadFile(filename)){
+				L.print("config loaded");
+			} else{
+				L.print("config not loaded");
+			}
+		} else {/////////////////
+
+			info->_abstract = true;
+			L.header(" :: mod.tdf failed to load, assuming default values");
+			L.header(endline);
+		}
+		delete buffer;
+
+		//load all the mod.tdf settings!
+		info->Load();
+
 		CLOG("Setting the Logger class");
 		L.Set(this);
 
@@ -780,73 +846,9 @@ namespace ntai {
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 	void Global::InitAI(IAICallback* callback, int team){
-		L.print("Initialisising");
+		L.print("Initialising");
 
-		mrand.seed(uint(time(NULL)*team));
-		std::string filename = info->datapath +  info->tdfpath + std::string(".tdf");
-		std::string* buffer = new std::string();
-		TdfParser* q = new TdfParser(this);
-
-		int s =cb->GetFileSize(filename.c_str());
-		if(s!=-1){
-
-			q->LoadFile(filename);
-			L.print(filename);
-			L.print("Mod TDF loaded");
-			filename = info->datapath + q->SGetValueDef("configs\\default.tdf", "NTai\\modconfig");
-			L.print(filename);
-
-		} else {/////////////////
-
-			TdfParser* w = new TdfParser(this, "modinfo.tdf");
-			info->_abstract = true;
-			L.header(" :: mod.tdf failed to load, assuming default values");
-			L.header(endline);
-			// must write out a config and put in it the default stuff......
-			std::ofstream off;
-			//string filename = info->datapath + "/learn/" + info->tdfpath +".tdf";
-			off.open(filename.c_str());
-			if(off.is_open() == true){
-				//off <<
-				off << "[NTai]" << std::endl;
-				off << "{" << std::endl;
-				off << "\tlearndata=" << "learn/" << info->tdfpath <<".tdf;" << std::endl;
-				off << "\tmodconfig=" << "configs/" << info->tdfpath << ".tdf;" << std::endl;
-				off <<"\tmodname=" << w->SGetValueMSG("MOD\\Name") << ";" << std::endl;
-				off << "}" << std::endl;
-				off.close();
-				filename = info->datapath + std::string("configs") + slash +  info->tdfpath + std::string(".tdf");
-				off.open(filename.c_str());
-				if(off.is_open() == true){
-					//off <<
-					filename = info->datapath + slash + std::string("configs") + slash + std::string("default.tdf");
-					std::string* buffer2 = new std::string();
-					ReadFile(filename, buffer2);
-					off << *buffer2;
-					off.close();
-				}
-			}
-			delete w;
-		}
-		delete q;
-
-		//
-		if(cb->GetFileSize(filename.c_str())!=-1){
-			if(Get_mod_tdf()->LoadFile(filename)){
-				L.print("config loaded");
-			} else{
-				L.print("config not loaded");
-			}
-		} else {/////////////////
-
-			info->_abstract = true;
-			L.header(" :: mod.tdf failed to load, assuming default values");
-			L.header(endline);
-		}
-		delete buffer;
-
-		//load all the mod.tdf settings!
-		info->Load();
+		
 		
 		if(info->_abstract == true){
 			L.print("abstract == true");
