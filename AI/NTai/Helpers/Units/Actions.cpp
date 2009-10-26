@@ -451,7 +451,7 @@ bool CActions::DGunNearby(int uid){
     
 	int* en = new int[10000];
 
-    int e = G->GetEnemyUnits(en, compos, G->cb->GetUnitMaxRange(uid)*1.3f); // get all enemy units within weapons range atm
+    int e = G->GetEnemyUnits(en, compos, G->cb->GetUnitMaxRange(uid)*1.5f); // get all enemy units within weapons range atm
     
 	if(e>0){
         for(int i = 0; i < e; i++){
