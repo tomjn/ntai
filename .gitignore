@@ -26,8 +26,12 @@
 # NTai build folders
 /AI/Debug
 /AI/Release
+/AI/Release + Error catching
+/AI/Release with error catching
 /AI/AI.ncb
 /AI/AI.suo
+/Toolkit/bin
+/Toolkit/obj
 
 # Windows libraries used by spring when compiling with MinGW
 # recommended: place the dir somewhere else, and specify with
@@ -45,6 +49,8 @@
 *.a
 *.gch
 *.dir
+*.obj
+*.dll
 
 # ???
 progress.make
