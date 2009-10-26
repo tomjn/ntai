@@ -20,8 +20,8 @@ namespace ntai {
 
 		float3 mapdim= float3((float)G->cb->GetMapWidth()*SQUARE_SIZE, 0, (float)G->cb->GetMapHeight()*SQUARE_SIZE);
 		Grid.Initialize(mapdim, float3(1024, 0, 1024), true);
-		Grid.ApplyModifierOnUpdate(0.9f, (5 SECONDS));
-		Grid.SetDefaultGridValue(5.0f);
+		Grid.ApplyModifierOnUpdate(0.75f, (5 SECONDS));
+		Grid.SetDefaultGridValue(0.0f);
 		Grid.SetMinimumValue(10.0f);
 
 		CTokenizer<CIsComma>::Tokenize(fire_at_will, G->Get_mod_tdf()->SGetValueMSG("AI\\fire_at_will"), CIsComma());
@@ -585,7 +585,7 @@ namespace ntai {
 						float e = G->efficiency->GetEfficiency(def->name);//def->power;
 
 						// manipulate the value to make threats bigger as they get closer to the AI base.
-						e /= (pos.distance2D(G->Map->nbasepos(pos))/4);
+						//e /= (pos.distance2D(G->Map->nbasepos(pos))/4);
 
 						// Update the Threat Map
 						Grid.AddValueatMapPos(pos, e);
