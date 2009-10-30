@@ -76,11 +76,11 @@ namespace ntai {
 				}
 			}
 		}
-		std::string sl;
+		std::string sl = "";
 		if(G->Cached->cheating){
-			sl = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\CHEAT\\")+listname);
+			G->Get_mod_tdf()->SGetValue(sl, std::string("TASKLISTS\\CHEAT\\")+listname);
 		} else {
-			sl = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\NORMAL\\")+listname);
+			G->Get_mod_tdf()->SGetValue(sl, std::string("TASKLISTS\\NORMAL\\")+listname);
 		}
 
 		tolowercase(sl);
@@ -94,7 +94,8 @@ namespace ntai {
 			}
 		}
 
-		std::string s = G->Get_mod_tdf()->SGetValueMSG(std::string("TASKLISTS\\LISTS\\")+us);
+		std::string s = "";
+		G->Get_mod_tdf()->SGetValue(s,std::string("TASKLISTS\\LISTS\\")+us);
 
 		if(s.empty()){
 			G->L.print(" error loading tasklist for unit :: \"" + us + "\" :: buffer empty, most likely because of an empty list");

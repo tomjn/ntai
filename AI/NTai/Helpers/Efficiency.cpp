@@ -215,9 +215,8 @@ namespace ntai {
 
 			if(G->ReadFile(filename, buffer)){
 
-				TdfParser cq(G);
+				TdfParser cq(buffer->c_str(), buffer->size());
 
-				cq.LoadBuffer(buffer->c_str(), buffer->size());
 				iterations = atoi(cq.SGetValueDef("1", "AI\\iterations").c_str());
 
 				for(std::map<std::string, float>::iterator i = efficiency.begin(); i != efficiency.end(); ++i){

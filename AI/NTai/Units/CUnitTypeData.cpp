@@ -56,7 +56,9 @@ namespace ntai {
 		if(G->info->dynamic_selection == false){
 			attacker = false;
 			std::vector<std::string> v;
-			CTokenizer<CIsComma>::Tokenize(v, G->Get_mod_tdf()->SGetValueMSG("AI\\attackers"), CIsComma());
+			std::string attackerStr = "";
+			G->Get_mod_tdf()->SGetValue(attackerStr,"AI\\attackers");
+			CTokenizer<CIsComma>::Tokenize(v, attackerStr , CIsComma());
 			//v = bds::set_cont(v,G->Get_mod_tdf()->SGetValueMSG("AI\\attackers"));
 			if(v.empty() == false){
 				for(std::vector<std::string>::iterator vi = v.begin(); vi != v.end(); ++vi){
