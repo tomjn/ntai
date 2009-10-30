@@ -34,8 +34,13 @@ namespace ntai{
 
 		bool Move(int unit,float3 pos,bool overwrite=true); // makes the unit move to that position
 
+		bool Fight(int unit,float3 pos,bool overwrite=true); // makes the unit fight to that position
+
 		bool MoveToStrike(int unit,float3 pos,bool overwrite=true);
 		// makes the unit move to that position but keepign its range as if its the position of an enemy
+
+		bool FightToStrike(int unit,float3 pos,bool overwrite=true);
+		// same as above but fight instead of move
 
 		bool Guard(int unit,int guarded); // Makes the unit guard the other unit
 

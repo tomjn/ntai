@@ -187,6 +187,19 @@ bool CActions::MoveToStrike(int unit, float3 pos, bool overwrite){
     return Move(unit, npos, overwrite);
 }
 
+bool CActions::FightToStrike(int unit, float3 pos, bool overwrite){
+    NLOG("CActions::FightToStrike");
+
+    if(!ValidUnitID(unit)){
+		return false;
+	}
+
+    if(G->Map->CheckFloat3(pos)==false) return false;
+    float3 npos = G->Map->distfrom(G->GetUnitPos(unit), pos, G->cb->GetUnitMaxRange(unit)*0.95f);
+    npos.y = 0;
+    return Fight(unit, npos, overwrite);
+}
+
 bool CActions::Move(int unit, float3 pos, bool overwrite){
     NLOG("CActions::Move");
 
@@ -197,6 +210,21 @@ bool CActions::Move(int unit, float3 pos, bool overwrite){
     if(G->Map->CheckFloat3(pos)==false) return false;
     TCommand tc(unit, "move CActions");
     tc.ID(CMD_MOVE);
+    tc.PushFloat3(pos);
+    tc.created = G->cb->GetCurrentFrame();
+    return G->OrderRouter->GiveOrder(tc, overwrite);
+}
+
+bool CActions::Fight(int unit, float3 pos, bool overwrite){
+    NLOG("CActions::Fight");
+
+    if(!ValidUnitID(unit)){
+		return false;
+	}
+
+    if(G->Map->CheckFloat3(pos)==false) return false;
+    TCommand tc(unit, "fight CActions");
+    tc.ID(CMD_FIGHT);
     tc.PushFloat3(pos);
     tc.created = G->cb->GetCurrentFrame();
     return G->OrderRouter->GiveOrder(tc, overwrite);
