@@ -782,33 +782,33 @@ namespace ntai {
 		if(!G->L.IsVerbose()==false){
 			return;
 		}
-		if EVERY_SECOND{
-			// iterate through all the plans and print out their positions and helping builders to verify that the plan system is actually working
-			// and keeping track of construction....
-			if(!BPlans->empty() && G->L.IsVerbose()){
-				for(std::deque<CBPlan* >::iterator i =  BPlans->begin(); i != BPlans->end(); ++i){
-					if((*i)->HasBuilders()){
-						//for(set<int>::iterator j = i->builders.begin(); j != i->builders.end(); ++j){
-							float3 bpos = (*i)->pos;//G->GetUnitPos(*j);
-							float3 upos = bpos + float3(0,100,0);
-							int q = G->cb->CreateLineFigure(upos,(*i)->pos,15,1,30,0);
-							std::string s = "GAME\\TEAM" + to_string(G->Cached->team) + "\\RGBColor";
-							//char ck[60];
-							//sprintf(ck,"GAME\\TEAM%i\\RGBColor",G->Cached->team);
-							float3 r = G->L.startupscript->GetFloat3(ZeroVector,s.c_str());
-							G->cb->SetFigureColor(q,r.x,r.y,r.z,0.3f);
-							G->cb->DrawUnit((*i)->utd->GetUnitDef()->name.c_str(),(*i)->pos,0,30,G->Cached->team,true,true);
-							int w = (*i)->GetBuilderCount();
-							SkyWrite k(G->cb);
-							float3 jpos = (*i)->pos;
-							jpos.x+= (*i)->radius/2 +10;
-							std::string v = to_string(w)+"::"+to_string((*i)->started);
-							k.Write(v,jpos,15,10,30,r.x,r.y,r.z);
-						//}
-					}
-				}
-			}
-		}
+		//if EVERY_SECOND{
+		//	// iterate through all the plans and print out their positions and helping builders to verify that the plan system is actually working
+		//	// and keeping track of construction....
+		//	if(!BPlans->empty() && G->L.IsVerbose()){
+		//		for(std::deque<CBPlan* >::iterator i =  BPlans->begin(); i != BPlans->end(); ++i){
+		//			if((*i)->HasBuilders()){
+		//				//for(set<int>::iterator j = i->builders.begin(); j != i->builders.end(); ++j){
+		//					float3 bpos = (*i)->pos;//G->GetUnitPos(*j);
+		//					float3 upos = bpos + float3(0,100,0);
+		//					int q = G->cb->CreateLineFigure(upos,(*i)->pos,15,1,30,0);
+		//					std::string s = "GAME\\TEAM" + to_string(G->Cached->team) + "\\RGBColor";
+		//					//char ck[60];
+		//					//sprintf(ck,"GAME\\TEAM%i\\RGBColor",G->Cached->team);
+		//					float3 r = G->L.startupscript->GetFloat3(ZeroVector,s.c_str());
+		//					G->cb->SetFigureColor(q,r.x,r.y,r.z,0.3f);
+		//					G->cb->DrawUnit((*i)->utd->GetUnitDef()->name.c_str(),(*i)->pos,0,30,G->Cached->team,true,true);
+		//					int w = (*i)->GetBuilderCount();
+		//					SkyWrite k(G->cb);
+		//					float3 jpos = (*i)->pos;
+		//					jpos.x+= (*i)->radius/2 +10;
+		//					std::string v = to_string(w)+"::"+to_string((*i)->started);
+		//					k.Write(v,jpos,15,10,30,r.x,r.y,r.z);
+		//				//}
+		//			}
+		//		}
+		//	}
+		//}
 
 
 	}
