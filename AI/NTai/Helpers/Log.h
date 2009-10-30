@@ -16,9 +16,8 @@ namespace ntai {
 		Log& operator<< (std::string s);
 		Log& operator<< (float3 f);
 
-		TdfParser* startupscript;
 		
-		std::string FrameTime();						// Returns the Frame Number in the " <xyz Frames> " format
+		std::string FrameTime();					// Returns the Frame Number in the " <xyz Frames> " format
 		std::string GameTime();						// Returns Game time in the format "[00:00]" min:sec
 		
 		void header(std::string message);			// Prints without any game time, used mainly for headers, used for << operators as well
@@ -26,9 +25,9 @@ namespace ntai {
 		void iprint(std::string message);			// Print to info console and log
 		void eprint(std::string message);			// Print an error
 		
-		void Open(bool plain=false);			// Open Log file
-		void Close();							// Close Log file
-		void Flush();							// Flushes the log file
+		void Open();								// Open Log file
+		void Close();								// Close Log file
+		void Flush();								// Flushes the log file
 		
 		void Message(std::string msg,int player);	// Received a message through the console
 		
@@ -40,7 +39,6 @@ namespace ntai {
 		std::map<int,std::string> PlayerNames;			// Player id <> Player name
 		bool FirstInstance();					// Is this the first instance of the AI/logger class
 	private:
-		bool plaintext;
 		bool verbose;
 		std::ofstream logFile;
 		bool First;
