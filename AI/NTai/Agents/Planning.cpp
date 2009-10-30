@@ -9,7 +9,10 @@ namespace ntai {
 		NLOG("Planning::InitAI");
 		NLOG("filling antistall array");
 
-		CTokenizer<CIsComma>::Tokenize(NoAntiStall, G->Get_mod_tdf()->SGetValueMSG("AI\\NoAntiStall"), CIsComma());
+		std::string temp = "";
+		if(G->Get_mod_tdf()->SGetValue(temp,"AI\\NoAntiStall")){
+			CTokenizer<CIsComma>::Tokenize(NoAntiStall, temp, CIsComma());
+		}
 
 		NLOG("filling antistall control values");
 

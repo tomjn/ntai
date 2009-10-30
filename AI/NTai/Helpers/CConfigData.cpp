@@ -14,11 +14,7 @@ namespace ntai {
 		move_state_commanders = 0;
 		scout_speed = 60;
 		rule_extreme_interpolate= true;
-		mod_tdf = new TdfParser(G);
-		
-		//CLOG("Loading AI.tdf with TdfParser");
-		/*TdfParser cs(G);
-		cs.LoadFile("AI/AI.tdf");*/
+		mod_tdf = new TdfParser();
 		
 		//CLOG("Retrieving datapath value");
 
@@ -27,16 +23,7 @@ namespace ntai {
 		//datapath += slash;
 
 		NLOG("Getting tdfpath value");
-		
-		NLOG("Loading modinfo.tdf");
-		TdfParser sf(G);
-		if(sf.LoadFile("modinfo.tdf")){
-			G->L.print("modinfo.tdf loaded into parser");
-		} else {
-			G->L.eprint("error modinfo.tdf retrieval failed");
-		}
-		const char* modname = G->cb->GetModName();
-		tdfpath =  sf.SGetValueDef(std::string(modname), "MOD\\ShortName");
+		tdfpath = G->callback->Clb_Mod_getShortName(G->cb->GetMyTeam());
 	}
 
 	CConfigData::~CConfigData(){

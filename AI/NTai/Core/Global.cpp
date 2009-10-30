@@ -54,40 +54,42 @@ namespace ntai {
 		mrand.seed(uint(time(NULL)*cb->GetMyTeam()));
 		std::string filename = info->datapath +  info->tdfpath + std::string(".tdf");
 		std::string* buffer = new std::string();
-		TdfParser* q = new TdfParser(this);
+		TdfParser* q = new TdfParser();
 
 		int s =cb->GetFileSize(filename.c_str());
 		if(s!=-1){
 
-			q->LoadFile(filename);
+			char* c = new char[s];
+			G->cb->ReadFile(filename.c_str(),c,s);
+			q->LoadBuffer(c,(std::size_t)s);
 			L.print(filename);
 			L.print("Mod TDF loaded");
 			filename = info->datapath + q->SGetValueDef("configs\\default.tdf", "NTai\\modconfig");
 			L.print(filename);
 
 		} else {/////////////////
-
-			TdfParser* w = new TdfParser(this, "modinfo.tdf");
 			info->_abstract = true;
 			L.header(" :: mod.tdf failed to load, assuming default values");
 			L.header(endline);
 			// must write out a config and put in it the default stuff......
 			std::ofstream off;
-			//string filename = info->datapath + "/learn/" + info->tdfpath +".tdf";
+
 			off.open(filename.c_str());
 			if(off.is_open() == true){
-				//off <<
+
 				off << "[NTai]" << std::endl;
 				off << "{" << std::endl;
 				off << "\tlearndata=" << "learn/" << info->tdfpath <<".tdf;" << std::endl;
 				off << "\tmodconfig=" << "configs/" << info->tdfpath << ".tdf;" << std::endl;
-				off <<"\tmodname=" << w->SGetValueMSG("MOD\\Name") << ";" << std::endl;
+
+				off <<"\tmodname=" << G->cb->GetModName() << ";" << std::endl;
 				off << "}" << std::endl;
 				off.close();
+
 				filename = info->datapath + std::string("configs") + slash +  info->tdfpath + std::string(".tdf");
 				off.open(filename.c_str());
-				if(off.is_open() == true){
-					//off <<
+				if(off.is_open()){
+
 					filename = info->datapath + slash + std::string("configs") + slash + std::string("default.tdf");
 					std::string* buffer2 = new std::string();
 					ReadFile(filename, buffer2);
@@ -95,20 +97,22 @@ namespace ntai {
 					off.close();
 				}
 			}
-			delete w;
+
 		}
 		delete q;
+			
+		int size = G->cb->GetFileSize(filename.c_str());
+		if(size !=-1){
+			char* c = new char[size];
 
-		//
-		if(cb->GetFileSize(filename.c_str())!=-1){
-			if(Get_mod_tdf()->LoadFile(filename)){
-				L.print("config loaded");
-			} else{
-				L.print("config not loaded");
-			}
-		} else {/////////////////
+			cb->ReadFile(filename.c_str(),c,size);
+			Get_mod_tdf()->LoadBuffer(c,(std::size_t)size);
 
+			L.print("config loaded");
+
+		} else {
 			info->_abstract = true;
+
 			L.header(" :: mod.tdf failed to load, assuming default values");
 			L.header(endline);
 		}
@@ -121,8 +125,7 @@ namespace ntai {
 		L.Set(this);
 
 		CLOG("Opening logfile in plaintext");
-		L.Open(true);
-		//L.Verbose();
+		L.Open();
 
 		CLOG("Logging class Opened");
 		L.print("logging started");
@@ -313,9 +316,12 @@ namespace ntai {
 			if(L.FirstInstance()){
 				std::string s = std::string(":: ") + AI_NAME + std::string(" by AF");
 				cb->SendTextMsg(s.c_str(), 0);
-				cb->SendTextMsg(":: Copyright (C) 2006 AF", 0);
-				std::string q = std::string(" :: ") + Get_mod_tdf()->SGetValueMSG("AI\\message");
+				cb->SendTextMsg(":: Copyright (C) 2006-2010+ AF", 0);
+				std::string q = "";
+				Get_mod_tdf()->SGetValue(q, "AI\\message");
 				if(q != std::string("")){
+					q = std::string(" :: ") + q;
+				
 					cb->SendTextMsg(q.c_str(), 0);
 				}
 				cb->SendTextMsg("Please check www.darkstars.co.uk for updates", 0);
@@ -866,7 +872,8 @@ namespace ntai {
 
 		// solobuild
 		std::set<std::string> solotemp;
-		std::string sb = Get_mod_tdf()->SGetValueMSG("AI\\SoloBuild");
+		std::string sb = "";
+		Get_mod_tdf()->SGetValue(sb, "AI\\SoloBuild");
 		CTokenizer<CIsComma>::Tokenize(solotemp, sb, CIsComma());
 
 
@@ -881,11 +888,14 @@ namespace ntai {
 
 		Cached->allyteam = cb->GetMyAllyTeam();
 
-		CTokenizer<CIsComma>::Tokenize(Pl->AlwaysAntiStall, Get_mod_tdf()->SGetValueMSG("AI\\AlwaysAntiStall"), CIsComma());
+		sb = "";
+		Get_mod_tdf()->SGetValue(sb, "AI\\AlwaysAntiStall");
+		CTokenizer<CIsComma>::Tokenize(Pl->AlwaysAntiStall, sb , CIsComma());
 		//Pl->AlwaysAntiStall = bds::set_cont(Pl->AlwaysAntiStall, Get_mod_tdf()->SGetValueMSG("AI\\AlwaysAntiStall"));
 
 		std::vector<std::string> singlebuild;
-		sb = Get_mod_tdf()->SGetValueMSG("AI\\SingleBuild");
+		sb = "";
+		Get_mod_tdf()->SGetValue(sb, "AI\\SingleBuild");
 		CTokenizer<CIsComma>::Tokenize(singlebuild, sb);
 
 		if(singlebuild.empty() == false){
