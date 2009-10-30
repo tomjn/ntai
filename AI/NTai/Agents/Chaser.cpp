@@ -24,12 +24,31 @@ namespace ntai {
 		Grid.SetDefaultGridValue(0.0f);
 		Grid.SetMinimumValue(10.0f);
 
-		CTokenizer<CIsComma>::Tokenize(fire_at_will, G->Get_mod_tdf()->SGetValueMSG("AI\\fire_at_will"), CIsComma());
-		CTokenizer<CIsComma>::Tokenize(return_fire, G->Get_mod_tdf()->SGetValueMSG("AI\\return_fire"), CIsComma());
-		CTokenizer<CIsComma>::Tokenize(hold_fire, G->Get_mod_tdf()->SGetValueMSG("AI\\hold_fire"), CIsComma());
-		CTokenizer<CIsComma>::Tokenize(roam, G->Get_mod_tdf()->SGetValueMSG("AI\\roam"), CIsComma());
-		CTokenizer<CIsComma>::Tokenize(maneouvre, G->Get_mod_tdf()->SGetValueMSG("AI\\maneouvre"), CIsComma());
-		CTokenizer<CIsComma>::Tokenize(hold_pos, G->Get_mod_tdf()->SGetValueMSG("AI\\hold_pos"), CIsComma());
+		std::string tempstr;
+
+		tempstr = "";
+		G->Get_mod_tdf()->SGetValue(tempstr, "AI\\fire_at_will");
+		CTokenizer<CIsComma>::Tokenize(fire_at_will, tempstr, CIsComma());
+		
+		tempstr = "";
+		G->Get_mod_tdf()->SGetValue(tempstr, "AI\\return_fire");
+		CTokenizer<CIsComma>::Tokenize(return_fire, tempstr, CIsComma());
+				
+		tempstr = "";
+		G->Get_mod_tdf()->SGetValue(tempstr, "AI\\hold_fire");
+		CTokenizer<CIsComma>::Tokenize(hold_fire, tempstr, CIsComma());
+
+		tempstr = "";
+		G->Get_mod_tdf()->SGetValue(tempstr, "AI\\roam");
+		CTokenizer<CIsComma>::Tokenize(roam, tempstr, CIsComma());
+		
+		tempstr = "";
+		G->Get_mod_tdf()->SGetValue(tempstr, "AI\\maneouvre");
+		CTokenizer<CIsComma>::Tokenize(maneouvre, tempstr, CIsComma());
+		
+		tempstr = "";
+		G->Get_mod_tdf()->SGetValue(tempstr, "AI\\hold_pos");
+		CTokenizer<CIsComma>::Tokenize(hold_pos, tempstr, CIsComma());
 
 	}
 
@@ -296,7 +315,7 @@ namespace ntai {
 					ac.pos = final_dest;
 					G->cb->HandleCommand(AIHCAddMapPointId,&ac);
 				}
-				//Grid.ApplyModifierAtMapPos(final_dest, 1.6f);
+
 				G->L.print("attack position targetted sending units");
 				for(std::set<int>::iterator aik = atkgroup.begin();aik != atkgroup.end();++aik){
 					float3 upos = G->GetUnitPos(*aik);
@@ -305,22 +324,15 @@ namespace ntai {
 						if(upos.distance2D(final_dest) < G->cb->GetUnitMaxRange(*aik)){
 							continue;
 						}else{
-							npos = final_dest;//G->Map->distfrom(upos,final_dest,G->cb->GetUnitMaxRange(*aik)*0.95f);
+							npos = final_dest;
 						}
-						//if(upos.distance2D(npos) > G->cb->GetUnitMaxRange(*aik)){
+
 						npos.y = 0;
-						//AIHCAddMapPoint ac2;
-						//ac2.label=new char[12];
-						//ac2.label="bad atk pos";
 
-						if(!G->Actions->MoveToStrike(*aik, npos, true)){//ToStrike
-							//	ac2.pos = npos;
-							//}else{
-							//	ac2.pos = upos;
-							//	G->cb->HandleCommand(AIHCAddMapPointId,&ac2);
+						if(!G->Actions->FightToStrike(*aik, npos, true)){
+
 						}
 
-						//}
 					}
 				}
 			}
