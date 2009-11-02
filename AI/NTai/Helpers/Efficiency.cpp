@@ -290,7 +290,7 @@ namespace ntai {
 			if(off.is_open() == true){
 				off << "[AI]" << std::endl << "{" << std::endl << "    // " << AI_NAME << " AF :: unit efficiency cache file" << std::endl << std::endl;
 
-				off << "    version=XE10;" << std::endl;
+				off << "    version=XE10.1;" << std::endl;
 				off << "    firstload=" << firstload << ";" << std::endl;
 				off << "    modname=" << G->cb->GetModName() << ";" << std::endl;
 				off << "    iterations=" << iterations << ";" << std::endl;

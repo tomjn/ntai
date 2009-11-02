@@ -84,7 +84,7 @@ namespace ntai {
 		std::string filename = G->info->datapath + slash + "Logs" + slash;
 
 		// DDD MMM DD HH:MM:SS YYYY_X - NTAI.log
-		filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE10.log";
+		filename += to_string(now2->tm_mon+1)+"-" +to_string(now2->tm_mday) + "-" +to_string(now2->tm_year + 1900) +"-" +to_string(now2->tm_hour) +"_" +to_string(now2->tm_min) +"["+to_string(G->Cached->team)+"]XE10.1.log";
 
 		logFile.open(filename.c_str());
 		if(logFile.is_open() == false){
@@ -97,7 +97,7 @@ namespace ntai {
 			}
 		}
 
-		header(" :: NTAI XE10 Log File \n :: Programmed and maintained by AF/T.Nowell \n :: Copyright (C) 2004 Tom Nowell/AF \n");
+		header(" :: NTAI XE10.1 Log File \n :: Programmed and maintained by AF/T.Nowell \n :: Copyright (C) 2004 Tom Nowell/AF \n");
 		logFile << " :: Game started: " << now2->tm_mday << "." << now2->tm_mon << "." << 1900 + now2->tm_year << "  " << now2->tm_hour << ":" << now2->tm_min << ":" << now2->tm_sec << std::endl << std::endl <<  std::flush;
 		
 		

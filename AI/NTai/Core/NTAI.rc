@@ -83,13 +83,13 @@ BEGIN
         BEGIN
             VALUE "Comments", ""
             VALUE "CompanyName", "Tom J Nowell AF Darkstars"
-            VALUE "FileDescription", "NTai XE10 AF 2004-9"
-            VALUE "FileVersion", "XE10"
-            VALUE "InternalName", "NTai XE10"
+            VALUE "FileDescription", "NTai XE10.1 AF 2004-9"
+            VALUE "FileVersion", "XE10.1"
+            VALUE "InternalName", "NTai XE10.1"
             VALUE "LegalCopyright", "Copyright (C) Tom J Nowell AF Darkstars 2004-7"
             VALUE "OriginalFilename", "SkirmishAI.dll"
-            VALUE "ProductName", " NTai XE10 skirmish AI for spring"
-            VALUE "ProductVersion", "XE10"
+            VALUE "ProductName", " NTai XE10.1 skirmish AI for spring"
+            VALUE "ProductVersion", "XE10.1"
         END
     END
     BLOCK "VarFileInfo"
