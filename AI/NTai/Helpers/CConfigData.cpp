@@ -18,21 +18,17 @@ namespace ntai {
 		
 		//CLOG("Retrieving datapath value");
 
-		datapath = aiexport_getDataDir(true);//cs.SGetValueDef(std::string(, "AI/Skirmish/NTai/data");
-		//datapath += "data\\";
-		//datapath += slash;
+		datapath = aiexport_getDataDir(true);
 
 		NLOG("Getting tdfpath value");
 		tdfpath = G->callback->Clb_Mod_getShortName(G->cb->GetMyTeam());
 	}
 
 	CConfigData::~CConfigData(){
-		//
 		delete mod_tdf;
 	}
 
 	void CConfigData::Load(){
-		//
 		mod_tdf->GetDef(_abstract, "1", "AI\\abstract");
 		mod_tdf->GetDef(gaia, "0", "AI\\GAIA");
 		mod_tdf->GetDef(spacemod, "0", "AI\\spacemod");
